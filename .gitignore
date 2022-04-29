@@ -9,6 +9,7 @@ composer.phar
 
 # php-cs-fixer cache
 .php_cs.cache
+.idea
 
 # PHPUnit cache
 .phpunit.result.cache

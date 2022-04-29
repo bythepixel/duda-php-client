@@ -59,7 +59,7 @@ class SiteSchemas implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'local_business' => '\OpenAPI\Client\Model\SiteSchemasLocalBusiness'
+        'local_business' => '\OpenAPI\Client\Model\LocalBusiness'
     ];
 
     /**
@@ -208,7 +208,7 @@ class SiteSchemas implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets local_business
      *
-     * @return \OpenAPI\Client\Model\SiteSchemasLocalBusiness|null
+     * @return \OpenAPI\Client\Model\LocalBusiness|null
      */
     public function getLocalBusiness()
     {
@@ -218,7 +218,7 @@ class SiteSchemas implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets local_business
      *
-     * @param \OpenAPI\Client\Model\SiteSchemasLocalBusiness|null $local_business local_business
+     * @param \OpenAPI\Client\Model\LocalBusiness|null $local_business local_business
      *
      * @return self
      */

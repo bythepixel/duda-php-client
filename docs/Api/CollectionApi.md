@@ -4,25 +4,87 @@ All URIs are relative to https://api.duda.co/api.
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**sitesMultiscreenCollectionsRevalidateExternalIdPost()**](CollectionApi.md#sitesMultiscreenCollectionsRevalidateExternalIdPost) | **POST** /sites/multiscreen/collections/revalidate/{external_id} | Revalidate all collections in all sites under the same account that use the provided external id
-[**sitesMultiscreenSiteNameCollectionCollectionNameDelete()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameDelete) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name} | Get the fields and data of an existing collection
-[**sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Delete an existing field of a collection
-[**sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Update existing field of a collection
-[**sitesMultiscreenSiteNameCollectionCollectionNameFieldPost()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameFieldPost) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/field | Add a new field(s) to an existing collection.
-[**sitesMultiscreenSiteNameCollectionCollectionNameGet()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameGet) | **GET** /sites/multiscreen/{site_name}/collection/{collection_name} | Get the fields and data of an existing collection
-[**sitesMultiscreenSiteNameCollectionCollectionNamePut()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNamePut) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name} | Update an existing collection
-[**sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/revalidate | Force Duda to refresh the data from an external URL for a given collection.
-[**sitesMultiscreenSiteNameCollectionCollectionNameRowDelete()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameRowDelete) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Delete existing rows of data that exist within the collection.
-[**sitesMultiscreenSiteNameCollectionCollectionNameRowPost()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameRowPost) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
-[**sitesMultiscreenSiteNameCollectionCollectionNameRowPut()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionCollectionNameRowPut) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Update existing collection rows.
-[**sitesMultiscreenSiteNameCollectionGet()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionGet) | **GET** /sites/multiscreen/{site_name}/collection | Get all collections that exist on this website.
-[**sitesMultiscreenSiteNameCollectionPost()**](CollectionApi.md#sitesMultiscreenSiteNameCollectionPost) | **POST** /sites/multiscreen/{site_name}/collection | Create a new collection within a site
+[**clearCache()**](CollectionApi.md#clearCache) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/revalidate | Force Duda to refresh the data from an external URL for a given collection.
+[**clearCacheByExternalId()**](CollectionApi.md#clearCacheByExternalId) | **POST** /sites/multiscreen/collections/revalidate/{external_id} | Revalidate all collections in all sites under the same account that use the provided external id
+[**createCollection()**](CollectionApi.md#createCollection) | **POST** /sites/multiscreen/{site_name}/collection | Create a new collection within a site
+[**createFields()**](CollectionApi.md#createFields) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/field | Add a new field(s) to an existing collection.
+[**createRows()**](CollectionApi.md#createRows) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+[**deleteCollection()**](CollectionApi.md#deleteCollection) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name} | Delete an existing collection
+[**deleteFields()**](CollectionApi.md#deleteFields) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Delete an existing field of a collection
+[**deleteRows()**](CollectionApi.md#deleteRows) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Delete existing rows of data that exist within the collection.
+[**getCollection()**](CollectionApi.md#getCollection) | **GET** /sites/multiscreen/{site_name}/collection/{collection_name} | Get the fields and data of an existing collection
+[**listCollections()**](CollectionApi.md#listCollections) | **GET** /sites/multiscreen/{site_name}/collection | Get all collections that exist on this website.
+[**updateCollection()**](CollectionApi.md#updateCollection) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name} | Update an existing collection
+[**updateFields()**](CollectionApi.md#updateFields) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Update existing field of a collection
+[**updateRows()**](CollectionApi.md#updateRows) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Update existing collection rows.
 
 
-## `sitesMultiscreenCollectionsRevalidateExternalIdPost()`
+## `clearCache()`
 
 ```php
-sitesMultiscreenCollectionsRevalidateExternalIdPost($external_id): \OpenAPI\Client\Model\Collection
+clearCache($site_name, $collection_name): \OpenAPI\Client\Model\Collection
+```
+
+Force Duda to refresh the data from an external URL for a given collection.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\CollectionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$site_name = My Site; // string | Site name
+$collection_name = collection-name; // string | Collection name
+
+try {
+    $result = $apiInstance->clearCache($site_name, $collection_name);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling CollectionApi->clearCache: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **collection_name** | **string**| Collection name |
+
+### Return type
+
+[**\OpenAPI\Client\Model\Collection**](../Model/Collection.md)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `clearCacheByExternalId()`
+
+```php
+clearCacheByExternalId($external_id): \OpenAPI\Client\Model\Collection
 ```
 
 Revalidate all collections in all sites under the same account that use the provided external id
@@ -49,10 +111,10 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
 $external_id = external-id; // string | The external ID for the collections
 
 try {
-    $result = $apiInstance->sitesMultiscreenCollectionsRevalidateExternalIdPost($external_id);
+    $result = $apiInstance->clearCacheByExternalId($external_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenCollectionsRevalidateExternalIdPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->clearCacheByExternalId: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -79,13 +141,201 @@ Name | Type | Description  | Notes
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenSiteNameCollectionCollectionNameDelete()`
+## `createCollection()`
 
 ```php
-sitesMultiscreenSiteNameCollectionCollectionNameDelete($site_name, $collection_name)
+createCollection($site_name, $collection_create_request)
 ```
 
-Get the fields and data of an existing collection
+Create a new collection within a site
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\CollectionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$site_name = My Site; // string | Site name
+$collection_create_request = new \OpenAPI\Client\Model\CollectionCreateRequest(); // \OpenAPI\Client\Model\CollectionCreateRequest
+
+try {
+    $apiInstance->createCollection($site_name, $collection_create_request);
+} catch (Exception $e) {
+    echo 'Exception when calling CollectionApi->createCollection: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **collection_create_request** | [**\OpenAPI\Client\Model\CollectionCreateRequest**](../Model/CollectionCreateRequest.md)|  | [optional]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createFields()`
+
+```php
+createFields($site_name, $collection_name, $create_fields_request)
+```
+
+Add a new field(s) to an existing collection.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\CollectionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$site_name = My Site; // string | Site name
+$collection_name = collection-name; // string | Collection name
+$create_fields_request = new \OpenAPI\Client\Model\CreateFieldsRequest(); // \OpenAPI\Client\Model\CreateFieldsRequest
+
+try {
+    $apiInstance->createFields($site_name, $collection_name, $create_fields_request);
+} catch (Exception $e) {
+    echo 'Exception when calling CollectionApi->createFields: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **collection_name** | **string**| Collection name |
+ **create_fields_request** | [**\OpenAPI\Client\Model\CreateFieldsRequest**](../Model/CreateFieldsRequest.md)|  | [optional]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createRows()`
+
+```php
+createRows($site_name, $collection_name, $create_rows_request): \OpenAPI\Client\Model\RowId[]
+```
+
+Add new row(s) of data into an existing collection. This accepts multiple row values if you'd like to insert more than one.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\CollectionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$site_name = My Site; // string | Site name
+$collection_name = collection-name; // string | Collection name
+$create_rows_request = new \OpenAPI\Client\Model\CreateRowsRequest(); // \OpenAPI\Client\Model\CreateRowsRequest
+
+try {
+    $result = $apiInstance->createRows($site_name, $collection_name, $create_rows_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling CollectionApi->createRows: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **collection_name** | **string**| Collection name |
+ **create_rows_request** | [**\OpenAPI\Client\Model\CreateRowsRequest**](../Model/CreateRowsRequest.md)|  | [optional]
+
+### Return type
+
+[**\OpenAPI\Client\Model\RowId[]**](../Model/RowId.md)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteCollection()`
+
+```php
+deleteCollection($site_name, $collection_name)
+```
+
+Delete an existing collection
 
 ### Example
 
@@ -110,9 +360,9 @@ $site_name = My Site; // string | Site name
 $collection_name = collection-name; // string | Collection name
 
 try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameDelete($site_name, $collection_name);
+    $apiInstance->deleteCollection($site_name, $collection_name);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameDelete: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->deleteCollection: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -140,10 +390,10 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete()`
+## `deleteFields()`
 
 ```php
-sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete($site_name, $collection_name, $field_name)
+deleteFields($site_name, $collection_name, $field_name)
 ```
 
 Delete an existing field of a collection
@@ -172,9 +422,9 @@ $collection_name = collection-name; // string | Collection name
 $field_name = field-name; // string | Name of the field in the collection. (must not start with $)
 
 try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete($site_name, $collection_name, $field_name);
+    $apiInstance->deleteFields($site_name, $collection_name, $field_name);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->deleteFields: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -203,325 +453,10 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut()`
+## `deleteRows()`
 
 ```php
-sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut($site_name, $collection_name, $field_name, $inline_object14)
-```
-
-Update existing field of a collection
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure HTTP basic authorization: BasicAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
-$apiInstance = new OpenAPI\Client\Api\CollectionApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$site_name = My Site; // string | Site name
-$collection_name = collection-name; // string | Collection name
-$field_name = field-name; // string | Name of the field in the collection. (must not start with $)
-$inline_object14 = new \OpenAPI\Client\Model\InlineObject14(); // \OpenAPI\Client\Model\InlineObject14
-
-try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut($site_name, $collection_name, $field_name, $inline_object14);
-} catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **field_name** | **string**| Name of the field in the collection. (must not start with $) |
- **inline_object14** | [**\OpenAPI\Client\Model\InlineObject14**](../Model/InlineObject14.md)|  | [optional]
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BasicAuth](../../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `sitesMultiscreenSiteNameCollectionCollectionNameFieldPost()`
-
-```php
-sitesMultiscreenSiteNameCollectionCollectionNameFieldPost($site_name, $collection_name, $inline_object13)
-```
-
-Add a new field(s) to an existing collection.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure HTTP basic authorization: BasicAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
-$apiInstance = new OpenAPI\Client\Api\CollectionApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$site_name = My Site; // string | Site name
-$collection_name = collection-name; // string | Collection name
-$inline_object13 = new \OpenAPI\Client\Model\InlineObject13(); // \OpenAPI\Client\Model\InlineObject13
-
-try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameFieldPost($site_name, $collection_name, $inline_object13);
-} catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameFieldPost: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **inline_object13** | [**\OpenAPI\Client\Model\InlineObject13**](../Model/InlineObject13.md)|  | [optional]
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BasicAuth](../../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `sitesMultiscreenSiteNameCollectionCollectionNameGet()`
-
-```php
-sitesMultiscreenSiteNameCollectionCollectionNameGet($site_name, $collection_name): \OpenAPI\Client\Model\Collection
-```
-
-Get the fields and data of an existing collection
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure HTTP basic authorization: BasicAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
-$apiInstance = new OpenAPI\Client\Api\CollectionApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$site_name = My Site; // string | Site name
-$collection_name = collection-name; // string | Collection name
-
-try {
-    $result = $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameGet($site_name, $collection_name);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameGet: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
-
-### Return type
-
-[**\OpenAPI\Client\Model\Collection**](../Model/Collection.md)
-
-### Authorization
-
-[BasicAuth](../../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `sitesMultiscreenSiteNameCollectionCollectionNamePut()`
-
-```php
-sitesMultiscreenSiteNameCollectionCollectionNamePut($site_name, $collection_name, $inline_object10)
-```
-
-Update an existing collection
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure HTTP basic authorization: BasicAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
-$apiInstance = new OpenAPI\Client\Api\CollectionApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$site_name = My Site; // string | Site name
-$collection_name = collection-name; // string | Collection name
-$inline_object10 = new \OpenAPI\Client\Model\InlineObject10(); // \OpenAPI\Client\Model\InlineObject10
-
-try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNamePut($site_name, $collection_name, $inline_object10);
-} catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNamePut: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **inline_object10** | [**\OpenAPI\Client\Model\InlineObject10**](../Model/InlineObject10.md)|  | [optional]
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BasicAuth](../../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost()`
-
-```php
-sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost($site_name, $collection_name): \OpenAPI\Client\Model\Collection
-```
-
-Force Duda to refresh the data from an external URL for a given collection.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure HTTP basic authorization: BasicAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
-$apiInstance = new OpenAPI\Client\Api\CollectionApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$site_name = My Site; // string | Site name
-$collection_name = collection-name; // string | Collection name
-
-try {
-    $result = $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost($site_name, $collection_name);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
-
-### Return type
-
-[**\OpenAPI\Client\Model\Collection**](../Model/Collection.md)
-
-### Authorization
-
-[BasicAuth](../../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `sitesMultiscreenSiteNameCollectionCollectionNameRowDelete()`
-
-```php
-sitesMultiscreenSiteNameCollectionCollectionNameRowDelete($site_name, $collection_name)
+deleteRows($site_name, $collection_name)
 ```
 
 Delete existing rows of data that exist within the collection.
@@ -549,9 +484,9 @@ $site_name = My Site; // string | Site name
 $collection_name = collection-name; // string | Collection name
 
 try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameRowDelete($site_name, $collection_name);
+    $apiInstance->deleteRows($site_name, $collection_name);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameRowDelete: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->deleteRows: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -579,13 +514,13 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenSiteNameCollectionCollectionNameRowPost()`
+## `getCollection()`
 
 ```php
-sitesMultiscreenSiteNameCollectionCollectionNameRowPost($site_name, $collection_name, $inline_object12): \OpenAPI\Client\Model\InlineResponse2007[]
+getCollection($site_name, $collection_name): \OpenAPI\Client\Model\Collection
 ```
 
-Add new row(s) of data into an existing collection. This accepts multiple row values if you'd like to insert more than one.
+Get the fields and data of an existing collection
 
 ### Example
 
@@ -608,13 +543,12 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
 );
 $site_name = My Site; // string | Site name
 $collection_name = collection-name; // string | Collection name
-$inline_object12 = new \OpenAPI\Client\Model\InlineObject12(); // \OpenAPI\Client\Model\InlineObject12
 
 try {
-    $result = $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameRowPost($site_name, $collection_name, $inline_object12);
+    $result = $apiInstance->getCollection($site_name, $collection_name);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameRowPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->getCollection: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -624,11 +558,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
  **collection_name** | **string**| Collection name |
- **inline_object12** | [**\OpenAPI\Client\Model\InlineObject12**](../Model/InlineObject12.md)|  | [optional]
 
 ### Return type
 
-[**\OpenAPI\Client\Model\InlineResponse2007[]**](../Model/InlineResponse2007.md)
+[**\OpenAPI\Client\Model\Collection**](../Model/Collection.md)
 
 ### Authorization
 
@@ -636,80 +569,17 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenSiteNameCollectionCollectionNameRowPut()`
+## `listCollections()`
 
 ```php
-sitesMultiscreenSiteNameCollectionCollectionNameRowPut($site_name, $collection_name, $inline_object11)
-```
-
-Update existing collection rows.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure HTTP basic authorization: BasicAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
-$apiInstance = new OpenAPI\Client\Api\CollectionApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$site_name = My Site; // string | Site name
-$collection_name = collection-name; // string | Collection name
-$inline_object11 = new \OpenAPI\Client\Model\InlineObject11(); // \OpenAPI\Client\Model\InlineObject11
-
-try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionCollectionNameRowPut($site_name, $collection_name, $inline_object11);
-} catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionCollectionNameRowPut: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **inline_object11** | [**\OpenAPI\Client\Model\InlineObject11**](../Model/InlineObject11.md)|  | [optional]
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BasicAuth](../../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `sitesMultiscreenSiteNameCollectionGet()`
-
-```php
-sitesMultiscreenSiteNameCollectionGet($site_name): \OpenAPI\Client\Model\Collection[]
+listCollections($site_name): \OpenAPI\Client\Model\Collection[]
 ```
 
 Get all collections that exist on this website.
@@ -736,10 +606,10 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
 $site_name = My Site; // string | Site name
 
 try {
-    $result = $apiInstance->sitesMultiscreenSiteNameCollectionGet($site_name);
+    $result = $apiInstance->listCollections($site_name);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->listCollections: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -766,13 +636,13 @@ Name | Type | Description  | Notes
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenSiteNameCollectionPost()`
+## `updateCollection()`
 
 ```php
-sitesMultiscreenSiteNameCollectionPost($site_name, $inline_object9)
+updateCollection($site_name, $collection_name, $collection_update_request)
 ```
 
-Create a new collection within a site
+Update an existing collection
 
 ### Example
 
@@ -794,12 +664,13 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
     $config
 );
 $site_name = My Site; // string | Site name
-$inline_object9 = new \OpenAPI\Client\Model\InlineObject9(); // \OpenAPI\Client\Model\InlineObject9
+$collection_name = collection-name; // string | Collection name
+$collection_update_request = new \OpenAPI\Client\Model\CollectionUpdateRequest(); // \OpenAPI\Client\Model\CollectionUpdateRequest
 
 try {
-    $apiInstance->sitesMultiscreenSiteNameCollectionPost($site_name, $inline_object9);
+    $apiInstance->updateCollection($site_name, $collection_name, $collection_update_request);
 } catch (Exception $e) {
-    echo 'Exception when calling CollectionApi->sitesMultiscreenSiteNameCollectionPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CollectionApi->updateCollection: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -808,7 +679,136 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
- **inline_object9** | [**\OpenAPI\Client\Model\InlineObject9**](../Model/InlineObject9.md)|  | [optional]
+ **collection_name** | **string**| Collection name |
+ **collection_update_request** | [**\OpenAPI\Client\Model\CollectionUpdateRequest**](../Model/CollectionUpdateRequest.md)|  | [optional]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateFields()`
+
+```php
+updateFields($site_name, $collection_name, $field_name, $update_fields_request)
+```
+
+Update existing field of a collection
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\CollectionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$site_name = My Site; // string | Site name
+$collection_name = collection-name; // string | Collection name
+$field_name = field-name; // string | Name of the field in the collection. (must not start with $)
+$update_fields_request = new \OpenAPI\Client\Model\UpdateFieldsRequest(); // \OpenAPI\Client\Model\UpdateFieldsRequest
+
+try {
+    $apiInstance->updateFields($site_name, $collection_name, $field_name, $update_fields_request);
+} catch (Exception $e) {
+    echo 'Exception when calling CollectionApi->updateFields: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **collection_name** | **string**| Collection name |
+ **field_name** | **string**| Name of the field in the collection. (must not start with $) |
+ **update_fields_request** | [**\OpenAPI\Client\Model\UpdateFieldsRequest**](../Model/UpdateFieldsRequest.md)|  | [optional]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateRows()`
+
+```php
+updateRows($site_name, $collection_name, $update_rows_request)
+```
+
+Update existing collection rows.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\CollectionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$site_name = My Site; // string | Site name
+$collection_name = collection-name; // string | Collection name
+$update_rows_request = new \OpenAPI\Client\Model\UpdateRowsRequest(); // \OpenAPI\Client\Model\UpdateRowsRequest
+
+try {
+    $apiInstance->updateRows($site_name, $collection_name, $update_rows_request);
+} catch (Exception $e) {
+    echo 'Exception when calling CollectionApi->updateRows: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **collection_name** | **string**| Collection name |
+ **update_rows_request** | [**\OpenAPI\Client\Model\UpdateRowsRequest**](../Model/UpdateRowsRequest.md)|  | [optional]
 
 ### Return type
 

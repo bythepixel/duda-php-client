@@ -116,37 +116,341 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameBackupNameDelete
+     * Operation createBackup
      *
-     * Deletes an existing backup from a Site.
+     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
+     * @param  \OpenAPI\Client\Model\CreateBackupRequest $create_backup_request create_backup_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\CreateBackupResponse|\OpenAPI\Client\Model\Error
+     */
+    public function createBackup($site_name, $create_backup_request = null)
+    {
+        list($response) = $this->createBackupWithHttpInfo($site_name, $create_backup_request);
+        return $response;
+    }
+
+    /**
+     * Operation createBackupWithHttpInfo
+     *
+     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateBackupRequest $create_backup_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\CreateBackupResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createBackupWithHttpInfo($site_name, $create_backup_request = null)
+    {
+        $request = $this->createBackupRequest($site_name, $create_backup_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\CreateBackupResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CreateBackupResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\CreateBackupResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\CreateBackupResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createBackupAsync
+     *
+     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateBackupRequest $create_backup_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createBackupAsync($site_name, $create_backup_request = null)
+    {
+        return $this->createBackupAsyncWithHttpInfo($site_name, $create_backup_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createBackupAsyncWithHttpInfo
+     *
+     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateBackupRequest $create_backup_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createBackupAsyncWithHttpInfo($site_name, $create_backup_request = null)
+    {
+        $returnType = '\OpenAPI\Client\Model\CreateBackupResponse';
+        $request = $this->createBackupRequest($site_name, $create_backup_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createBackup'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateBackupRequest $create_backup_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createBackupRequest($site_name, $create_backup_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createBackup'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/backups/{site_name}/create';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_backup_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_backup_request));
+            } else {
+                $httpBody = $create_backup_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createSSLCertificate
+     *
+     * Generate a SSL certificate for a specific website.
+     *
+     * @param  string $site_name Site name (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenBackupsSiteNameBackupNameDelete($site_name, $backup_name)
+    public function createSSLCertificate($site_name)
     {
-        $this->sitesMultiscreenBackupsSiteNameBackupNameDeleteWithHttpInfo($site_name, $backup_name);
+        $this->createSSLCertificateWithHttpInfo($site_name);
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameBackupNameDeleteWithHttpInfo
+     * Operation createSSLCertificateWithHttpInfo
      *
-     * Deletes an existing backup from a Site.
+     * Generate a SSL certificate for a specific website.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenBackupsSiteNameBackupNameDeleteWithHttpInfo($site_name, $backup_name)
+    public function createSSLCertificateWithHttpInfo($site_name)
     {
-        $request = $this->sitesMultiscreenBackupsSiteNameBackupNameDeleteRequest($site_name, $backup_name);
+        $request = $this->createSSLCertificateRequest($site_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -201,19 +505,18 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameBackupNameDeleteAsync
+     * Operation createSSLCertificateAsync
      *
-     * Deletes an existing backup from a Site.
+     * Generate a SSL certificate for a specific website.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenBackupsSiteNameBackupNameDeleteAsync($site_name, $backup_name)
+    public function createSSLCertificateAsync($site_name)
     {
-        return $this->sitesMultiscreenBackupsSiteNameBackupNameDeleteAsyncWithHttpInfo($site_name, $backup_name)
+        return $this->createSSLCertificateAsyncWithHttpInfo($site_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -222,20 +525,19 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameBackupNameDeleteAsyncWithHttpInfo
+     * Operation createSSLCertificateAsyncWithHttpInfo
      *
-     * Deletes an existing backup from a Site.
+     * Generate a SSL certificate for a specific website.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenBackupsSiteNameBackupNameDeleteAsyncWithHttpInfo($site_name, $backup_name)
+    public function createSSLCertificateAsyncWithHttpInfo($site_name)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenBackupsSiteNameBackupNameDeleteRequest($site_name, $backup_name);
+        $request = $this->createSSLCertificateRequest($site_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -261,7 +563,249 @@ class OtherApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenBackupsSiteNameBackupNameDelete'
+     * Create request for operation 'createSSLCertificate'
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createSSLCertificateRequest($site_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createSSLCertificate'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/certificate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteBackup
+     *
+     * Deletes an existing backup from a Site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteBackup($site_name, $backup_name)
+    {
+        $this->deleteBackupWithHttpInfo($site_name, $backup_name);
+    }
+
+    /**
+     * Operation deleteBackupWithHttpInfo
+     *
+     * Deletes an existing backup from a Site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteBackupWithHttpInfo($site_name, $backup_name)
+    {
+        $request = $this->deleteBackupRequest($site_name, $backup_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteBackupAsync
+     *
+     * Deletes an existing backup from a Site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteBackupAsync($site_name, $backup_name)
+    {
+        return $this->deleteBackupAsyncWithHttpInfo($site_name, $backup_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteBackupAsyncWithHttpInfo
+     *
+     * Deletes an existing backup from a Site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteBackupAsyncWithHttpInfo($site_name, $backup_name)
+    {
+        $returnType = '';
+        $request = $this->deleteBackupRequest($site_name, $backup_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteBackup'
      *
      * @param  string $site_name Site name (required)
      * @param  string $backup_name The name of a site backup to restore from (required)
@@ -269,18 +813,18 @@ class OtherApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenBackupsSiteNameBackupNameDeleteRequest($site_name, $backup_name)
+    public function deleteBackupRequest($site_name, $backup_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenBackupsSiteNameBackupNameDelete'
+                'Missing the required parameter $site_name when calling deleteBackup'
             );
         }
         // verify the required parameter 'backup_name' is set
         if ($backup_name === null || (is_array($backup_name) && count($backup_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $backup_name when calling sitesMultiscreenBackupsSiteNameBackupNameDelete'
+                'Missing the required parameter $backup_name when calling deleteBackup'
             );
         }
 
@@ -373,638 +917,35 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameCreatePost
+     * Operation deleteSSLCertificate
      *
-     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject16 $inline_object16 inline_object16 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineObject16|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenBackupsSiteNameCreatePost($site_name, $inline_object16 = null)
-    {
-        list($response) = $this->sitesMultiscreenBackupsSiteNameCreatePostWithHttpInfo($site_name, $inline_object16);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameCreatePostWithHttpInfo
-     *
-     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
+     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject16 $inline_object16 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineObject16|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenBackupsSiteNameCreatePostWithHttpInfo($site_name, $inline_object16 = null)
-    {
-        $request = $this->sitesMultiscreenBackupsSiteNameCreatePostRequest($site_name, $inline_object16);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineObject16' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineObject16', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineObject16';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineObject16',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameCreatePostAsync
-     *
-     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject16 $inline_object16 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenBackupsSiteNameCreatePostAsync($site_name, $inline_object16 = null)
-    {
-        return $this->sitesMultiscreenBackupsSiteNameCreatePostAsyncWithHttpInfo($site_name, $inline_object16)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameCreatePostAsyncWithHttpInfo
-     *
-     * Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject16 $inline_object16 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenBackupsSiteNameCreatePostAsyncWithHttpInfo($site_name, $inline_object16 = null)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineObject16';
-        $request = $this->sitesMultiscreenBackupsSiteNameCreatePostRequest($site_name, $inline_object16);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenBackupsSiteNameCreatePost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject16 $inline_object16 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenBackupsSiteNameCreatePostRequest($site_name, $inline_object16 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenBackupsSiteNameCreatePost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/backups/{site_name}/create';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object16)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object16));
-            } else {
-                $httpBody = $inline_object16;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameGet
-     *
-     * Get an array of existing site backups
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2009|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenBackupsSiteNameGet($site_name)
-    {
-        list($response) = $this->sitesMultiscreenBackupsSiteNameGetWithHttpInfo($site_name);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameGetWithHttpInfo
-     *
-     * Get an array of existing site backups
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2009|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenBackupsSiteNameGetWithHttpInfo($site_name)
-    {
-        $request = $this->sitesMultiscreenBackupsSiteNameGetRequest($site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2009' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2009', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2009';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2009',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameGetAsync
-     *
-     * Get an array of existing site backups
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenBackupsSiteNameGetAsync($site_name)
-    {
-        return $this->sitesMultiscreenBackupsSiteNameGetAsyncWithHttpInfo($site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameGetAsyncWithHttpInfo
-     *
-     * Get an array of existing site backups
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenBackupsSiteNameGetAsyncWithHttpInfo($site_name)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2009';
-        $request = $this->sitesMultiscreenBackupsSiteNameGetRequest($site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenBackupsSiteNameGet'
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenBackupsSiteNameGetRequest($site_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenBackupsSiteNameGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/backups/{site_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenBackupsSiteNameRestoreBackupNamePost
-     *
-     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenBackupsSiteNameRestoreBackupNamePost($site_name, $backup_name)
+    public function deleteSSLCertificate($site_name)
     {
-        $this->sitesMultiscreenBackupsSiteNameRestoreBackupNamePostWithHttpInfo($site_name, $backup_name);
+        $this->deleteSSLCertificateWithHttpInfo($site_name);
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameRestoreBackupNamePostWithHttpInfo
+     * Operation deleteSSLCertificateWithHttpInfo
      *
-     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
+     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenBackupsSiteNameRestoreBackupNamePostWithHttpInfo($site_name, $backup_name)
+    public function deleteSSLCertificateWithHttpInfo($site_name)
     {
-        $request = $this->sitesMultiscreenBackupsSiteNameRestoreBackupNamePostRequest($site_name, $backup_name);
+        $request = $this->deleteSSLCertificateRequest($site_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1059,19 +1000,18 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameRestoreBackupNamePostAsync
+     * Operation deleteSSLCertificateAsync
      *
-     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
+     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenBackupsSiteNameRestoreBackupNamePostAsync($site_name, $backup_name)
+    public function deleteSSLCertificateAsync($site_name)
     {
-        return $this->sitesMultiscreenBackupsSiteNameRestoreBackupNamePostAsyncWithHttpInfo($site_name, $backup_name)
+        return $this->deleteSSLCertificateAsyncWithHttpInfo($site_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1080,20 +1020,19 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenBackupsSiteNameRestoreBackupNamePostAsyncWithHttpInfo
+     * Operation deleteSSLCertificateAsyncWithHttpInfo
      *
-     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
+     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenBackupsSiteNameRestoreBackupNamePostAsyncWithHttpInfo($site_name, $backup_name)
+    public function deleteSSLCertificateAsyncWithHttpInfo($site_name)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenBackupsSiteNameRestoreBackupNamePostRequest($site_name, $backup_name);
+        $request = $this->deleteSSLCertificateRequest($site_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1119,272 +1058,19 @@ class OtherApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenBackupsSiteNameRestoreBackupNamePost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $backup_name The name of a site backup to restore from (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenBackupsSiteNameRestoreBackupNamePostRequest($site_name, $backup_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenBackupsSiteNameRestoreBackupNamePost'
-            );
-        }
-        // verify the required parameter 'backup_name' is set
-        if ($backup_name === null || (is_array($backup_name) && count($backup_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $backup_name when calling sitesMultiscreenBackupsSiteNameRestoreBackupNamePost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/backups/{site_name}/restore/{backup_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($backup_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'backup_name' . '}',
-                ObjectSerializer::toPathValue($backup_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCertificateDelete
-     *
-     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCertificateDelete($site_name)
-    {
-        $this->sitesMultiscreenSiteNameCertificateDeleteWithHttpInfo($site_name);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCertificateDeleteWithHttpInfo
-     *
-     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCertificateDeleteWithHttpInfo($site_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameCertificateDeleteRequest($site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCertificateDeleteAsync
-     *
-     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCertificateDeleteAsync($site_name)
-    {
-        return $this->sitesMultiscreenSiteNameCertificateDeleteAsyncWithHttpInfo($site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCertificateDeleteAsyncWithHttpInfo
-     *
-     * Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCertificateDeleteAsyncWithHttpInfo($site_name)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCertificateDeleteRequest($site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCertificateDelete'
+     * Create request for operation 'deleteSSLCertificate'
      *
      * @param  string $site_name Site name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCertificateDeleteRequest($site_name)
+    public function deleteSSLCertificateRequest($site_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCertificateDelete'
+                'Missing the required parameter $site_name when calling deleteSSLCertificate'
             );
         }
 
@@ -1469,9 +1155,304 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificatePost
+     * Operation listBackups
      *
-     * Generate a SSL certificate for a specific website.
+     * Get an array of existing site backups
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\ListBackupsResponse|\OpenAPI\Client\Model\Error
+     */
+    public function listBackups($site_name)
+    {
+        list($response) = $this->listBackupsWithHttpInfo($site_name);
+        return $response;
+    }
+
+    /**
+     * Operation listBackupsWithHttpInfo
+     *
+     * Get an array of existing site backups
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\ListBackupsResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listBackupsWithHttpInfo($site_name)
+    {
+        $request = $this->listBackupsRequest($site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\ListBackupsResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\ListBackupsResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\ListBackupsResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\ListBackupsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listBackupsAsync
+     *
+     * Get an array of existing site backups
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listBackupsAsync($site_name)
+    {
+        return $this->listBackupsAsyncWithHttpInfo($site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listBackupsAsyncWithHttpInfo
+     *
+     * Get an array of existing site backups
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listBackupsAsyncWithHttpInfo($site_name)
+    {
+        $returnType = '\OpenAPI\Client\Model\ListBackupsResponse';
+        $request = $this->listBackupsRequest($site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listBackups'
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listBackupsRequest($site_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling listBackups'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/backups/{site_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation renewSSLCertificate
+     *
+     * Starts the renewal process for an SSL certificate
      *
      * @param  string $site_name Site name (required)
      *
@@ -1479,15 +1460,15 @@ class OtherApi
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNameCertificatePost($site_name)
+    public function renewSSLCertificate($site_name)
     {
-        $this->sitesMultiscreenSiteNameCertificatePostWithHttpInfo($site_name);
+        $this->renewSSLCertificateWithHttpInfo($site_name);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificatePostWithHttpInfo
+     * Operation renewSSLCertificateWithHttpInfo
      *
-     * Generate a SSL certificate for a specific website.
+     * Starts the renewal process for an SSL certificate
      *
      * @param  string $site_name Site name (required)
      *
@@ -1495,9 +1476,9 @@ class OtherApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameCertificatePostWithHttpInfo($site_name)
+    public function renewSSLCertificateWithHttpInfo($site_name)
     {
-        $request = $this->sitesMultiscreenSiteNameCertificatePostRequest($site_name);
+        $request = $this->renewSSLCertificateRequest($site_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1552,18 +1533,18 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificatePostAsync
+     * Operation renewSSLCertificateAsync
      *
-     * Generate a SSL certificate for a specific website.
+     * Starts the renewal process for an SSL certificate
      *
      * @param  string $site_name Site name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCertificatePostAsync($site_name)
+    public function renewSSLCertificateAsync($site_name)
     {
-        return $this->sitesMultiscreenSiteNameCertificatePostAsyncWithHttpInfo($site_name)
+        return $this->renewSSLCertificateAsyncWithHttpInfo($site_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1572,19 +1553,19 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificatePostAsyncWithHttpInfo
+     * Operation renewSSLCertificateAsyncWithHttpInfo
      *
-     * Generate a SSL certificate for a specific website.
+     * Starts the renewal process for an SSL certificate
      *
      * @param  string $site_name Site name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCertificatePostAsyncWithHttpInfo($site_name)
+    public function renewSSLCertificateAsyncWithHttpInfo($site_name)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCertificatePostRequest($site_name);
+        $request = $this->renewSSLCertificateRequest($site_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1610,23 +1591,23 @@ class OtherApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameCertificatePost'
+     * Create request for operation 'renewSSLCertificate'
      *
      * @param  string $site_name Site name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCertificatePostRequest($site_name)
+    public function renewSSLCertificateRequest($site_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCertificatePost'
+                'Missing the required parameter $site_name when calling renewSSLCertificate'
             );
         }
 
-        $resourcePath = '/sites/multiscreen/{site_name}/certificate';
+        $resourcePath = '/sites/multiscreen/{site_name}/certificate/renew';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1707,35 +1688,37 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificateRenewPost
+     * Operation restoreBackup
      *
-     * Starts the renewal process for an SSL certificate
+     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
      *
      * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNameCertificateRenewPost($site_name)
+    public function restoreBackup($site_name, $backup_name)
     {
-        $this->sitesMultiscreenSiteNameCertificateRenewPostWithHttpInfo($site_name);
+        $this->restoreBackupWithHttpInfo($site_name, $backup_name);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificateRenewPostWithHttpInfo
+     * Operation restoreBackupWithHttpInfo
      *
-     * Starts the renewal process for an SSL certificate
+     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
      *
      * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameCertificateRenewPostWithHttpInfo($site_name)
+    public function restoreBackupWithHttpInfo($site_name, $backup_name)
     {
-        $request = $this->sitesMultiscreenSiteNameCertificateRenewPostRequest($site_name);
+        $request = $this->restoreBackupRequest($site_name, $backup_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1790,18 +1773,19 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificateRenewPostAsync
+     * Operation restoreBackupAsync
      *
-     * Starts the renewal process for an SSL certificate
+     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
      *
      * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCertificateRenewPostAsync($site_name)
+    public function restoreBackupAsync($site_name, $backup_name)
     {
-        return $this->sitesMultiscreenSiteNameCertificateRenewPostAsyncWithHttpInfo($site_name)
+        return $this->restoreBackupAsyncWithHttpInfo($site_name, $backup_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1810,19 +1794,20 @@ class OtherApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCertificateRenewPostAsyncWithHttpInfo
+     * Operation restoreBackupAsyncWithHttpInfo
      *
-     * Starts the renewal process for an SSL certificate
+     * Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
      *
      * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCertificateRenewPostAsyncWithHttpInfo($site_name)
+    public function restoreBackupAsyncWithHttpInfo($site_name, $backup_name)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCertificateRenewPostRequest($site_name);
+        $request = $this->restoreBackupRequest($site_name, $backup_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1848,23 +1833,30 @@ class OtherApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameCertificateRenewPost'
+     * Create request for operation 'restoreBackup'
      *
      * @param  string $site_name Site name (required)
+     * @param  string $backup_name The name of a site backup to restore from (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCertificateRenewPostRequest($site_name)
+    public function restoreBackupRequest($site_name, $backup_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCertificateRenewPost'
+                'Missing the required parameter $site_name when calling restoreBackup'
+            );
+        }
+        // verify the required parameter 'backup_name' is set
+        if ($backup_name === null || (is_array($backup_name) && count($backup_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $backup_name when calling restoreBackup'
             );
         }
 
-        $resourcePath = '/sites/multiscreen/{site_name}/certificate/renew';
+        $resourcePath = '/sites/multiscreen/backups/{site_name}/restore/{backup_name}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1878,6 +1870,14 @@ class OtherApi
             $resourcePath = str_replace(
                 '{' . 'site_name' . '}',
                 ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($backup_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'backup_name' . '}',
+                ObjectSerializer::toPathValue($backup_name),
                 $resourcePath
             );
         }

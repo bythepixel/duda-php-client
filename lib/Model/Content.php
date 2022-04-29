@@ -61,8 +61,8 @@ class Content implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'location_data' => '\OpenAPI\Client\Model\Location',
         'additional_locations' => '\OpenAPI\Client\Model\Location[]',
-        'site_texts' => '\OpenAPI\Client\Model\ContentSiteTexts',
-        'business_data' => '\OpenAPI\Client\Model\ContentBusinessData',
+        'site_texts' => '\OpenAPI\Client\Model\SiteTexts',
+        'business_data' => '\OpenAPI\Client\Model\BusinessData',
         'site_images' => '\OpenAPI\Client\Model\SiteImage[]'
     ];
 
@@ -280,7 +280,7 @@ class Content implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets site_texts
      *
-     * @return \OpenAPI\Client\Model\ContentSiteTexts|null
+     * @return \OpenAPI\Client\Model\SiteTexts|null
      */
     public function getSiteTexts()
     {
@@ -290,7 +290,7 @@ class Content implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets site_texts
      *
-     * @param \OpenAPI\Client\Model\ContentSiteTexts|null $site_texts site_texts
+     * @param \OpenAPI\Client\Model\SiteTexts|null $site_texts site_texts
      *
      * @return self
      */
@@ -304,7 +304,7 @@ class Content implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets business_data
      *
-     * @return \OpenAPI\Client\Model\ContentBusinessData|null
+     * @return \OpenAPI\Client\Model\BusinessData|null
      */
     public function getBusinessData()
     {
@@ -314,7 +314,7 @@ class Content implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets business_data
      *
-     * @param \OpenAPI\Client\Model\ContentBusinessData|null $business_data business_data
+     * @param \OpenAPI\Client\Model\BusinessData|null $business_data business_data
      *
      * @return self
      */

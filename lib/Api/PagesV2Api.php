@@ -116,302 +116,7 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesGet
-     *
-     * Get details of all the Pages of a Site.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2001|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenSiteNamePagesGet($site_name)
-    {
-        list($response) = $this->sitesMultiscreenSiteNamePagesGetWithHttpInfo($site_name);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNamePagesGetWithHttpInfo
-     *
-     * Get details of all the Pages of a Site.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2001|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNamePagesGetWithHttpInfo($site_name)
-    {
-        $request = $this->sitesMultiscreenSiteNamePagesGetRequest($site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2001' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2001', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2001';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2001',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNamePagesGetAsync
-     *
-     * Get details of all the Pages of a Site.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNamePagesGetAsync($site_name)
-    {
-        return $this->sitesMultiscreenSiteNamePagesGetAsyncWithHttpInfo($site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNamePagesGetAsyncWithHttpInfo
-     *
-     * Get details of all the Pages of a Site.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNamePagesGetAsyncWithHttpInfo($site_name)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2001';
-        $request = $this->sitesMultiscreenSiteNamePagesGetRequest($site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNamePagesGet'
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNamePagesGetRequest($site_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNamePagesGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/pages';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDelete
+     * Operation deletePage
      *
      * Delete a Page from a Site.
      *
@@ -422,13 +127,13 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDelete($site_name, $page_uuid)
+    public function deletePage($site_name, $page_uuid)
     {
-        $this->sitesMultiscreenSiteNamePagesPageUuidDeleteWithHttpInfo($site_name, $page_uuid);
+        $this->deletePageWithHttpInfo($site_name, $page_uuid);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDeleteWithHttpInfo
+     * Operation deletePageWithHttpInfo
      *
      * Delete a Page from a Site.
      *
@@ -439,9 +144,9 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDeleteWithHttpInfo($site_name, $page_uuid)
+    public function deletePageWithHttpInfo($site_name, $page_uuid)
     {
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidDeleteRequest($site_name, $page_uuid);
+        $request = $this->deletePageRequest($site_name, $page_uuid);
 
         try {
             $options = $this->createHttpClientOption();
@@ -496,7 +201,7 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDeleteAsync
+     * Operation deletePageAsync
      *
      * Delete a Page from a Site.
      *
@@ -506,9 +211,9 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDeleteAsync($site_name, $page_uuid)
+    public function deletePageAsync($site_name, $page_uuid)
     {
-        return $this->sitesMultiscreenSiteNamePagesPageUuidDeleteAsyncWithHttpInfo($site_name, $page_uuid)
+        return $this->deletePageAsyncWithHttpInfo($site_name, $page_uuid)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -517,7 +222,7 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDeleteAsyncWithHttpInfo
+     * Operation deletePageAsyncWithHttpInfo
      *
      * Delete a Page from a Site.
      *
@@ -527,10 +232,10 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDeleteAsyncWithHttpInfo($site_name, $page_uuid)
+    public function deletePageAsyncWithHttpInfo($site_name, $page_uuid)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidDeleteRequest($site_name, $page_uuid);
+        $request = $this->deletePageRequest($site_name, $page_uuid);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -556,7 +261,7 @@ class PagesV2Api
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNamePagesPageUuidDelete'
+     * Create request for operation 'deletePage'
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
@@ -564,18 +269,18 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDeleteRequest($site_name, $page_uuid)
+    public function deletePageRequest($site_name, $page_uuid)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNamePagesPageUuidDelete'
+                'Missing the required parameter $site_name when calling deletePage'
             );
         }
         // verify the required parameter 'page_uuid' is set
         if ($page_uuid === null || (is_array($page_uuid) && count($page_uuid) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $page_uuid when calling sitesMultiscreenSiteNamePagesPageUuidDelete'
+                'Missing the required parameter $page_uuid when calling deletePage'
             );
         }
 
@@ -668,39 +373,39 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDuplicatePost
+     * Operation duplicatePage
      *
      * Duplicate an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\InlineObject3 $inline_object3 inline_object3 (required)
+     * @param  \OpenAPI\Client\Model\DuplicatePageRequest $duplicate_page_request duplicate_page_request (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDuplicatePost($site_name, $page_uuid, $inline_object3)
+    public function duplicatePage($site_name, $page_uuid, $duplicate_page_request)
     {
-        $this->sitesMultiscreenSiteNamePagesPageUuidDuplicatePostWithHttpInfo($site_name, $page_uuid, $inline_object3);
+        $this->duplicatePageWithHttpInfo($site_name, $page_uuid, $duplicate_page_request);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDuplicatePostWithHttpInfo
+     * Operation duplicatePageWithHttpInfo
      *
      * Duplicate an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\InlineObject3 $inline_object3 (required)
+     * @param  \OpenAPI\Client\Model\DuplicatePageRequest $duplicate_page_request (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDuplicatePostWithHttpInfo($site_name, $page_uuid, $inline_object3)
+    public function duplicatePageWithHttpInfo($site_name, $page_uuid, $duplicate_page_request)
     {
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidDuplicatePostRequest($site_name, $page_uuid, $inline_object3);
+        $request = $this->duplicatePageRequest($site_name, $page_uuid, $duplicate_page_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -755,20 +460,20 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDuplicatePostAsync
+     * Operation duplicatePageAsync
      *
      * Duplicate an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\InlineObject3 $inline_object3 (required)
+     * @param  \OpenAPI\Client\Model\DuplicatePageRequest $duplicate_page_request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDuplicatePostAsync($site_name, $page_uuid, $inline_object3)
+    public function duplicatePageAsync($site_name, $page_uuid, $duplicate_page_request)
     {
-        return $this->sitesMultiscreenSiteNamePagesPageUuidDuplicatePostAsyncWithHttpInfo($site_name, $page_uuid, $inline_object3)
+        return $this->duplicatePageAsyncWithHttpInfo($site_name, $page_uuid, $duplicate_page_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -777,21 +482,21 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidDuplicatePostAsyncWithHttpInfo
+     * Operation duplicatePageAsyncWithHttpInfo
      *
      * Duplicate an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\InlineObject3 $inline_object3 (required)
+     * @param  \OpenAPI\Client\Model\DuplicatePageRequest $duplicate_page_request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDuplicatePostAsyncWithHttpInfo($site_name, $page_uuid, $inline_object3)
+    public function duplicatePageAsyncWithHttpInfo($site_name, $page_uuid, $duplicate_page_request)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidDuplicatePostRequest($site_name, $page_uuid, $inline_object3);
+        $request = $this->duplicatePageRequest($site_name, $page_uuid, $duplicate_page_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -817,33 +522,33 @@ class PagesV2Api
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNamePagesPageUuidDuplicatePost'
+     * Create request for operation 'duplicatePage'
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\InlineObject3 $inline_object3 (required)
+     * @param  \OpenAPI\Client\Model\DuplicatePageRequest $duplicate_page_request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidDuplicatePostRequest($site_name, $page_uuid, $inline_object3)
+    public function duplicatePageRequest($site_name, $page_uuid, $duplicate_page_request)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNamePagesPageUuidDuplicatePost'
+                'Missing the required parameter $site_name when calling duplicatePage'
             );
         }
         // verify the required parameter 'page_uuid' is set
         if ($page_uuid === null || (is_array($page_uuid) && count($page_uuid) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $page_uuid when calling sitesMultiscreenSiteNamePagesPageUuidDuplicatePost'
+                'Missing the required parameter $page_uuid when calling duplicatePage'
             );
         }
-        // verify the required parameter 'inline_object3' is set
-        if ($inline_object3 === null || (is_array($inline_object3) && count($inline_object3) === 0)) {
+        // verify the required parameter 'duplicate_page_request' is set
+        if ($duplicate_page_request === null || (is_array($duplicate_page_request) && count($duplicate_page_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $inline_object3 when calling sitesMultiscreenSiteNamePagesPageUuidDuplicatePost'
+                'Missing the required parameter $duplicate_page_request when calling duplicatePage'
             );
         }
 
@@ -886,11 +591,11 @@ class PagesV2Api
         }
 
         // for model (json/xml)
-        if (isset($inline_object3)) {
+        if (isset($duplicate_page_request)) {
             if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object3));
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($duplicate_page_request));
             } else {
-                $httpBody = $inline_object3;
+                $httpBody = $duplicate_page_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -942,7 +647,7 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidGet
+     * Operation getPage
      *
      * Get the details of an individual Page of a Site.
      *
@@ -953,14 +658,14 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Page|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidGet($site_name, $page_uuid)
+    public function getPage($site_name, $page_uuid)
     {
-        list($response) = $this->sitesMultiscreenSiteNamePagesPageUuidGetWithHttpInfo($site_name, $page_uuid);
+        list($response) = $this->getPageWithHttpInfo($site_name, $page_uuid);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidGetWithHttpInfo
+     * Operation getPageWithHttpInfo
      *
      * Get the details of an individual Page of a Site.
      *
@@ -971,9 +676,9 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Page|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidGetWithHttpInfo($site_name, $page_uuid)
+    public function getPageWithHttpInfo($site_name, $page_uuid)
     {
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidGetRequest($site_name, $page_uuid);
+        $request = $this->getPageRequest($site_name, $page_uuid);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1074,7 +779,7 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidGetAsync
+     * Operation getPageAsync
      *
      * Get the details of an individual Page of a Site.
      *
@@ -1084,9 +789,9 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidGetAsync($site_name, $page_uuid)
+    public function getPageAsync($site_name, $page_uuid)
     {
-        return $this->sitesMultiscreenSiteNamePagesPageUuidGetAsyncWithHttpInfo($site_name, $page_uuid)
+        return $this->getPageAsyncWithHttpInfo($site_name, $page_uuid)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1095,7 +800,7 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidGetAsyncWithHttpInfo
+     * Operation getPageAsyncWithHttpInfo
      *
      * Get the details of an individual Page of a Site.
      *
@@ -1105,10 +810,10 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidGetAsyncWithHttpInfo($site_name, $page_uuid)
+    public function getPageAsyncWithHttpInfo($site_name, $page_uuid)
     {
         $returnType = '\OpenAPI\Client\Model\Page';
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidGetRequest($site_name, $page_uuid);
+        $request = $this->getPageRequest($site_name, $page_uuid);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1144,7 +849,7 @@ class PagesV2Api
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNamePagesPageUuidGet'
+     * Create request for operation 'getPage'
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
@@ -1152,18 +857,18 @@ class PagesV2Api
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidGetRequest($site_name, $page_uuid)
+    public function getPageRequest($site_name, $page_uuid)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNamePagesPageUuidGet'
+                'Missing the required parameter $site_name when calling getPage'
             );
         }
         // verify the required parameter 'page_uuid' is set
         if ($page_uuid === null || (is_array($page_uuid) && count($page_uuid) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $page_uuid when calling sitesMultiscreenSiteNamePagesPageUuidGet'
+                'Missing the required parameter $page_uuid when calling getPage'
             );
         }
 
@@ -1256,39 +961,334 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidPut
+     * Operation listPages
+     *
+     * Get details of all the Pages of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\ListPagesResponse|\OpenAPI\Client\Model\Error
+     */
+    public function listPages($site_name)
+    {
+        list($response) = $this->listPagesWithHttpInfo($site_name);
+        return $response;
+    }
+
+    /**
+     * Operation listPagesWithHttpInfo
+     *
+     * Get details of all the Pages of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\ListPagesResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listPagesWithHttpInfo($site_name)
+    {
+        $request = $this->listPagesRequest($site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\ListPagesResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\ListPagesResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\ListPagesResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\ListPagesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listPagesAsync
+     *
+     * Get details of all the Pages of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listPagesAsync($site_name)
+    {
+        return $this->listPagesAsyncWithHttpInfo($site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listPagesAsyncWithHttpInfo
+     *
+     * Get details of all the Pages of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listPagesAsyncWithHttpInfo($site_name)
+    {
+        $returnType = '\OpenAPI\Client\Model\ListPagesResponse';
+        $request = $this->listPagesRequest($site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listPages'
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listPagesRequest($site_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling listPages'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/pages';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updatePage
      *
      * Update an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\Site $site site (required)
+     * @param  \OpenAPI\Client\Model\Page $page page (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidPut($site_name, $page_uuid, $site)
+    public function updatePage($site_name, $page_uuid, $page)
     {
-        $this->sitesMultiscreenSiteNamePagesPageUuidPutWithHttpInfo($site_name, $page_uuid, $site);
+        $this->updatePageWithHttpInfo($site_name, $page_uuid, $page);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidPutWithHttpInfo
+     * Operation updatePageWithHttpInfo
      *
      * Update an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\Site $site (required)
+     * @param  \OpenAPI\Client\Model\Page $page (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidPutWithHttpInfo($site_name, $page_uuid, $site)
+    public function updatePageWithHttpInfo($site_name, $page_uuid, $page)
     {
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidPutRequest($site_name, $page_uuid, $site);
+        $request = $this->updatePageRequest($site_name, $page_uuid, $page);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1343,20 +1343,20 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidPutAsync
+     * Operation updatePageAsync
      *
      * Update an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\Site $site (required)
+     * @param  \OpenAPI\Client\Model\Page $page (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidPutAsync($site_name, $page_uuid, $site)
+    public function updatePageAsync($site_name, $page_uuid, $page)
     {
-        return $this->sitesMultiscreenSiteNamePagesPageUuidPutAsyncWithHttpInfo($site_name, $page_uuid, $site)
+        return $this->updatePageAsyncWithHttpInfo($site_name, $page_uuid, $page)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1365,21 +1365,21 @@ class PagesV2Api
     }
 
     /**
-     * Operation sitesMultiscreenSiteNamePagesPageUuidPutAsyncWithHttpInfo
+     * Operation updatePageAsyncWithHttpInfo
      *
      * Update an existing Page of a Site.
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\Site $site (required)
+     * @param  \OpenAPI\Client\Model\Page $page (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidPutAsyncWithHttpInfo($site_name, $page_uuid, $site)
+    public function updatePageAsyncWithHttpInfo($site_name, $page_uuid, $page)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNamePagesPageUuidPutRequest($site_name, $page_uuid, $site);
+        $request = $this->updatePageRequest($site_name, $page_uuid, $page);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1405,33 +1405,33 @@ class PagesV2Api
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNamePagesPageUuidPut'
+     * Create request for operation 'updatePage'
      *
      * @param  string $site_name Site name (required)
      * @param  string $page_uuid The uuid of the target page. (required)
-     * @param  \OpenAPI\Client\Model\Site $site (required)
+     * @param  \OpenAPI\Client\Model\Page $page (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNamePagesPageUuidPutRequest($site_name, $page_uuid, $site)
+    public function updatePageRequest($site_name, $page_uuid, $page)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNamePagesPageUuidPut'
+                'Missing the required parameter $site_name when calling updatePage'
             );
         }
         // verify the required parameter 'page_uuid' is set
         if ($page_uuid === null || (is_array($page_uuid) && count($page_uuid) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $page_uuid when calling sitesMultiscreenSiteNamePagesPageUuidPut'
+                'Missing the required parameter $page_uuid when calling updatePage'
             );
         }
-        // verify the required parameter 'site' is set
-        if ($site === null || (is_array($site) && count($site) === 0)) {
+        // verify the required parameter 'page' is set
+        if ($page === null || (is_array($page) && count($page) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site when calling sitesMultiscreenSiteNamePagesPageUuidPut'
+                'Missing the required parameter $page when calling updatePage'
             );
         }
 
@@ -1474,11 +1474,11 @@ class PagesV2Api
         }
 
         // for model (json/xml)
-        if (isset($site)) {
+        if (isset($page)) {
             if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($site));
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($page));
             } else {
-                $httpBody = $site;
+                $httpBody = $page;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

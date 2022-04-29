@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional]
-**customer_lock** | **string** |  | [optional]
+**customer_lock** | [**\OpenAPI\Client\Model\CustomerLock**](CustomerLock.md) |  | [optional]
 **fields** | [**\OpenAPI\Client\Model\Field[]**](Field.md) |  | [optional]
 **values** | [**\OpenAPI\Client\Model\CollectionValues[]**](CollectionValues.md) |  | [optional]
 **external_details** | [**\OpenAPI\Client\Model\ExternalDetails**](ExternalDetails.md) |  | [optional]

@@ -116,36 +116,38 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesGet
+     * Operation createRule
      *
-     * Get all of the URL rules of a Site.
+     * Create a new URL rule.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UrlRule $url_rule url_rule (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2002|\OpenAPI\Client\Model\Error
+     * @return \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesGet($site_name)
+    public function createRule($site_name, $url_rule = null)
     {
-        list($response) = $this->sitesMultiscreenSiteSiteNameUrlrulesGetWithHttpInfo($site_name);
+        list($response) = $this->createRuleWithHttpInfo($site_name, $url_rule);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesGetWithHttpInfo
+     * Operation createRuleWithHttpInfo
      *
-     * Get all of the URL rules of a Site.
+     * Create a new URL rule.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2002|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesGetWithHttpInfo($site_name)
+    public function createRuleWithHttpInfo($site_name, $url_rule = null)
     {
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesGetRequest($site_name);
+        $request = $this->createRuleRequest($site_name, $url_rule);
 
         try {
             $options = $this->createHttpClientOption();
@@ -184,14 +186,14 @@ class URLRulesApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2002' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\UrlRule' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2002', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\UrlRule', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -209,7 +211,7 @@ class URLRulesApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2002';
+            $returnType = '\OpenAPI\Client\Model\UrlRule';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -227,7 +229,7 @@ class URLRulesApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2002',
+                        '\OpenAPI\Client\Model\UrlRule',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -246,18 +248,19 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesGetAsync
+     * Operation createRuleAsync
      *
-     * Get all of the URL rules of a Site.
+     * Create a new URL rule.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesGetAsync($site_name)
+    public function createRuleAsync($site_name, $url_rule = null)
     {
-        return $this->sitesMultiscreenSiteSiteNameUrlrulesGetAsyncWithHttpInfo($site_name)
+        return $this->createRuleAsyncWithHttpInfo($site_name, $url_rule)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -266,19 +269,20 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesGetAsyncWithHttpInfo
+     * Operation createRuleAsyncWithHttpInfo
      *
-     * Get all of the URL rules of a Site.
+     * Create a new URL rule.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesGetAsyncWithHttpInfo($site_name)
+    public function createRuleAsyncWithHttpInfo($site_name, $url_rule = null)
     {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2002';
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesGetRequest($site_name);
+        $returnType = '\OpenAPI\Client\Model\UrlRule';
+        $request = $this->createRuleRequest($site_name, $url_rule);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -314,19 +318,20 @@ class URLRulesApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteSiteNameUrlrulesGet'
+     * Create request for operation 'createRule'
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesGetRequest($site_name)
+    public function createRuleRequest($site_name, $url_rule = null)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteSiteNameUrlrulesGet'
+                'Missing the required parameter $site_name when calling createRule'
             );
         }
 
@@ -356,12 +361,18 @@ class URLRulesApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                []
+                ['application/json']
             );
         }
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($url_rule)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($url_rule));
+            } else {
+                $httpBody = $url_rule;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -403,7 +414,7 @@ class URLRulesApi
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
-            'GET',
+            'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -411,7 +422,7 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdDelete
+     * Operation deleteRule
      *
      * Delete an existing URL rule.
      *
@@ -422,13 +433,13 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdDelete($site_name, $id)
+    public function deleteRule($site_name, $id)
     {
-        $this->sitesMultiscreenSiteSiteNameUrlrulesIdDeleteWithHttpInfo($site_name, $id);
+        $this->deleteRuleWithHttpInfo($site_name, $id);
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdDeleteWithHttpInfo
+     * Operation deleteRuleWithHttpInfo
      *
      * Delete an existing URL rule.
      *
@@ -439,9 +450,9 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdDeleteWithHttpInfo($site_name, $id)
+    public function deleteRuleWithHttpInfo($site_name, $id)
     {
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesIdDeleteRequest($site_name, $id);
+        $request = $this->deleteRuleRequest($site_name, $id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -496,7 +507,7 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdDeleteAsync
+     * Operation deleteRuleAsync
      *
      * Delete an existing URL rule.
      *
@@ -506,9 +517,9 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdDeleteAsync($site_name, $id)
+    public function deleteRuleAsync($site_name, $id)
     {
-        return $this->sitesMultiscreenSiteSiteNameUrlrulesIdDeleteAsyncWithHttpInfo($site_name, $id)
+        return $this->deleteRuleAsyncWithHttpInfo($site_name, $id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -517,7 +528,7 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdDeleteAsyncWithHttpInfo
+     * Operation deleteRuleAsyncWithHttpInfo
      *
      * Delete an existing URL rule.
      *
@@ -527,10 +538,10 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdDeleteAsyncWithHttpInfo($site_name, $id)
+    public function deleteRuleAsyncWithHttpInfo($site_name, $id)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesIdDeleteRequest($site_name, $id);
+        $request = $this->deleteRuleRequest($site_name, $id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -556,7 +567,7 @@ class URLRulesApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteSiteNameUrlrulesIdDelete'
+     * Create request for operation 'deleteRule'
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -564,18 +575,18 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdDeleteRequest($site_name, $id)
+    public function deleteRuleRequest($site_name, $id)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteSiteNameUrlrulesIdDelete'
+                'Missing the required parameter $site_name when calling deleteRule'
             );
         }
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling sitesMultiscreenSiteSiteNameUrlrulesIdDelete'
+                'Missing the required parameter $id when calling deleteRule'
             );
         }
 
@@ -668,9 +679,304 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdGet
+     * Operation getAllRules
      *
      * Get all of the URL rules of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\GetAllRulesResponse|\OpenAPI\Client\Model\Error
+     */
+    public function getAllRules($site_name)
+    {
+        list($response) = $this->getAllRulesWithHttpInfo($site_name);
+        return $response;
+    }
+
+    /**
+     * Operation getAllRulesWithHttpInfo
+     *
+     * Get all of the URL rules of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\GetAllRulesResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAllRulesWithHttpInfo($site_name)
+    {
+        $request = $this->getAllRulesRequest($site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\GetAllRulesResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\GetAllRulesResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\GetAllRulesResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\GetAllRulesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAllRulesAsync
+     *
+     * Get all of the URL rules of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAllRulesAsync($site_name)
+    {
+        return $this->getAllRulesAsyncWithHttpInfo($site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAllRulesAsyncWithHttpInfo
+     *
+     * Get all of the URL rules of a Site.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAllRulesAsyncWithHttpInfo($site_name)
+    {
+        $returnType = '\OpenAPI\Client\Model\GetAllRulesResponse';
+        $request = $this->getAllRulesRequest($site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAllRules'
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAllRulesRequest($site_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling getAllRules'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/site/{site_name}/urlrules';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getRule
+     *
+     * Get the details of a specific URL rule
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -679,16 +985,16 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdGet($site_name, $id)
+    public function getRule($site_name, $id)
     {
-        list($response) = $this->sitesMultiscreenSiteSiteNameUrlrulesIdGetWithHttpInfo($site_name, $id);
+        list($response) = $this->getRuleWithHttpInfo($site_name, $id);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdGetWithHttpInfo
+     * Operation getRuleWithHttpInfo
      *
-     * Get all of the URL rules of a Site.
+     * Get the details of a specific URL rule
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -697,9 +1003,9 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdGetWithHttpInfo($site_name, $id)
+    public function getRuleWithHttpInfo($site_name, $id)
     {
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesIdGetRequest($site_name, $id);
+        $request = $this->getRuleRequest($site_name, $id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -800,9 +1106,9 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdGetAsync
+     * Operation getRuleAsync
      *
-     * Get all of the URL rules of a Site.
+     * Get the details of a specific URL rule
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -810,9 +1116,9 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdGetAsync($site_name, $id)
+    public function getRuleAsync($site_name, $id)
     {
-        return $this->sitesMultiscreenSiteSiteNameUrlrulesIdGetAsyncWithHttpInfo($site_name, $id)
+        return $this->getRuleAsyncWithHttpInfo($site_name, $id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -821,9 +1127,9 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdGetAsyncWithHttpInfo
+     * Operation getRuleAsyncWithHttpInfo
      *
-     * Get all of the URL rules of a Site.
+     * Get the details of a specific URL rule
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -831,10 +1137,10 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdGetAsyncWithHttpInfo($site_name, $id)
+    public function getRuleAsyncWithHttpInfo($site_name, $id)
     {
         $returnType = '\OpenAPI\Client\Model\UrlRule';
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesIdGetRequest($site_name, $id);
+        $request = $this->getRuleRequest($site_name, $id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -870,7 +1176,7 @@ class URLRulesApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteSiteNameUrlrulesIdGet'
+     * Create request for operation 'getRule'
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -878,18 +1184,18 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdGetRequest($site_name, $id)
+    public function getRuleRequest($site_name, $id)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteSiteNameUrlrulesIdGet'
+                'Missing the required parameter $site_name when calling getRule'
             );
         }
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling sitesMultiscreenSiteSiteNameUrlrulesIdGet'
+                'Missing the required parameter $id when calling getRule'
             );
         }
 
@@ -982,7 +1288,7 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdPut
+     * Operation updateRule
      *
      * Update an existing URL rule.
      *
@@ -994,14 +1300,14 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdPut($site_name, $id, $url_rule = null)
+    public function updateRule($site_name, $id, $url_rule = null)
     {
-        list($response) = $this->sitesMultiscreenSiteSiteNameUrlrulesIdPutWithHttpInfo($site_name, $id, $url_rule);
+        list($response) = $this->updateRuleWithHttpInfo($site_name, $id, $url_rule);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdPutWithHttpInfo
+     * Operation updateRuleWithHttpInfo
      *
      * Update an existing URL rule.
      *
@@ -1013,9 +1319,9 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdPutWithHttpInfo($site_name, $id, $url_rule = null)
+    public function updateRuleWithHttpInfo($site_name, $id, $url_rule = null)
     {
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesIdPutRequest($site_name, $id, $url_rule);
+        $request = $this->updateRuleRequest($site_name, $id, $url_rule);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1116,7 +1422,7 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdPutAsync
+     * Operation updateRuleAsync
      *
      * Update an existing URL rule.
      *
@@ -1127,9 +1433,9 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdPutAsync($site_name, $id, $url_rule = null)
+    public function updateRuleAsync($site_name, $id, $url_rule = null)
     {
-        return $this->sitesMultiscreenSiteSiteNameUrlrulesIdPutAsyncWithHttpInfo($site_name, $id, $url_rule)
+        return $this->updateRuleAsyncWithHttpInfo($site_name, $id, $url_rule)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1138,7 +1444,7 @@ class URLRulesApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesIdPutAsyncWithHttpInfo
+     * Operation updateRuleAsyncWithHttpInfo
      *
      * Update an existing URL rule.
      *
@@ -1149,10 +1455,10 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdPutAsyncWithHttpInfo($site_name, $id, $url_rule = null)
+    public function updateRuleAsyncWithHttpInfo($site_name, $id, $url_rule = null)
     {
         $returnType = '\OpenAPI\Client\Model\UrlRule';
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesIdPutRequest($site_name, $id, $url_rule);
+        $request = $this->updateRuleRequest($site_name, $id, $url_rule);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1188,7 +1494,7 @@ class URLRulesApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteSiteNameUrlrulesIdPut'
+     * Create request for operation 'updateRule'
      *
      * @param  string $site_name Site name (required)
      * @param  string $id The unique identifier of the target URL rule. (required)
@@ -1197,18 +1503,18 @@ class URLRulesApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteSiteNameUrlrulesIdPutRequest($site_name, $id, $url_rule = null)
+    public function updateRuleRequest($site_name, $id, $url_rule = null)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteSiteNameUrlrulesIdPut'
+                'Missing the required parameter $site_name when calling updateRule'
             );
         }
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling sitesMultiscreenSiteSiteNameUrlrulesIdPut'
+                'Missing the required parameter $id when calling updateRule'
             );
         }
 
@@ -1300,312 +1606,6 @@ class URLRulesApi
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'PUT',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesPost
-     *
-     * Create a new URL rule.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\UrlRule $url_rule url_rule (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenSiteSiteNameUrlrulesPost($site_name, $url_rule = null)
-    {
-        list($response) = $this->sitesMultiscreenSiteSiteNameUrlrulesPostWithHttpInfo($site_name, $url_rule);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesPostWithHttpInfo
-     *
-     * Create a new URL rule.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\UrlRule|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteSiteNameUrlrulesPostWithHttpInfo($site_name, $url_rule = null)
-    {
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesPostRequest($site_name, $url_rule);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\UrlRule' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\UrlRule', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\UrlRule';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\UrlRule',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesPostAsync
-     *
-     * Create a new URL rule.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteSiteNameUrlrulesPostAsync($site_name, $url_rule = null)
-    {
-        return $this->sitesMultiscreenSiteSiteNameUrlrulesPostAsyncWithHttpInfo($site_name, $url_rule)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteSiteNameUrlrulesPostAsyncWithHttpInfo
-     *
-     * Create a new URL rule.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteSiteNameUrlrulesPostAsyncWithHttpInfo($site_name, $url_rule = null)
-    {
-        $returnType = '\OpenAPI\Client\Model\UrlRule';
-        $request = $this->sitesMultiscreenSiteSiteNameUrlrulesPostRequest($site_name, $url_rule);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteSiteNameUrlrulesPost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\UrlRule $url_rule (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteSiteNameUrlrulesPostRequest($site_name, $url_rule = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteSiteNameUrlrulesPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/site/{site_name}/urlrules';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($url_rule)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($url_rule));
-            } else {
-                $httpBody = $url_rule;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

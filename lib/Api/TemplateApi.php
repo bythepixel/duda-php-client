@@ -116,7 +116,1126 @@ class TemplateApi
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesGet
+     * Operation createFromSite
+     *
+     * Create a new Template based on an existing site
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromSiteRequest $create_template_from_site_request create_template_from_site_request (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error
+     */
+    public function createFromSite($create_template_from_site_request)
+    {
+        list($response) = $this->createFromSiteWithHttpInfo($create_template_from_site_request);
+        return $response;
+    }
+
+    /**
+     * Operation createFromSiteWithHttpInfo
+     *
+     * Create a new Template based on an existing site
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromSiteRequest $create_template_from_site_request (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createFromSiteWithHttpInfo($create_template_from_site_request)
+    {
+        $request = $this->createFromSiteRequest($create_template_from_site_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\Template' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Template', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\Template';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Template',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createFromSiteAsync
+     *
+     * Create a new Template based on an existing site
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromSiteRequest $create_template_from_site_request (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createFromSiteAsync($create_template_from_site_request)
+    {
+        return $this->createFromSiteAsyncWithHttpInfo($create_template_from_site_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createFromSiteAsyncWithHttpInfo
+     *
+     * Create a new Template based on an existing site
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromSiteRequest $create_template_from_site_request (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createFromSiteAsyncWithHttpInfo($create_template_from_site_request)
+    {
+        $returnType = '\OpenAPI\Client\Model\Template';
+        $request = $this->createFromSiteRequest($create_template_from_site_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createFromSite'
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromSiteRequest $create_template_from_site_request (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createFromSiteRequest($create_template_from_site_request)
+    {
+        // verify the required parameter 'create_template_from_site_request' is set
+        if ($create_template_from_site_request === null || (is_array($create_template_from_site_request) && count($create_template_from_site_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $create_template_from_site_request when calling createFromSite'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/templates/fromsite';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_template_from_site_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_template_from_site_request));
+            } else {
+                $httpBody = $create_template_from_site_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createFromTemplate
+     *
+     * Create a new Template based on an existing one
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest $create_template_from_template_request create_template_from_template_request (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error
+     */
+    public function createFromTemplate($create_template_from_template_request)
+    {
+        list($response) = $this->createFromTemplateWithHttpInfo($create_template_from_template_request);
+        return $response;
+    }
+
+    /**
+     * Operation createFromTemplateWithHttpInfo
+     *
+     * Create a new Template based on an existing one
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest $create_template_from_template_request (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createFromTemplateWithHttpInfo($create_template_from_template_request)
+    {
+        $request = $this->createFromTemplateRequest($create_template_from_template_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\Template' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Template', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\Template';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Template',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createFromTemplateAsync
+     *
+     * Create a new Template based on an existing one
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest $create_template_from_template_request (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createFromTemplateAsync($create_template_from_template_request)
+    {
+        return $this->createFromTemplateAsyncWithHttpInfo($create_template_from_template_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createFromTemplateAsyncWithHttpInfo
+     *
+     * Create a new Template based on an existing one
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest $create_template_from_template_request (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createFromTemplateAsyncWithHttpInfo($create_template_from_template_request)
+    {
+        $returnType = '\OpenAPI\Client\Model\Template';
+        $request = $this->createFromTemplateRequest($create_template_from_template_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createFromTemplate'
+     *
+     * @param  \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest $create_template_from_template_request (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createFromTemplateRequest($create_template_from_template_request)
+    {
+        // verify the required parameter 'create_template_from_template_request' is set
+        if ($create_template_from_template_request === null || (is_array($create_template_from_template_request) && count($create_template_from_template_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $create_template_from_template_request when calling createFromTemplate'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/templates/fromtemplate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_template_from_template_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_template_from_template_request));
+            } else {
+                $httpBody = $create_template_from_template_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteTemplate
+     *
+     * Delete a custom Template.
+     *
+     * @param  string $template_id ID of the template to delete (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteTemplate($template_id)
+    {
+        $this->deleteTemplateWithHttpInfo($template_id);
+    }
+
+    /**
+     * Operation deleteTemplateWithHttpInfo
+     *
+     * Delete a custom Template.
+     *
+     * @param  string $template_id ID of the template to delete (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteTemplateWithHttpInfo($template_id)
+    {
+        $request = $this->deleteTemplateRequest($template_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteTemplateAsync
+     *
+     * Delete a custom Template.
+     *
+     * @param  string $template_id ID of the template to delete (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTemplateAsync($template_id)
+    {
+        return $this->deleteTemplateAsyncWithHttpInfo($template_id)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteTemplateAsyncWithHttpInfo
+     *
+     * Delete a custom Template.
+     *
+     * @param  string $template_id ID of the template to delete (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTemplateAsyncWithHttpInfo($template_id)
+    {
+        $returnType = '';
+        $request = $this->deleteTemplateRequest($template_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteTemplate'
+     *
+     * @param  string $template_id ID of the template to delete (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteTemplateRequest($template_id)
+    {
+        // verify the required parameter 'template_id' is set
+        if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $template_id when calling deleteTemplate'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/templates/{template_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($template_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'template_id' . '}',
+                ObjectSerializer::toPathValue($template_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'DELETE',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTemplate
+     *
+     * Get the details of a Template.
+     *
+     * @param  string $template_id ID associated with a template (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error
+     */
+    public function getTemplate($template_id)
+    {
+        list($response) = $this->getTemplateWithHttpInfo($template_id);
+        return $response;
+    }
+
+    /**
+     * Operation getTemplateWithHttpInfo
+     *
+     * Get the details of a Template.
+     *
+     * @param  string $template_id ID associated with a template (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTemplateWithHttpInfo($template_id)
+    {
+        $request = $this->getTemplateRequest($template_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\Template' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Template', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\Template';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Template',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTemplateAsync
+     *
+     * Get the details of a Template.
+     *
+     * @param  string $template_id ID associated with a template (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTemplateAsync($template_id)
+    {
+        return $this->getTemplateAsyncWithHttpInfo($template_id)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTemplateAsyncWithHttpInfo
+     *
+     * Get the details of a Template.
+     *
+     * @param  string $template_id ID associated with a template (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTemplateAsyncWithHttpInfo($template_id)
+    {
+        $returnType = '\OpenAPI\Client\Model\Template';
+        $request = $this->getTemplateRequest($template_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTemplate'
+     *
+     * @param  string $template_id ID associated with a template (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTemplateRequest($template_id)
+    {
+        // verify the required parameter 'template_id' is set
+        if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $template_id when calling getTemplate'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/templates/{template_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($template_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'template_id' . '}',
+                ObjectSerializer::toPathValue($template_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listTemplates
      *
      * Get all available Templates.
      *
@@ -125,14 +1244,14 @@ class TemplateApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Template[]|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenTemplatesGet()
+    public function listTemplates()
     {
-        list($response) = $this->sitesMultiscreenTemplatesGetWithHttpInfo();
+        list($response) = $this->listTemplatesWithHttpInfo();
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesGetWithHttpInfo
+     * Operation listTemplatesWithHttpInfo
      *
      * Get all available Templates.
      *
@@ -141,9 +1260,9 @@ class TemplateApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Template[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenTemplatesGetWithHttpInfo()
+    public function listTemplatesWithHttpInfo()
     {
-        $request = $this->sitesMultiscreenTemplatesGetRequest();
+        $request = $this->listTemplatesRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -244,7 +1363,7 @@ class TemplateApi
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesGetAsync
+     * Operation listTemplatesAsync
      *
      * Get all available Templates.
      *
@@ -252,9 +1371,9 @@ class TemplateApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenTemplatesGetAsync()
+    public function listTemplatesAsync()
     {
-        return $this->sitesMultiscreenTemplatesGetAsyncWithHttpInfo()
+        return $this->listTemplatesAsyncWithHttpInfo()
             ->then(
                 function ($response) {
                     return $response[0];
@@ -263,7 +1382,7 @@ class TemplateApi
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesGetAsyncWithHttpInfo
+     * Operation listTemplatesAsyncWithHttpInfo
      *
      * Get all available Templates.
      *
@@ -271,10 +1390,10 @@ class TemplateApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenTemplatesGetAsyncWithHttpInfo()
+    public function listTemplatesAsyncWithHttpInfo()
     {
         $returnType = '\OpenAPI\Client\Model\Template[]';
-        $request = $this->sitesMultiscreenTemplatesGetRequest();
+        $request = $this->listTemplatesRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -310,13 +1429,13 @@ class TemplateApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenTemplatesGet'
+     * Create request for operation 'listTemplates'
      *
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenTemplatesGetRequest()
+    public function listTemplatesRequest()
     {
 
         $resourcePath = '/sites/multiscreen/templates';
@@ -392,328 +1511,37 @@ class TemplateApi
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesPost
+     * Operation updateTemplate
      *
-     * Create a new Template based on an existing one
+     * Update the name of a custom Template.
      *
-     * @param  \OpenAPI\Client\Model\InlineObject4 $inline_object4 inline_object4 (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenTemplatesPost($inline_object4)
-    {
-        list($response) = $this->sitesMultiscreenTemplatesPostWithHttpInfo($inline_object4);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesPostWithHttpInfo
-     *
-     * Create a new Template based on an existing one
-     *
-     * @param  \OpenAPI\Client\Model\InlineObject4 $inline_object4 (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenTemplatesPostWithHttpInfo($inline_object4)
-    {
-        $request = $this->sitesMultiscreenTemplatesPostRequest($inline_object4);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\Template' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Template', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\Template';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Template',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesPostAsync
-     *
-     * Create a new Template based on an existing one
-     *
-     * @param  \OpenAPI\Client\Model\InlineObject4 $inline_object4 (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenTemplatesPostAsync($inline_object4)
-    {
-        return $this->sitesMultiscreenTemplatesPostAsyncWithHttpInfo($inline_object4)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesPostAsyncWithHttpInfo
-     *
-     * Create a new Template based on an existing one
-     *
-     * @param  \OpenAPI\Client\Model\InlineObject4 $inline_object4 (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenTemplatesPostAsyncWithHttpInfo($inline_object4)
-    {
-        $returnType = '\OpenAPI\Client\Model\Template';
-        $request = $this->sitesMultiscreenTemplatesPostRequest($inline_object4);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenTemplatesPost'
-     *
-     * @param  \OpenAPI\Client\Model\InlineObject4 $inline_object4 (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenTemplatesPostRequest($inline_object4)
-    {
-        // verify the required parameter 'inline_object4' is set
-        if ($inline_object4 === null || (is_array($inline_object4) && count($inline_object4) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $inline_object4 when calling sitesMultiscreenTemplatesPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/templates';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object4)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object4));
-            } else {
-                $httpBody = $inline_object4;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdDelete
-     *
-     * Delete a custom Template.
-     *
-     * @param  string $template_id ID of the template to delete (required)
+     * @param  string $template_id ID associated with a template (required)
+     * @param  \OpenAPI\Client\Model\UpdateTemplateRequest $update_template_request update_template_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenTemplatesTemplateIdDelete($template_id)
+    public function updateTemplate($template_id, $update_template_request = null)
     {
-        $this->sitesMultiscreenTemplatesTemplateIdDeleteWithHttpInfo($template_id);
+        $this->updateTemplateWithHttpInfo($template_id, $update_template_request);
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesTemplateIdDeleteWithHttpInfo
+     * Operation updateTemplateWithHttpInfo
      *
-     * Delete a custom Template.
+     * Update the name of a custom Template.
      *
-     * @param  string $template_id ID of the template to delete (required)
+     * @param  string $template_id ID associated with a template (required)
+     * @param  \OpenAPI\Client\Model\UpdateTemplateRequest $update_template_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenTemplatesTemplateIdDeleteWithHttpInfo($template_id)
+    public function updateTemplateWithHttpInfo($template_id, $update_template_request = null)
     {
-        $request = $this->sitesMultiscreenTemplatesTemplateIdDeleteRequest($template_id);
+        $request = $this->updateTemplateRequest($template_id, $update_template_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -768,18 +1596,19 @@ class TemplateApi
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesTemplateIdDeleteAsync
+     * Operation updateTemplateAsync
      *
-     * Delete a custom Template.
+     * Update the name of a custom Template.
      *
-     * @param  string $template_id ID of the template to delete (required)
+     * @param  string $template_id ID associated with a template (required)
+     * @param  \OpenAPI\Client\Model\UpdateTemplateRequest $update_template_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenTemplatesTemplateIdDeleteAsync($template_id)
+    public function updateTemplateAsync($template_id, $update_template_request = null)
     {
-        return $this->sitesMultiscreenTemplatesTemplateIdDeleteAsyncWithHttpInfo($template_id)
+        return $this->updateTemplateAsyncWithHttpInfo($template_id, $update_template_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -788,19 +1617,20 @@ class TemplateApi
     }
 
     /**
-     * Operation sitesMultiscreenTemplatesTemplateIdDeleteAsyncWithHttpInfo
+     * Operation updateTemplateAsyncWithHttpInfo
      *
-     * Delete a custom Template.
+     * Update the name of a custom Template.
      *
-     * @param  string $template_id ID of the template to delete (required)
+     * @param  string $template_id ID associated with a template (required)
+     * @param  \OpenAPI\Client\Model\UpdateTemplateRequest $update_template_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenTemplatesTemplateIdDeleteAsyncWithHttpInfo($template_id)
+    public function updateTemplateAsyncWithHttpInfo($template_id, $update_template_request = null)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenTemplatesTemplateIdDeleteRequest($template_id);
+        $request = $this->updateTemplateRequest($template_id, $update_template_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -826,557 +1656,20 @@ class TemplateApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenTemplatesTemplateIdDelete'
+     * Create request for operation 'updateTemplate'
      *
-     * @param  string $template_id ID of the template to delete (required)
+     * @param  string $template_id ID associated with a template (required)
+     * @param  \OpenAPI\Client\Model\UpdateTemplateRequest $update_template_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenTemplatesTemplateIdDeleteRequest($template_id)
+    public function updateTemplateRequest($template_id, $update_template_request = null)
     {
         // verify the required parameter 'template_id' is set
         if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $template_id when calling sitesMultiscreenTemplatesTemplateIdDelete'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/templates/{template_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($template_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'template_id' . '}',
-                ObjectSerializer::toPathValue($template_id),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'DELETE',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdGet
-     *
-     * Get the details of a Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenTemplatesTemplateIdGet($template_id)
-    {
-        list($response) = $this->sitesMultiscreenTemplatesTemplateIdGetWithHttpInfo($template_id);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdGetWithHttpInfo
-     *
-     * Get the details of a Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Template|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenTemplatesTemplateIdGetWithHttpInfo($template_id)
-    {
-        $request = $this->sitesMultiscreenTemplatesTemplateIdGetRequest($template_id);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\Template' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Template', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\Template';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Template',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdGetAsync
-     *
-     * Get the details of a Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenTemplatesTemplateIdGetAsync($template_id)
-    {
-        return $this->sitesMultiscreenTemplatesTemplateIdGetAsyncWithHttpInfo($template_id)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdGetAsyncWithHttpInfo
-     *
-     * Get the details of a Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenTemplatesTemplateIdGetAsyncWithHttpInfo($template_id)
-    {
-        $returnType = '\OpenAPI\Client\Model\Template';
-        $request = $this->sitesMultiscreenTemplatesTemplateIdGetRequest($template_id);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenTemplatesTemplateIdGet'
-     *
-     * @param  string $template_id ID associated with a template (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenTemplatesTemplateIdGetRequest($template_id)
-    {
-        // verify the required parameter 'template_id' is set
-        if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $template_id when calling sitesMultiscreenTemplatesTemplateIdGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/templates/{template_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($template_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'template_id' . '}',
-                ObjectSerializer::toPathValue($template_id),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdPost
-     *
-     * Update the name of a custom Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     * @param  \OpenAPI\Client\Model\InlineObject5 $inline_object5 inline_object5 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenTemplatesTemplateIdPost($template_id, $inline_object5 = null)
-    {
-        $this->sitesMultiscreenTemplatesTemplateIdPostWithHttpInfo($template_id, $inline_object5);
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdPostWithHttpInfo
-     *
-     * Update the name of a custom Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     * @param  \OpenAPI\Client\Model\InlineObject5 $inline_object5 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenTemplatesTemplateIdPostWithHttpInfo($template_id, $inline_object5 = null)
-    {
-        $request = $this->sitesMultiscreenTemplatesTemplateIdPostRequest($template_id, $inline_object5);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdPostAsync
-     *
-     * Update the name of a custom Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     * @param  \OpenAPI\Client\Model\InlineObject5 $inline_object5 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenTemplatesTemplateIdPostAsync($template_id, $inline_object5 = null)
-    {
-        return $this->sitesMultiscreenTemplatesTemplateIdPostAsyncWithHttpInfo($template_id, $inline_object5)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenTemplatesTemplateIdPostAsyncWithHttpInfo
-     *
-     * Update the name of a custom Template.
-     *
-     * @param  string $template_id ID associated with a template (required)
-     * @param  \OpenAPI\Client\Model\InlineObject5 $inline_object5 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenTemplatesTemplateIdPostAsyncWithHttpInfo($template_id, $inline_object5 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenTemplatesTemplateIdPostRequest($template_id, $inline_object5);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenTemplatesTemplateIdPost'
-     *
-     * @param  string $template_id ID associated with a template (required)
-     * @param  \OpenAPI\Client\Model\InlineObject5 $inline_object5 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenTemplatesTemplateIdPostRequest($template_id, $inline_object5 = null)
-    {
-        // verify the required parameter 'template_id' is set
-        if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $template_id when calling sitesMultiscreenTemplatesTemplateIdPost'
+                'Missing the required parameter $template_id when calling updateTemplate'
             );
         }
 
@@ -1411,11 +1704,11 @@ class TemplateApi
         }
 
         // for model (json/xml)
-        if (isset($inline_object5)) {
+        if (isset($update_template_request)) {
             if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object5));
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($update_template_request));
             } else {
-                $httpBody = $inline_object5;
+                $httpBody = $update_template_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

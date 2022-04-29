@@ -60,7 +60,7 @@ class Collection implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'name' => 'string',
-        'customer_lock' => 'string',
+        'customer_lock' => '\OpenAPI\Client\Model\CustomerLock',
         'fields' => '\OpenAPI\Client\Model\Field[]',
         'values' => '\OpenAPI\Client\Model\CollectionValues[]',
         'external_details' => '\OpenAPI\Client\Model\ExternalDetails'
@@ -182,23 +182,6 @@ class Collection implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const CUSTOMER_LOCK_UNLOCKED = 'unlocked';
-    const CUSTOMER_LOCK_STRUCTURE_LOCKED = 'structure_locked';
-    const CUSTOMER_LOCK_LOCKED = 'locked';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getCustomerLockAllowableValues()
-    {
-        return [
-            self::CUSTOMER_LOCK_UNLOCKED,
-            self::CUSTOMER_LOCK_STRUCTURE_LOCKED,
-            self::CUSTOMER_LOCK_LOCKED,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -230,15 +213,6 @@ class Collection implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        $allowedValues = $this->getCustomerLockAllowableValues();
-        if (!is_null($this->container['customer_lock']) && !in_array($this->container['customer_lock'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'customer_lock', must be one of '%s'",
-                $this->container['customer_lock'],
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -282,7 +256,7 @@ class Collection implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets customer_lock
      *
-     * @return string|null
+     * @return \OpenAPI\Client\Model\CustomerLock|null
      */
     public function getCustomerLock()
     {
@@ -292,22 +266,12 @@ class Collection implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets customer_lock
      *
-     * @param string|null $customer_lock customer_lock
+     * @param \OpenAPI\Client\Model\CustomerLock|null $customer_lock customer_lock
      *
      * @return self
      */
     public function setCustomerLock($customer_lock)
     {
-        $allowedValues = $this->getCustomerLockAllowableValues();
-        if (!is_null($customer_lock) && !in_array($customer_lock, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'customer_lock', must be one of '%s'",
-                    $customer_lock,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['customer_lock'] = $customer_lock;
 
         return $this;

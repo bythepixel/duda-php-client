@@ -116,2148 +116,7 @@ class ReportingApi
     }
 
     /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailDelete
-     *
-     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailDelete($account_name, $site_name)
-    {
-        $this->accountsAccountNameSitesSiteNameStatsEmailDeleteWithHttpInfo($account_name, $site_name);
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailDeleteWithHttpInfo
-     *
-     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailDeleteWithHttpInfo($account_name, $site_name)
-    {
-        $request = $this->accountsAccountNameSitesSiteNameStatsEmailDeleteRequest($account_name, $site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailDeleteAsync
-     *
-     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailDeleteAsync($account_name, $site_name)
-    {
-        return $this->accountsAccountNameSitesSiteNameStatsEmailDeleteAsyncWithHttpInfo($account_name, $site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailDeleteAsyncWithHttpInfo
-     *
-     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailDeleteAsyncWithHttpInfo($account_name, $site_name)
-    {
-        $returnType = '';
-        $request = $this->accountsAccountNameSitesSiteNameStatsEmailDeleteRequest($account_name, $site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'accountsAccountNameSitesSiteNameStatsEmailDelete'
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailDeleteRequest($account_name, $site_name)
-    {
-        // verify the required parameter 'account_name' is set
-        if ($account_name === null || (is_array($account_name) && count($account_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $account_name when calling accountsAccountNameSitesSiteNameStatsEmailDelete'
-            );
-        }
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling accountsAccountNameSitesSiteNameStatsEmailDelete'
-            );
-        }
-
-        $resourcePath = '/accounts/{account_name}/sites/{site_name}/stats-email';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($account_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'account_name' . '}',
-                ObjectSerializer::toPathValue($account_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'DELETE',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailGet
-     *
-     * Get the status of stats emails for a customer on a given site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2008|\OpenAPI\Client\Model\Error
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailGet($account_name, $site_name)
-    {
-        list($response) = $this->accountsAccountNameSitesSiteNameStatsEmailGetWithHttpInfo($account_name, $site_name);
-        return $response;
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailGetWithHttpInfo
-     *
-     * Get the status of stats emails for a customer on a given site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2008|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailGetWithHttpInfo($account_name, $site_name)
-    {
-        $request = $this->accountsAccountNameSitesSiteNameStatsEmailGetRequest($account_name, $site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2008' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2008', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2008';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2008',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailGetAsync
-     *
-     * Get the status of stats emails for a customer on a given site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailGetAsync($account_name, $site_name)
-    {
-        return $this->accountsAccountNameSitesSiteNameStatsEmailGetAsyncWithHttpInfo($account_name, $site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailGetAsyncWithHttpInfo
-     *
-     * Get the status of stats emails for a customer on a given site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailGetAsyncWithHttpInfo($account_name, $site_name)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2008';
-        $request = $this->accountsAccountNameSitesSiteNameStatsEmailGetRequest($account_name, $site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'accountsAccountNameSitesSiteNameStatsEmailGet'
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailGetRequest($account_name, $site_name)
-    {
-        // verify the required parameter 'account_name' is set
-        if ($account_name === null || (is_array($account_name) && count($account_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $account_name when calling accountsAccountNameSitesSiteNameStatsEmailGet'
-            );
-        }
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling accountsAccountNameSitesSiteNameStatsEmailGet'
-            );
-        }
-
-        $resourcePath = '/accounts/{account_name}/sites/{site_name}/stats-email';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($account_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'account_name' . '}',
-                ObjectSerializer::toPathValue($account_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailPost
-     *
-     * Subscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject15 $inline_object15 inline_object15 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailPost($account_name, $site_name, $inline_object15 = null)
-    {
-        $this->accountsAccountNameSitesSiteNameStatsEmailPostWithHttpInfo($account_name, $site_name, $inline_object15);
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailPostWithHttpInfo
-     *
-     * Subscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject15 $inline_object15 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailPostWithHttpInfo($account_name, $site_name, $inline_object15 = null)
-    {
-        $request = $this->accountsAccountNameSitesSiteNameStatsEmailPostRequest($account_name, $site_name, $inline_object15);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailPostAsync
-     *
-     * Subscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject15 $inline_object15 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailPostAsync($account_name, $site_name, $inline_object15 = null)
-    {
-        return $this->accountsAccountNameSitesSiteNameStatsEmailPostAsyncWithHttpInfo($account_name, $site_name, $inline_object15)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation accountsAccountNameSitesSiteNameStatsEmailPostAsyncWithHttpInfo
-     *
-     * Subscribe a customer (or staff member) to statistics emails for a specific site.
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject15 $inline_object15 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailPostAsyncWithHttpInfo($account_name, $site_name, $inline_object15 = null)
-    {
-        $returnType = '';
-        $request = $this->accountsAccountNameSitesSiteNameStatsEmailPostRequest($account_name, $site_name, $inline_object15);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'accountsAccountNameSitesSiteNameStatsEmailPost'
-     *
-     * @param  string $account_name The account name is a unique reference to the account (required)
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject15 $inline_object15 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function accountsAccountNameSitesSiteNameStatsEmailPostRequest($account_name, $site_name, $inline_object15 = null)
-    {
-        // verify the required parameter 'account_name' is set
-        if ($account_name === null || (is_array($account_name) && count($account_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $account_name when calling accountsAccountNameSitesSiteNameStatsEmailPost'
-            );
-        }
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling accountsAccountNameSitesSiteNameStatsEmailPost'
-            );
-        }
-
-        $resourcePath = '/accounts/{account_name}/sites/{site_name}/stats-email';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($account_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'account_name' . '}',
-                ObjectSerializer::toPathValue($account_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object15)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object15));
-            } else {
-                $httpBody = $inline_object15;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation multiscreenAnalyticsSiteSiteNameGet
-     *
-     * Get analytics history for a specific website over a certain amount of time.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     * @param  string $dimension The type of dimension to query the data by. (optional)
-     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
-     * @param  string $date_granularity date_granularity (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return OneOfAnalyticsActivitiesAnalyticsTraffic[]|\OpenAPI\Client\Model\Error
-     */
-    public function multiscreenAnalyticsSiteSiteNameGet($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
-    {
-        list($response) = $this->multiscreenAnalyticsSiteSiteNameGetWithHttpInfo($site_name, $from, $to, $dimension, $result, $date_granularity);
-        return $response;
-    }
-
-    /**
-     * Operation multiscreenAnalyticsSiteSiteNameGetWithHttpInfo
-     *
-     * Get analytics history for a specific website over a certain amount of time.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     * @param  string $dimension The type of dimension to query the data by. (optional)
-     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
-     * @param  string $date_granularity (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of OneOfAnalyticsActivitiesAnalyticsTraffic[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function multiscreenAnalyticsSiteSiteNameGetWithHttpInfo($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
-    {
-        $request = $this->multiscreenAnalyticsSiteSiteNameGetRequest($site_name, $from, $to, $dimension, $result, $date_granularity);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('OneOfAnalyticsActivitiesAnalyticsTraffic[]' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, 'OneOfAnalyticsActivitiesAnalyticsTraffic[]', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = 'OneOfAnalyticsActivitiesAnalyticsTraffic[]';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        'OneOfAnalyticsActivitiesAnalyticsTraffic[]',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation multiscreenAnalyticsSiteSiteNameGetAsync
-     *
-     * Get analytics history for a specific website over a certain amount of time.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     * @param  string $dimension The type of dimension to query the data by. (optional)
-     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
-     * @param  string $date_granularity (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function multiscreenAnalyticsSiteSiteNameGetAsync($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
-    {
-        return $this->multiscreenAnalyticsSiteSiteNameGetAsyncWithHttpInfo($site_name, $from, $to, $dimension, $result, $date_granularity)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation multiscreenAnalyticsSiteSiteNameGetAsyncWithHttpInfo
-     *
-     * Get analytics history for a specific website over a certain amount of time.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     * @param  string $dimension The type of dimension to query the data by. (optional)
-     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
-     * @param  string $date_granularity (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function multiscreenAnalyticsSiteSiteNameGetAsyncWithHttpInfo($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
-    {
-        $returnType = 'OneOfAnalyticsActivitiesAnalyticsTraffic[]';
-        $request = $this->multiscreenAnalyticsSiteSiteNameGetRequest($site_name, $from, $to, $dimension, $result, $date_granularity);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'multiscreenAnalyticsSiteSiteNameGet'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     * @param  string $dimension The type of dimension to query the data by. (optional)
-     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
-     * @param  string $date_granularity (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function multiscreenAnalyticsSiteSiteNameGetRequest($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling multiscreenAnalyticsSiteSiteNameGet'
-            );
-        }
-
-        $resourcePath = '/multiscreen/analytics/site/{site_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        if ($from !== null) {
-            if('form' === 'form' && is_array($from)) {
-                foreach($from as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['from'] = $from;
-            }
-        }
-        // query params
-        if ($to !== null) {
-            if('form' === 'form' && is_array($to)) {
-                foreach($to as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['to'] = $to;
-            }
-        }
-        // query params
-        if ($dimension !== null) {
-            if('form' === 'form' && is_array($dimension)) {
-                foreach($dimension as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['dimension'] = $dimension;
-            }
-        }
-        // query params
-        if ($result !== null) {
-            if('form' === 'form' && is_array($result)) {
-                foreach($result as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['result'] = $result;
-            }
-        }
-        // query params
-        if ($date_granularity !== null) {
-            if('form' === 'form' && is_array($date_granularity)) {
-                foreach($date_granularity as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['dateGranularity'] = $date_granularity;
-            }
-        }
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenCreatedGet
-     *
-     * Get a list of Sites created within a span of time.
-     *
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return string[]|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenCreatedGet($from = null, $to = null)
-    {
-        list($response) = $this->sitesMultiscreenCreatedGetWithHttpInfo($from, $to);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenCreatedGetWithHttpInfo
-     *
-     * Get a list of Sites created within a span of time.
-     *
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of string[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenCreatedGetWithHttpInfo($from = null, $to = null)
-    {
-        $request = $this->sitesMultiscreenCreatedGetRequest($from, $to);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('string[]' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, 'string[]', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = 'string[]';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        'string[]',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenCreatedGetAsync
-     *
-     * Get a list of Sites created within a span of time.
-     *
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenCreatedGetAsync($from = null, $to = null)
-    {
-        return $this->sitesMultiscreenCreatedGetAsyncWithHttpInfo($from, $to)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenCreatedGetAsyncWithHttpInfo
-     *
-     * Get a list of Sites created within a span of time.
-     *
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenCreatedGetAsyncWithHttpInfo($from = null, $to = null)
-    {
-        $returnType = 'string[]';
-        $request = $this->sitesMultiscreenCreatedGetRequest($from, $to);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenCreatedGet'
-     *
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenCreatedGetRequest($from = null, $to = null)
-    {
-
-        $resourcePath = '/sites/multiscreen/created';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        if ($from !== null) {
-            if('form' === 'form' && is_array($from)) {
-                foreach($from as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['from'] = $from;
-            }
-        }
-        // query params
-        if ($to !== null) {
-            if('form' === 'form' && is_array($to)) {
-                foreach($to as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['to'] = $to;
-            }
-        }
-
-
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenGetFormsSiteNameGet
-     *
-     * Get all the contact form submissions from a given site.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Form[]|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenGetFormsSiteNameGet($site_name, $from = null, $to = null)
-    {
-        list($response) = $this->sitesMultiscreenGetFormsSiteNameGetWithHttpInfo($site_name, $from, $to);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenGetFormsSiteNameGetWithHttpInfo
-     *
-     * Get all the contact form submissions from a given site.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Form[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenGetFormsSiteNameGetWithHttpInfo($site_name, $from = null, $to = null)
-    {
-        $request = $this->sitesMultiscreenGetFormsSiteNameGetRequest($site_name, $from, $to);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\Form[]' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Form[]', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\Form[]';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Form[]',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenGetFormsSiteNameGetAsync
-     *
-     * Get all the contact form submissions from a given site.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenGetFormsSiteNameGetAsync($site_name, $from = null, $to = null)
-    {
-        return $this->sitesMultiscreenGetFormsSiteNameGetAsyncWithHttpInfo($site_name, $from, $to)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenGetFormsSiteNameGetAsyncWithHttpInfo
-     *
-     * Get all the contact form submissions from a given site.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenGetFormsSiteNameGetAsyncWithHttpInfo($site_name, $from = null, $to = null)
-    {
-        $returnType = '\OpenAPI\Client\Model\Form[]';
-        $request = $this->sitesMultiscreenGetFormsSiteNameGetRequest($site_name, $from, $to);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenGetFormsSiteNameGet'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $from Start date (optional)
-     * @param  string $to End date (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenGetFormsSiteNameGetRequest($site_name, $from = null, $to = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenGetFormsSiteNameGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/get-forms/{site_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        if ($from !== null) {
-            if('form' === 'form' && is_array($from)) {
-                foreach($from as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['from'] = $from;
-            }
-        }
-        // query params
-        if ($to !== null) {
-            if('form' === 'form' && is_array($to)) {
-                foreach($to as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['to'] = $to;
-            }
-        }
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenPublishedGet
-     *
-     * Get a list of recently published websites in your account.
-     *
-     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return string[]|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenPublishedGet($last_days = null)
-    {
-        list($response) = $this->sitesMultiscreenPublishedGetWithHttpInfo($last_days);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenPublishedGetWithHttpInfo
-     *
-     * Get a list of recently published websites in your account.
-     *
-     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of string[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenPublishedGetWithHttpInfo($last_days = null)
-    {
-        $request = $this->sitesMultiscreenPublishedGetRequest($last_days);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('string[]' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, 'string[]', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = 'string[]';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        'string[]',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenPublishedGetAsync
-     *
-     * Get a list of recently published websites in your account.
-     *
-     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenPublishedGetAsync($last_days = null)
-    {
-        return $this->sitesMultiscreenPublishedGetAsyncWithHttpInfo($last_days)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenPublishedGetAsyncWithHttpInfo
-     *
-     * Get a list of recently published websites in your account.
-     *
-     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenPublishedGetAsyncWithHttpInfo($last_days = null)
-    {
-        $returnType = 'string[]';
-        $request = $this->sitesMultiscreenPublishedGetRequest($last_days);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenPublishedGet'
-     *
-     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenPublishedGetRequest($last_days = null)
-    {
-
-        $resourcePath = '/sites/multiscreen/published';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        if ($last_days !== null) {
-            if('form' === 'form' && is_array($last_days)) {
-                foreach($last_days as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['lastDays'] = $last_days;
-            }
-        }
-
-
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameActivitiesGet
+     * Operation activities
      *
      * Get activity history for a specific website over a certain amount of time.
      *
@@ -2272,14 +131,14 @@ class ReportingApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Activity[]|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteNameActivitiesGet($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
+    public function activities($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
     {
-        list($response) = $this->sitesMultiscreenSiteNameActivitiesGetWithHttpInfo($site_name, $limit, $offset, $from, $to, $activities);
+        list($response) = $this->activitiesWithHttpInfo($site_name, $limit, $offset, $from, $to, $activities);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameActivitiesGetWithHttpInfo
+     * Operation activitiesWithHttpInfo
      *
      * Get activity history for a specific website over a certain amount of time.
      *
@@ -2294,9 +153,9 @@ class ReportingApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Activity[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameActivitiesGetWithHttpInfo($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
+    public function activitiesWithHttpInfo($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
     {
-        $request = $this->sitesMultiscreenSiteNameActivitiesGetRequest($site_name, $limit, $offset, $from, $to, $activities);
+        $request = $this->activitiesRequest($site_name, $limit, $offset, $from, $to, $activities);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2397,7 +256,7 @@ class ReportingApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameActivitiesGetAsync
+     * Operation activitiesAsync
      *
      * Get activity history for a specific website over a certain amount of time.
      *
@@ -2411,9 +270,9 @@ class ReportingApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameActivitiesGetAsync($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
+    public function activitiesAsync($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
     {
-        return $this->sitesMultiscreenSiteNameActivitiesGetAsyncWithHttpInfo($site_name, $limit, $offset, $from, $to, $activities)
+        return $this->activitiesAsyncWithHttpInfo($site_name, $limit, $offset, $from, $to, $activities)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2422,7 +281,7 @@ class ReportingApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameActivitiesGetAsyncWithHttpInfo
+     * Operation activitiesAsyncWithHttpInfo
      *
      * Get activity history for a specific website over a certain amount of time.
      *
@@ -2436,10 +295,10 @@ class ReportingApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameActivitiesGetAsyncWithHttpInfo($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
+    public function activitiesAsyncWithHttpInfo($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
     {
         $returnType = '\OpenAPI\Client\Model\Activity[]';
-        $request = $this->sitesMultiscreenSiteNameActivitiesGetRequest($site_name, $limit, $offset, $from, $to, $activities);
+        $request = $this->activitiesRequest($site_name, $limit, $offset, $from, $to, $activities);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2475,7 +334,7 @@ class ReportingApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameActivitiesGet'
+     * Create request for operation 'activities'
      *
      * @param  string $site_name Site name (required)
      * @param  int $limit Items to be retrieved per page. Lower bound: 1, Upper bound: 100 (optional)
@@ -2487,12 +346,12 @@ class ReportingApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameActivitiesGetRequest($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
+    public function activitiesRequest($site_name, $limit = null, $offset = null, $from = null, $to = null, $activities = null)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameActivitiesGet'
+                'Missing the required parameter $site_name when calling activities'
             );
         }
 
@@ -2632,36 +491,1054 @@ class ReportingApi
     }
 
     /**
-     * Operation sitesMultiscreenUnpublishedGet
+     * Operation analytics
      *
-     * Get a list of recently unpublished websites in your account.
+     * Get analytics history for a specific website over a certain amount of time.
      *
-     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     * @param  string $dimension The type of dimension to query the data by. (optional)
+     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
+     * @param  string $date_granularity date_granularity (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return OneOfAnalyticsActivitiesAnalyticsTraffic[]|\OpenAPI\Client\Model\Error
+     */
+    public function analytics($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
+    {
+        list($response) = $this->analyticsWithHttpInfo($site_name, $from, $to, $dimension, $result, $date_granularity);
+        return $response;
+    }
+
+    /**
+     * Operation analyticsWithHttpInfo
+     *
+     * Get analytics history for a specific website over a certain amount of time.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     * @param  string $dimension The type of dimension to query the data by. (optional)
+     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
+     * @param  string $date_granularity (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of OneOfAnalyticsActivitiesAnalyticsTraffic[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function analyticsWithHttpInfo($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
+    {
+        $request = $this->analyticsRequest($site_name, $from, $to, $dimension, $result, $date_granularity);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('OneOfAnalyticsActivitiesAnalyticsTraffic[]' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'OneOfAnalyticsActivitiesAnalyticsTraffic[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = 'OneOfAnalyticsActivitiesAnalyticsTraffic[]';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'OneOfAnalyticsActivitiesAnalyticsTraffic[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation analyticsAsync
+     *
+     * Get analytics history for a specific website over a certain amount of time.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     * @param  string $dimension The type of dimension to query the data by. (optional)
+     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
+     * @param  string $date_granularity (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function analyticsAsync($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
+    {
+        return $this->analyticsAsyncWithHttpInfo($site_name, $from, $to, $dimension, $result, $date_granularity)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation analyticsAsyncWithHttpInfo
+     *
+     * Get analytics history for a specific website over a certain amount of time.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     * @param  string $dimension The type of dimension to query the data by. (optional)
+     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
+     * @param  string $date_granularity (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function analyticsAsyncWithHttpInfo($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
+    {
+        $returnType = 'OneOfAnalyticsActivitiesAnalyticsTraffic[]';
+        $request = $this->analyticsRequest($site_name, $from, $to, $dimension, $result, $date_granularity);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'analytics'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     * @param  string $dimension The type of dimension to query the data by. (optional)
+     * @param  string $result Whether to return results with traffic metrics or activities metric. (optional)
+     * @param  string $date_granularity (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function analyticsRequest($site_name, $from = null, $to = null, $dimension = null, $result = null, $date_granularity = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling analytics'
+            );
+        }
+
+        $resourcePath = '/multiscreen/analytics/site/{site_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($from !== null) {
+            if('form' === 'form' && is_array($from)) {
+                foreach($from as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['from'] = $from;
+            }
+        }
+        // query params
+        if ($to !== null) {
+            if('form' === 'form' && is_array($to)) {
+                foreach($to as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['to'] = $to;
+            }
+        }
+        // query params
+        if ($dimension !== null) {
+            if('form' === 'form' && is_array($dimension)) {
+                foreach($dimension as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['dimension'] = $dimension;
+            }
+        }
+        // query params
+        if ($result !== null) {
+            if('form' === 'form' && is_array($result)) {
+                foreach($result as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['result'] = $result;
+            }
+        }
+        // query params
+        if ($date_granularity !== null) {
+            if('form' === 'form' && is_array($date_granularity)) {
+                foreach($date_granularity as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['dateGranularity'] = $date_granularity;
+            }
+        }
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation emailSettings
+     *
+     * Get the status of stats emails for a customer on a given site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\SubscribeRequest|\OpenAPI\Client\Model\Error
+     */
+    public function emailSettings($account_name, $site_name)
+    {
+        list($response) = $this->emailSettingsWithHttpInfo($account_name, $site_name);
+        return $response;
+    }
+
+    /**
+     * Operation emailSettingsWithHttpInfo
+     *
+     * Get the status of stats emails for a customer on a given site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\SubscribeRequest|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function emailSettingsWithHttpInfo($account_name, $site_name)
+    {
+        $request = $this->emailSettingsRequest($account_name, $site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\SubscribeRequest' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\SubscribeRequest', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\SubscribeRequest';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\SubscribeRequest',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation emailSettingsAsync
+     *
+     * Get the status of stats emails for a customer on a given site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function emailSettingsAsync($account_name, $site_name)
+    {
+        return $this->emailSettingsAsyncWithHttpInfo($account_name, $site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation emailSettingsAsyncWithHttpInfo
+     *
+     * Get the status of stats emails for a customer on a given site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function emailSettingsAsyncWithHttpInfo($account_name, $site_name)
+    {
+        $returnType = '\OpenAPI\Client\Model\SubscribeRequest';
+        $request = $this->emailSettingsRequest($account_name, $site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'emailSettings'
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function emailSettingsRequest($account_name, $site_name)
+    {
+        // verify the required parameter 'account_name' is set
+        if ($account_name === null || (is_array($account_name) && count($account_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_name when calling emailSettings'
+            );
+        }
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling emailSettings'
+            );
+        }
+
+        $resourcePath = '/accounts/{account_name}/sites/{site_name}/stats-email';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_name' . '}',
+                ObjectSerializer::toPathValue($account_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation formSubmissions
+     *
+     * Get all the contact form submissions from a given site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Form[]|\OpenAPI\Client\Model\Error
+     */
+    public function formSubmissions($site_name, $from = null, $to = null)
+    {
+        list($response) = $this->formSubmissionsWithHttpInfo($site_name, $from, $to);
+        return $response;
+    }
+
+    /**
+     * Operation formSubmissionsWithHttpInfo
+     *
+     * Get all the contact form submissions from a given site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\Form[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function formSubmissionsWithHttpInfo($site_name, $from = null, $to = null)
+    {
+        $request = $this->formSubmissionsRequest($site_name, $from, $to);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\Form[]' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Form[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\Form[]';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Form[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation formSubmissionsAsync
+     *
+     * Get all the contact form submissions from a given site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function formSubmissionsAsync($site_name, $from = null, $to = null)
+    {
+        return $this->formSubmissionsAsyncWithHttpInfo($site_name, $from, $to)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation formSubmissionsAsyncWithHttpInfo
+     *
+     * Get all the contact form submissions from a given site.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function formSubmissionsAsyncWithHttpInfo($site_name, $from = null, $to = null)
+    {
+        $returnType = '\OpenAPI\Client\Model\Form[]';
+        $request = $this->formSubmissionsRequest($site_name, $from, $to);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'formSubmissions'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function formSubmissionsRequest($site_name, $from = null, $to = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling formSubmissions'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/get-forms/{site_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($from !== null) {
+            if('form' === 'form' && is_array($from)) {
+                foreach($from as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['from'] = $from;
+            }
+        }
+        // query params
+        if ($to !== null) {
+            if('form' === 'form' && is_array($to)) {
+                foreach($to as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['to'] = $to;
+            }
+        }
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation siteCreated
+     *
+     * Get a list of Sites created within a span of time.
+     *
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return string[]|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenUnpublishedGet($last_days = null)
+    public function siteCreated($from = null, $to = null)
     {
-        list($response) = $this->sitesMultiscreenUnpublishedGetWithHttpInfo($last_days);
+        list($response) = $this->siteCreatedWithHttpInfo($from, $to);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenUnpublishedGetWithHttpInfo
+     * Operation siteCreatedWithHttpInfo
      *
-     * Get a list of recently unpublished websites in your account.
+     * Get a list of Sites created within a span of time.
      *
-     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of string[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenUnpublishedGetWithHttpInfo($last_days = null)
+    public function siteCreatedWithHttpInfo($from = null, $to = null)
     {
-        $request = $this->sitesMultiscreenUnpublishedGetRequest($last_days);
+        $request = $this->siteCreatedRequest($from, $to);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2762,18 +1639,19 @@ class ReportingApi
     }
 
     /**
-     * Operation sitesMultiscreenUnpublishedGetAsync
+     * Operation siteCreatedAsync
      *
-     * Get a list of recently unpublished websites in your account.
+     * Get a list of Sites created within a span of time.
      *
-     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenUnpublishedGetAsync($last_days = null)
+    public function siteCreatedAsync($from = null, $to = null)
     {
-        return $this->sitesMultiscreenUnpublishedGetAsyncWithHttpInfo($last_days)
+        return $this->siteCreatedAsyncWithHttpInfo($from, $to)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2782,19 +1660,20 @@ class ReportingApi
     }
 
     /**
-     * Operation sitesMultiscreenUnpublishedGetAsyncWithHttpInfo
+     * Operation siteCreatedAsyncWithHttpInfo
      *
-     * Get a list of recently unpublished websites in your account.
+     * Get a list of Sites created within a span of time.
      *
-     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenUnpublishedGetAsyncWithHttpInfo($last_days = null)
+    public function siteCreatedAsyncWithHttpInfo($from = null, $to = null)
     {
         $returnType = 'string[]';
-        $request = $this->sitesMultiscreenUnpublishedGetRequest($last_days);
+        $request = $this->siteCreatedRequest($from, $to);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2830,14 +1709,318 @@ class ReportingApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenUnpublishedGet'
+     * Create request for operation 'siteCreated'
+     *
+     * @param  string $from Start date (optional)
+     * @param  string $to End date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function siteCreatedRequest($from = null, $to = null)
+    {
+
+        $resourcePath = '/sites/multiscreen/created';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($from !== null) {
+            if('form' === 'form' && is_array($from)) {
+                foreach($from as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['from'] = $from;
+            }
+        }
+        // query params
+        if ($to !== null) {
+            if('form' === 'form' && is_array($to)) {
+                foreach($to as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['to'] = $to;
+            }
+        }
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation siteUnpublished
+     *
+     * Get a list of recently unpublished websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return string[]|\OpenAPI\Client\Model\Error
+     */
+    public function siteUnpublished($last_days = null)
+    {
+        list($response) = $this->siteUnpublishedWithHttpInfo($last_days);
+        return $response;
+    }
+
+    /**
+     * Operation siteUnpublishedWithHttpInfo
+     *
+     * Get a list of recently unpublished websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of string[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function siteUnpublishedWithHttpInfo($last_days = null)
+    {
+        $request = $this->siteUnpublishedRequest($last_days);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('string[]' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'string[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = 'string[]';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation siteUnpublishedAsync
+     *
+     * Get a list of recently unpublished websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function siteUnpublishedAsync($last_days = null)
+    {
+        return $this->siteUnpublishedAsyncWithHttpInfo($last_days)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation siteUnpublishedAsyncWithHttpInfo
+     *
+     * Get a list of recently unpublished websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function siteUnpublishedAsyncWithHttpInfo($last_days = null)
+    {
+        $returnType = 'string[]';
+        $request = $this->siteUnpublishedRequest($last_days);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'siteUnpublished'
      *
      * @param  string $last_days The number of days in which you would like get sites that have been unpublished (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenUnpublishedGetRequest($last_days = null)
+    public function siteUnpublishedRequest($last_days = null)
     {
 
         $resourcePath = '/sites/multiscreen/unpublished';
@@ -2917,6 +2100,823 @@ class ReportingApi
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation sitesPublished
+     *
+     * Get a list of recently published websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return string[]|\OpenAPI\Client\Model\Error
+     */
+    public function sitesPublished($last_days = null)
+    {
+        list($response) = $this->sitesPublishedWithHttpInfo($last_days);
+        return $response;
+    }
+
+    /**
+     * Operation sitesPublishedWithHttpInfo
+     *
+     * Get a list of recently published websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of string[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function sitesPublishedWithHttpInfo($last_days = null)
+    {
+        $request = $this->sitesPublishedRequest($last_days);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('string[]' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'string[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = 'string[]';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation sitesPublishedAsync
+     *
+     * Get a list of recently published websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function sitesPublishedAsync($last_days = null)
+    {
+        return $this->sitesPublishedAsyncWithHttpInfo($last_days)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation sitesPublishedAsyncWithHttpInfo
+     *
+     * Get a list of recently published websites in your account.
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function sitesPublishedAsyncWithHttpInfo($last_days = null)
+    {
+        $returnType = 'string[]';
+        $request = $this->sitesPublishedRequest($last_days);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'sitesPublished'
+     *
+     * @param  string $last_days The number of days in which you would like get sites that have been published (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function sitesPublishedRequest($last_days = null)
+    {
+
+        $resourcePath = '/sites/multiscreen/published';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($last_days !== null) {
+            if('form' === 'form' && is_array($last_days)) {
+                foreach($last_days as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['lastDays'] = $last_days;
+            }
+        }
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation subscribe
+     *
+     * Subscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\SubscribeRequest $subscribe_request subscribe_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function subscribe($account_name, $site_name, $subscribe_request = null)
+    {
+        $this->subscribeWithHttpInfo($account_name, $site_name, $subscribe_request);
+    }
+
+    /**
+     * Operation subscribeWithHttpInfo
+     *
+     * Subscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\SubscribeRequest $subscribe_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function subscribeWithHttpInfo($account_name, $site_name, $subscribe_request = null)
+    {
+        $request = $this->subscribeRequest($account_name, $site_name, $subscribe_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation subscribeAsync
+     *
+     * Subscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\SubscribeRequest $subscribe_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function subscribeAsync($account_name, $site_name, $subscribe_request = null)
+    {
+        return $this->subscribeAsyncWithHttpInfo($account_name, $site_name, $subscribe_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation subscribeAsyncWithHttpInfo
+     *
+     * Subscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\SubscribeRequest $subscribe_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function subscribeAsyncWithHttpInfo($account_name, $site_name, $subscribe_request = null)
+    {
+        $returnType = '';
+        $request = $this->subscribeRequest($account_name, $site_name, $subscribe_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'subscribe'
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\SubscribeRequest $subscribe_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function subscribeRequest($account_name, $site_name, $subscribe_request = null)
+    {
+        // verify the required parameter 'account_name' is set
+        if ($account_name === null || (is_array($account_name) && count($account_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_name when calling subscribe'
+            );
+        }
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling subscribe'
+            );
+        }
+
+        $resourcePath = '/accounts/{account_name}/sites/{site_name}/stats-email';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_name' . '}',
+                ObjectSerializer::toPathValue($account_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($subscribe_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($subscribe_request));
+            } else {
+                $httpBody = $subscribe_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation unsubscribe
+     *
+     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function unsubscribe($account_name, $site_name)
+    {
+        $this->unsubscribeWithHttpInfo($account_name, $site_name);
+    }
+
+    /**
+     * Operation unsubscribeWithHttpInfo
+     *
+     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function unsubscribeWithHttpInfo($account_name, $site_name)
+    {
+        $request = $this->unsubscribeRequest($account_name, $site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation unsubscribeAsync
+     *
+     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function unsubscribeAsync($account_name, $site_name)
+    {
+        return $this->unsubscribeAsyncWithHttpInfo($account_name, $site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation unsubscribeAsyncWithHttpInfo
+     *
+     * Unsubscribe a customer (or staff member) to statistics emails for a specific site.
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function unsubscribeAsyncWithHttpInfo($account_name, $site_name)
+    {
+        $returnType = '';
+        $request = $this->unsubscribeRequest($account_name, $site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'unsubscribe'
+     *
+     * @param  string $account_name The account name is a unique reference to the account (required)
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function unsubscribeRequest($account_name, $site_name)
+    {
+        // verify the required parameter 'account_name' is set
+        if ($account_name === null || (is_array($account_name) && count($account_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_name when calling unsubscribe'
+            );
+        }
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling unsubscribe'
+            );
+        }
+
+        $resourcePath = '/accounts/{account_name}/sites/{site_name}/stats-email';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_name' . '}',
+                ObjectSerializer::toPathValue($account_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

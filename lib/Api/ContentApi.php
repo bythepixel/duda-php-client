@@ -116,42 +116,555 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenInjectContentSiteNameGet
+     * Operation createInjectedContent
      *
-     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     * Content injection provides the ability to update a website directly via the API.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
-     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
-     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request create_injected_content_single_page_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2005[]|\OpenAPI\Client\Model\Error
+     * @return void
      */
-    public function sitesMultiscreenInjectContentSiteNameGet($site_name, $key = null, $type = null, $ref = null)
+    public function createInjectedContent($site_name, $create_injected_content_single_page_request = null)
     {
-        list($response) = $this->sitesMultiscreenInjectContentSiteNameGetWithHttpInfo($site_name, $key, $type, $ref);
+        $this->createInjectedContentWithHttpInfo($site_name, $create_injected_content_single_page_request);
+    }
+
+    /**
+     * Operation createInjectedContentWithHttpInfo
+     *
+     * Content injection provides the ability to update a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createInjectedContentWithHttpInfo($site_name, $create_injected_content_single_page_request = null)
+    {
+        $request = $this->createInjectedContentRequest($site_name, $create_injected_content_single_page_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createInjectedContentAsync
+     *
+     * Content injection provides the ability to update a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createInjectedContentAsync($site_name, $create_injected_content_single_page_request = null)
+    {
+        return $this->createInjectedContentAsyncWithHttpInfo($site_name, $create_injected_content_single_page_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createInjectedContentAsyncWithHttpInfo
+     *
+     * Content injection provides the ability to update a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createInjectedContentAsyncWithHttpInfo($site_name, $create_injected_content_single_page_request = null)
+    {
+        $returnType = '';
+        $request = $this->createInjectedContentRequest($site_name, $create_injected_content_single_page_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createInjectedContent'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createInjectedContentRequest($site_name, $create_injected_content_single_page_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createInjectedContent'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/inject-content/{site_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_injected_content_single_page_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_injected_content_single_page_request));
+            } else {
+                $httpBody = $create_injected_content_single_page_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createInjectedContentSinglePage
+     *
+     * Content injection provides the ability to update a page on a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $page_name Name of a page (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request create_injected_content_single_page_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function createInjectedContentSinglePage($site_name, $page_name, $create_injected_content_single_page_request = null)
+    {
+        $this->createInjectedContentSinglePageWithHttpInfo($site_name, $page_name, $create_injected_content_single_page_request);
+    }
+
+    /**
+     * Operation createInjectedContentSinglePageWithHttpInfo
+     *
+     * Content injection provides the ability to update a page on a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $page_name Name of a page (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createInjectedContentSinglePageWithHttpInfo($site_name, $page_name, $create_injected_content_single_page_request = null)
+    {
+        $request = $this->createInjectedContentSinglePageRequest($site_name, $page_name, $create_injected_content_single_page_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createInjectedContentSinglePageAsync
+     *
+     * Content injection provides the ability to update a page on a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $page_name Name of a page (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createInjectedContentSinglePageAsync($site_name, $page_name, $create_injected_content_single_page_request = null)
+    {
+        return $this->createInjectedContentSinglePageAsyncWithHttpInfo($site_name, $page_name, $create_injected_content_single_page_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createInjectedContentSinglePageAsyncWithHttpInfo
+     *
+     * Content injection provides the ability to update a page on a website directly via the API.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $page_name Name of a page (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createInjectedContentSinglePageAsyncWithHttpInfo($site_name, $page_name, $create_injected_content_single_page_request = null)
+    {
+        $returnType = '';
+        $request = $this->createInjectedContentSinglePageRequest($site_name, $page_name, $create_injected_content_single_page_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createInjectedContentSinglePage'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $page_name Name of a page (required)
+     * @param  \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest $create_injected_content_single_page_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createInjectedContentSinglePageRequest($site_name, $page_name, $create_injected_content_single_page_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createInjectedContentSinglePage'
+            );
+        }
+        // verify the required parameter 'page_name' is set
+        if ($page_name === null || (is_array($page_name) && count($page_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $page_name when calling createInjectedContentSinglePage'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/inject-content/{site_name}/pages/{page_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($page_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'page_name' . '}',
+                ObjectSerializer::toPathValue($page_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_injected_content_single_page_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_injected_content_single_page_request));
+            } else {
+                $httpBody = $create_injected_content_single_page_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createLocation
+     *
+     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\Location $location location (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Location|\OpenAPI\Client\Model\Error
+     */
+    public function createLocation($site_name, $location = null)
+    {
+        list($response) = $this->createLocationWithHttpInfo($site_name, $location);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenInjectContentSiteNameGetWithHttpInfo
+     * Operation createLocationWithHttpInfo
      *
-     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
-     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
-     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2005[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Location|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenInjectContentSiteNameGetWithHttpInfo($site_name, $key = null, $type = null, $ref = null)
+    public function createLocationWithHttpInfo($site_name, $location = null)
     {
-        $request = $this->sitesMultiscreenInjectContentSiteNameGetRequest($site_name, $key, $type, $ref);
+        $request = $this->createLocationRequest($site_name, $location);
 
         try {
             $options = $this->createHttpClientOption();
@@ -190,14 +703,14 @@ class ContentApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2005[]' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\Location' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2005[]', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Location', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -215,7 +728,7 @@ class ContentApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2005[]';
+            $returnType = '\OpenAPI\Client\Model\Location';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -233,7 +746,7 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2005[]',
+                        '\OpenAPI\Client\Model\Location',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -252,21 +765,19 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenInjectContentSiteNameGetAsync
+     * Operation createLocationAsync
      *
-     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
-     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
-     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenInjectContentSiteNameGetAsync($site_name, $key = null, $type = null, $ref = null)
+    public function createLocationAsync($site_name, $location = null)
     {
-        return $this->sitesMultiscreenInjectContentSiteNameGetAsyncWithHttpInfo($site_name, $key, $type, $ref)
+        return $this->createLocationAsyncWithHttpInfo($site_name, $location)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -275,22 +786,20 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenInjectContentSiteNameGetAsyncWithHttpInfo
+     * Operation createLocationAsyncWithHttpInfo
      *
-     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
      *
      * @param  string $site_name Site name (required)
-     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
-     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
-     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenInjectContentSiteNameGetAsyncWithHttpInfo($site_name, $key = null, $type = null, $ref = null)
+    public function createLocationAsyncWithHttpInfo($site_name, $location = null)
     {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2005[]';
-        $request = $this->sitesMultiscreenInjectContentSiteNameGetRequest($site_name, $key, $type, $ref);
+        $returnType = '\OpenAPI\Client\Model\Location';
+        $request = $this->createLocationRequest($site_name, $location);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -326,7 +835,873 @@ class ContentApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenInjectContentSiteNameGet'
+     * Create request for operation 'createLocation'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createLocationRequest($site_name, $location = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createLocation'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/content/location';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($location)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($location));
+            } else {
+                $httpBody = $location;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteLocation
+     *
+     * Delete an existing location
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteLocation($site_name, $location_id)
+    {
+        $this->deleteLocationWithHttpInfo($site_name, $location_id);
+    }
+
+    /**
+     * Operation deleteLocationWithHttpInfo
+     *
+     * Delete an existing location
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteLocationWithHttpInfo($site_name, $location_id)
+    {
+        $request = $this->deleteLocationRequest($site_name, $location_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteLocationAsync
+     *
+     * Delete an existing location
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteLocationAsync($site_name, $location_id)
+    {
+        return $this->deleteLocationAsyncWithHttpInfo($site_name, $location_id)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteLocationAsyncWithHttpInfo
+     *
+     * Delete an existing location
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteLocationAsyncWithHttpInfo($site_name, $location_id)
+    {
+        $returnType = '';
+        $request = $this->deleteLocationRequest($site_name, $location_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteLocation'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteLocationRequest($site_name, $location_id)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling deleteLocation'
+            );
+        }
+        // verify the required parameter 'location_id' is set
+        if ($location_id === null || (is_array($location_id) && count($location_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $location_id when calling deleteLocation'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/content/location/{location_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($location_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'location_id' . '}',
+                ObjectSerializer::toPathValue($location_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'DELETE',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getContentLibrary
+     *
+     * Get the data that exists within the content library of a website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\GetContentLibraryResponse|\OpenAPI\Client\Model\Error
+     */
+    public function getContentLibrary($site_name)
+    {
+        list($response) = $this->getContentLibraryWithHttpInfo($site_name);
+        return $response;
+    }
+
+    /**
+     * Operation getContentLibraryWithHttpInfo
+     *
+     * Get the data that exists within the content library of a website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\GetContentLibraryResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getContentLibraryWithHttpInfo($site_name)
+    {
+        $request = $this->getContentLibraryRequest($site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\GetContentLibraryResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\GetContentLibraryResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\GetContentLibraryResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\GetContentLibraryResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getContentLibraryAsync
+     *
+     * Get the data that exists within the content library of a website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getContentLibraryAsync($site_name)
+    {
+        return $this->getContentLibraryAsyncWithHttpInfo($site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getContentLibraryAsyncWithHttpInfo
+     *
+     * Get the data that exists within the content library of a website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getContentLibraryAsyncWithHttpInfo($site_name)
+    {
+        $returnType = '\OpenAPI\Client\Model\GetContentLibraryResponse';
+        $request = $this->getContentLibraryRequest($site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getContentLibrary'
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getContentLibraryRequest($site_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling getContentLibrary'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/content';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getInjectedContent
+     *
+     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
+     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
+     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\GetInjectedContentRequest[]|\OpenAPI\Client\Model\Error
+     */
+    public function getInjectedContent($site_name, $key = null, $type = null, $ref = null)
+    {
+        list($response) = $this->getInjectedContentWithHttpInfo($site_name, $key, $type, $ref);
+        return $response;
+    }
+
+    /**
+     * Operation getInjectedContentWithHttpInfo
+     *
+     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
+     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
+     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\GetInjectedContentRequest[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getInjectedContentWithHttpInfo($site_name, $key = null, $type = null, $ref = null)
+    {
+        $request = $this->getInjectedContentRequest($site_name, $key, $type, $ref);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\GetInjectedContentRequest[]' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\GetInjectedContentRequest[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\GetInjectedContentRequest[]';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\GetInjectedContentRequest[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getInjectedContentAsync
+     *
+     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
+     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
+     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getInjectedContentAsync($site_name, $key = null, $type = null, $ref = null)
+    {
+        return $this->getInjectedContentAsyncWithHttpInfo($site_name, $key, $type, $ref)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getInjectedContentAsyncWithHttpInfo
+     *
+     * Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
+     * @param  string $type Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML (optional)
+     * @param  string $ref Filter for a specific value type (only relevant for DOMATTR &amp; CSS) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getInjectedContentAsyncWithHttpInfo($site_name, $key = null, $type = null, $ref = null)
+    {
+        $returnType = '\OpenAPI\Client\Model\GetInjectedContentRequest[]';
+        $request = $this->getInjectedContentRequest($site_name, $key, $type, $ref);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getInjectedContent'
      *
      * @param  string $site_name Site name (required)
      * @param  string $key Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property (optional)
@@ -336,12 +1711,12 @@ class ContentApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenInjectContentSiteNameGetRequest($site_name, $key = null, $type = null, $ref = null)
+    public function getInjectedContentRequest($site_name, $key = null, $type = null, $ref = null)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenInjectContentSiteNameGet'
+                'Missing the required parameter $site_name when calling getInjectedContent'
             );
         }
 
@@ -459,1995 +1834,38 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenInjectContentSiteNamePagesPageNamePost
-     *
-     * Content injection provides the ability to update a page on a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $page_name Name of a page (required)
-     * @param  \OpenAPI\Client\Model\InlineObject7 $inline_object7 inline_object7 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenInjectContentSiteNamePagesPageNamePost($site_name, $page_name, $inline_object7 = null)
-    {
-        $this->sitesMultiscreenInjectContentSiteNamePagesPageNamePostWithHttpInfo($site_name, $page_name, $inline_object7);
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePagesPageNamePostWithHttpInfo
-     *
-     * Content injection provides the ability to update a page on a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $page_name Name of a page (required)
-     * @param  \OpenAPI\Client\Model\InlineObject7 $inline_object7 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenInjectContentSiteNamePagesPageNamePostWithHttpInfo($site_name, $page_name, $inline_object7 = null)
-    {
-        $request = $this->sitesMultiscreenInjectContentSiteNamePagesPageNamePostRequest($site_name, $page_name, $inline_object7);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePagesPageNamePostAsync
-     *
-     * Content injection provides the ability to update a page on a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $page_name Name of a page (required)
-     * @param  \OpenAPI\Client\Model\InlineObject7 $inline_object7 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenInjectContentSiteNamePagesPageNamePostAsync($site_name, $page_name, $inline_object7 = null)
-    {
-        return $this->sitesMultiscreenInjectContentSiteNamePagesPageNamePostAsyncWithHttpInfo($site_name, $page_name, $inline_object7)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePagesPageNamePostAsyncWithHttpInfo
-     *
-     * Content injection provides the ability to update a page on a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $page_name Name of a page (required)
-     * @param  \OpenAPI\Client\Model\InlineObject7 $inline_object7 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenInjectContentSiteNamePagesPageNamePostAsyncWithHttpInfo($site_name, $page_name, $inline_object7 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenInjectContentSiteNamePagesPageNamePostRequest($site_name, $page_name, $inline_object7);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenInjectContentSiteNamePagesPageNamePost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $page_name Name of a page (required)
-     * @param  \OpenAPI\Client\Model\InlineObject7 $inline_object7 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenInjectContentSiteNamePagesPageNamePostRequest($site_name, $page_name, $inline_object7 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenInjectContentSiteNamePagesPageNamePost'
-            );
-        }
-        // verify the required parameter 'page_name' is set
-        if ($page_name === null || (is_array($page_name) && count($page_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $page_name when calling sitesMultiscreenInjectContentSiteNamePagesPageNamePost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/inject-content/{site_name}/pages/{page_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($page_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'page_name' . '}',
-                ObjectSerializer::toPathValue($page_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object7)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object7));
-            } else {
-                $httpBody = $inline_object7;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePost
-     *
-     * Content injection provides the ability to update a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject6 $inline_object6 inline_object6 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenInjectContentSiteNamePost($site_name, $inline_object6 = null)
-    {
-        $this->sitesMultiscreenInjectContentSiteNamePostWithHttpInfo($site_name, $inline_object6);
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePostWithHttpInfo
-     *
-     * Content injection provides the ability to update a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject6 $inline_object6 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenInjectContentSiteNamePostWithHttpInfo($site_name, $inline_object6 = null)
-    {
-        $request = $this->sitesMultiscreenInjectContentSiteNamePostRequest($site_name, $inline_object6);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePostAsync
-     *
-     * Content injection provides the ability to update a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject6 $inline_object6 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenInjectContentSiteNamePostAsync($site_name, $inline_object6 = null)
-    {
-        return $this->sitesMultiscreenInjectContentSiteNamePostAsyncWithHttpInfo($site_name, $inline_object6)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNamePostAsyncWithHttpInfo
-     *
-     * Content injection provides the ability to update a website directly via the API.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject6 $inline_object6 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenInjectContentSiteNamePostAsyncWithHttpInfo($site_name, $inline_object6 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenInjectContentSiteNamePostRequest($site_name, $inline_object6);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenInjectContentSiteNamePost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject6 $inline_object6 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenInjectContentSiteNamePostRequest($site_name, $inline_object6 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenInjectContentSiteNamePost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/inject-content/{site_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object6)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object6));
-            } else {
-                $httpBody = $inline_object6;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNameUploadPost
-     *
-     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject8 $inline_object8 inline_object8 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2006|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenInjectContentSiteNameUploadPost($site_name, $inline_object8 = null)
-    {
-        list($response) = $this->sitesMultiscreenInjectContentSiteNameUploadPostWithHttpInfo($site_name, $inline_object8);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNameUploadPostWithHttpInfo
-     *
-     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject8 $inline_object8 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2006|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenInjectContentSiteNameUploadPostWithHttpInfo($site_name, $inline_object8 = null)
-    {
-        $request = $this->sitesMultiscreenInjectContentSiteNameUploadPostRequest($site_name, $inline_object8);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2006' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2006', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2006';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2006',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNameUploadPostAsync
-     *
-     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject8 $inline_object8 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenInjectContentSiteNameUploadPostAsync($site_name, $inline_object8 = null)
-    {
-        return $this->sitesMultiscreenInjectContentSiteNameUploadPostAsyncWithHttpInfo($site_name, $inline_object8)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenInjectContentSiteNameUploadPostAsyncWithHttpInfo
-     *
-     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject8 $inline_object8 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenInjectContentSiteNameUploadPostAsyncWithHttpInfo($site_name, $inline_object8 = null)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2006';
-        $request = $this->sitesMultiscreenInjectContentSiteNameUploadPostRequest($site_name, $inline_object8);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenInjectContentSiteNameUploadPost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject8 $inline_object8 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenInjectContentSiteNameUploadPostRequest($site_name, $inline_object8 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenInjectContentSiteNameUploadPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/inject-content/{site_name}/upload';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object8)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object8));
-            } else {
-                $httpBody = $inline_object8;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentGet
-     *
-     * Get the data that exists within the content library of a website.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2003|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenSiteNameContentGet($site_name)
-    {
-        list($response) = $this->sitesMultiscreenSiteNameContentGetWithHttpInfo($site_name);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentGetWithHttpInfo
-     *
-     * Get the data that exists within the content library of a website.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2003|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameContentGetWithHttpInfo($site_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameContentGetRequest($site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2003' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2003', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2003';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2003',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentGetAsync
-     *
-     * Get the data that exists within the content library of a website.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentGetAsync($site_name)
-    {
-        return $this->sitesMultiscreenSiteNameContentGetAsyncWithHttpInfo($site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentGetAsyncWithHttpInfo
-     *
-     * Get the data that exists within the content library of a website.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentGetAsyncWithHttpInfo($site_name)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2003';
-        $request = $this->sitesMultiscreenSiteNameContentGetRequest($site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentGet'
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameContentGetRequest($site_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/content';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdDelete
-     *
-     * Delete an existing location
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdDelete($site_name, $location_id)
-    {
-        $this->sitesMultiscreenSiteNameContentLocationLocationIdDeleteWithHttpInfo($site_name, $location_id);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdDeleteWithHttpInfo
-     *
-     * Delete an existing location
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdDeleteWithHttpInfo($site_name, $location_id)
-    {
-        $request = $this->sitesMultiscreenSiteNameContentLocationLocationIdDeleteRequest($site_name, $location_id);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdDeleteAsync
-     *
-     * Delete an existing location
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdDeleteAsync($site_name, $location_id)
-    {
-        return $this->sitesMultiscreenSiteNameContentLocationLocationIdDeleteAsyncWithHttpInfo($site_name, $location_id)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdDeleteAsyncWithHttpInfo
-     *
-     * Delete an existing location
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdDeleteAsyncWithHttpInfo($site_name, $location_id)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameContentLocationLocationIdDeleteRequest($site_name, $location_id);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentLocationLocationIdDelete'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdDeleteRequest($site_name, $location_id)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentLocationLocationIdDelete'
-            );
-        }
-        // verify the required parameter 'location_id' is set
-        if ($location_id === null || (is_array($location_id) && count($location_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $location_id when calling sitesMultiscreenSiteNameContentLocationLocationIdDelete'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/content/location/{location_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($location_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'location_id' . '}',
-                ObjectSerializer::toPathValue($location_id),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'DELETE',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdGet
+     * Operation getLocation
      *
      * Get data for a specific location.
      *
      * @param  string $site_name Site name (required)
      * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2004|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdGet($site_name, $location_id)
-    {
-        list($response) = $this->sitesMultiscreenSiteNameContentLocationLocationIdGetWithHttpInfo($site_name, $location_id);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdGetWithHttpInfo
-     *
-     * Get data for a specific location.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2004|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdGetWithHttpInfo($site_name, $location_id)
-    {
-        $request = $this->sitesMultiscreenSiteNameContentLocationLocationIdGetRequest($site_name, $location_id);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2004' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2004', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2004';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2004',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdGetAsync
-     *
-     * Get data for a specific location.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdGetAsync($site_name, $location_id)
-    {
-        return $this->sitesMultiscreenSiteNameContentLocationLocationIdGetAsyncWithHttpInfo($site_name, $location_id)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdGetAsyncWithHttpInfo
-     *
-     * Get data for a specific location.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdGetAsyncWithHttpInfo($site_name, $location_id)
-    {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2004';
-        $request = $this->sitesMultiscreenSiteNameContentLocationLocationIdGetRequest($site_name, $location_id);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentLocationLocationIdGet'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdGetRequest($site_name, $location_id)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentLocationLocationIdGet'
-            );
-        }
-        // verify the required parameter 'location_id' is set
-        if ($location_id === null || (is_array($location_id) && count($location_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $location_id when calling sitesMultiscreenSiteNameContentLocationLocationIdGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/content/location/{location_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($location_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'location_id' . '}',
-                ObjectSerializer::toPathValue($location_id),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdPost
-     *
-     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     * @param  \OpenAPI\Client\Model\Location $location location (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdPost($site_name, $location_id, $location = null)
-    {
-        $this->sitesMultiscreenSiteNameContentLocationLocationIdPostWithHttpInfo($site_name, $location_id, $location);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdPostWithHttpInfo
-     *
-     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdPostWithHttpInfo($site_name, $location_id, $location = null)
-    {
-        $request = $this->sitesMultiscreenSiteNameContentLocationLocationIdPostRequest($site_name, $location_id, $location);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdPostAsync
-     *
-     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdPostAsync($site_name, $location_id, $location = null)
-    {
-        return $this->sitesMultiscreenSiteNameContentLocationLocationIdPostAsyncWithHttpInfo($site_name, $location_id, $location)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationLocationIdPostAsyncWithHttpInfo
-     *
-     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdPostAsyncWithHttpInfo($site_name, $location_id, $location = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameContentLocationLocationIdPostRequest($site_name, $location_id, $location);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentLocationLocationIdPost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $location_id The uuid of the location (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameContentLocationLocationIdPostRequest($site_name, $location_id, $location = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentLocationLocationIdPost'
-            );
-        }
-        // verify the required parameter 'location_id' is set
-        if ($location_id === null || (is_array($location_id) && count($location_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $location_id when calling sitesMultiscreenSiteNameContentLocationLocationIdPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/content/location/{location_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($location_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'location_id' . '}',
-                ObjectSerializer::toPathValue($location_id),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($location)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($location));
-            } else {
-                $httpBody = $location;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentLocationPost
-     *
-     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\Location $location location (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Location|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteNameContentLocationPost($site_name, $location = null)
+    public function getLocation($site_name, $location_id)
     {
-        list($response) = $this->sitesMultiscreenSiteNameContentLocationPostWithHttpInfo($site_name, $location);
+        list($response) = $this->getLocationWithHttpInfo($site_name, $location_id);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentLocationPostWithHttpInfo
+     * Operation getLocationWithHttpInfo
      *
-     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
+     * Get data for a specific location.
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     * @param  string $location_id The uuid of the location (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Location|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameContentLocationPostWithHttpInfo($site_name, $location = null)
+    public function getLocationWithHttpInfo($site_name, $location_id)
     {
-        $request = $this->sitesMultiscreenSiteNameContentLocationPostRequest($site_name, $location);
+        $request = $this->getLocationRequest($site_name, $location_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2548,19 +1966,19 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentLocationPostAsync
+     * Operation getLocationAsync
      *
-     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
+     * Get data for a specific location.
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     * @param  string $location_id The uuid of the location (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameContentLocationPostAsync($site_name, $location = null)
+    public function getLocationAsync($site_name, $location_id)
     {
-        return $this->sitesMultiscreenSiteNameContentLocationPostAsyncWithHttpInfo($site_name, $location)
+        return $this->getLocationAsyncWithHttpInfo($site_name, $location_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2569,20 +1987,20 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentLocationPostAsyncWithHttpInfo
+     * Operation getLocationAsyncWithHttpInfo
      *
-     * Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
+     * Get data for a specific location.
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     * @param  string $location_id The uuid of the location (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameContentLocationPostAsyncWithHttpInfo($site_name, $location = null)
+    public function getLocationAsyncWithHttpInfo($site_name, $location_id)
     {
         $returnType = '\OpenAPI\Client\Model\Location';
-        $request = $this->sitesMultiscreenSiteNameContentLocationPostRequest($site_name, $location);
+        $request = $this->getLocationRequest($site_name, $location_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2618,24 +2036,30 @@ class ContentApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentLocationPost'
+     * Create request for operation 'getLocation'
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     * @param  string $location_id The uuid of the location (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameContentLocationPostRequest($site_name, $location = null)
+    public function getLocationRequest($site_name, $location_id)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentLocationPost'
+                'Missing the required parameter $site_name when calling getLocation'
+            );
+        }
+        // verify the required parameter 'location_id' is set
+        if ($location_id === null || (is_array($location_id) && count($location_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $location_id when calling getLocation'
             );
         }
 
-        $resourcePath = '/sites/multiscreen/{site_name}/content/location';
+        $resourcePath = '/sites/multiscreen/{site_name}/content/location/{location_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2649,6 +2073,763 @@ class ContentApi
             $resourcePath = str_replace(
                 '{' . 'site_name' . '}',
                 ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($location_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'location_id' . '}',
+                ObjectSerializer::toPathValue($location_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation publishContentLibrary
+     *
+     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function publishContentLibrary($site_name)
+    {
+        $this->publishContentLibraryWithHttpInfo($site_name);
+    }
+
+    /**
+     * Operation publishContentLibraryWithHttpInfo
+     *
+     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function publishContentLibraryWithHttpInfo($site_name)
+    {
+        $request = $this->publishContentLibraryRequest($site_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation publishContentLibraryAsync
+     *
+     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function publishContentLibraryAsync($site_name)
+    {
+        return $this->publishContentLibraryAsyncWithHttpInfo($site_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation publishContentLibraryAsyncWithHttpInfo
+     *
+     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function publishContentLibraryAsyncWithHttpInfo($site_name)
+    {
+        $returnType = '';
+        $request = $this->publishContentLibraryRequest($site_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'publishContentLibrary'
+     *
+     * @param  string $site_name Site name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function publishContentLibraryRequest($site_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling publishContentLibrary'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/content/publish';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateContentLibrary
+     *
+     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\ContentLibraryUpdateRequest $content_library_update_request content_library_update_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function updateContentLibrary($site_name, $content_library_update_request = null)
+    {
+        $this->updateContentLibraryWithHttpInfo($site_name, $content_library_update_request);
+    }
+
+    /**
+     * Operation updateContentLibraryWithHttpInfo
+     *
+     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\ContentLibraryUpdateRequest $content_library_update_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateContentLibraryWithHttpInfo($site_name, $content_library_update_request = null)
+    {
+        $request = $this->updateContentLibraryRequest($site_name, $content_library_update_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateContentLibraryAsync
+     *
+     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\ContentLibraryUpdateRequest $content_library_update_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateContentLibraryAsync($site_name, $content_library_update_request = null)
+    {
+        return $this->updateContentLibraryAsyncWithHttpInfo($site_name, $content_library_update_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateContentLibraryAsyncWithHttpInfo
+     *
+     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\ContentLibraryUpdateRequest $content_library_update_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateContentLibraryAsyncWithHttpInfo($site_name, $content_library_update_request = null)
+    {
+        $returnType = '';
+        $request = $this->updateContentLibraryRequest($site_name, $content_library_update_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateContentLibrary'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\ContentLibraryUpdateRequest $content_library_update_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateContentLibraryRequest($site_name, $content_library_update_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling updateContentLibrary'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/content';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($content_library_update_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($content_library_update_request));
+            } else {
+                $httpBody = $content_library_update_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateLocation
+     *
+     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     * @param  \OpenAPI\Client\Model\Location $location location (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function updateLocation($site_name, $location_id, $location = null)
+    {
+        $this->updateLocationWithHttpInfo($site_name, $location_id, $location);
+    }
+
+    /**
+     * Operation updateLocationWithHttpInfo
+     *
+     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateLocationWithHttpInfo($site_name, $location_id, $location = null)
+    {
+        $request = $this->updateLocationRequest($site_name, $location_id, $location);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateLocationAsync
+     *
+     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateLocationAsync($site_name, $location_id, $location = null)
+    {
+        return $this->updateLocationAsyncWithHttpInfo($site_name, $location_id, $location)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateLocationAsyncWithHttpInfo
+     *
+     * Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateLocationAsyncWithHttpInfo($site_name, $location_id, $location = null)
+    {
+        $returnType = '';
+        $request = $this->updateLocationRequest($site_name, $location_id, $location);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateLocation'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $location_id The uuid of the location (required)
+     * @param  \OpenAPI\Client\Model\Location $location (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateLocationRequest($site_name, $location_id, $location = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling updateLocation'
+            );
+        }
+        // verify the required parameter 'location_id' is set
+        if ($location_id === null || (is_array($location_id) && count($location_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $location_id when calling updateLocation'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/content/location/{location_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($location_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'location_id' . '}',
+                ObjectSerializer::toPathValue($location_id),
                 $resourcePath
             );
         }
@@ -2722,35 +2903,38 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentPost
+     * Operation uploadResource
      *
-     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
+     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UploadResourceRequest $upload_resource_request upload_resource_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \OpenAPI\Client\Model\UploadResourceResponse|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteNameContentPost($site_name)
+    public function uploadResource($site_name, $upload_resource_request = null)
     {
-        $this->sitesMultiscreenSiteNameContentPostWithHttpInfo($site_name);
+        list($response) = $this->uploadResourceWithHttpInfo($site_name, $upload_resource_request);
+        return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentPostWithHttpInfo
+     * Operation uploadResourceWithHttpInfo
      *
-     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
+     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UploadResourceRequest $upload_resource_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\UploadResourceResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameContentPostWithHttpInfo($site_name)
+    public function uploadResourceWithHttpInfo($site_name, $upload_resource_request = null)
     {
-        $request = $this->sitesMultiscreenSiteNameContentPostRequest($site_name);
+        $request = $this->uploadResourceRequest($site_name, $upload_resource_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2787,248 +2971,56 @@ class ContentApi
                 );
             }
 
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentPostAsync
-     *
-     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentPostAsync($site_name)
-    {
-        return $this->sitesMultiscreenSiteNameContentPostAsyncWithHttpInfo($site_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentPostAsyncWithHttpInfo
-     *
-     * Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameContentPostAsyncWithHttpInfo($site_name)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameContentPostRequest($site_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentPost'
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameContentPostRequest($site_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/content';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\UploadResourceResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
                     }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
 
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\UploadResourceResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
 
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\UploadResourceResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
             } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentPublishPost
-     *
-     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameContentPublishPost($site_name)
-    {
-        $this->sitesMultiscreenSiteNameContentPublishPostWithHttpInfo($site_name);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameContentPublishPostWithHttpInfo
-     *
-     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
-     *
-     * @param  string $site_name Site name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameContentPublishPostWithHttpInfo($site_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameContentPublishPostRequest($site_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
+                $content = (string) $response->getBody();
             }
 
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\UploadResourceResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -3043,18 +3035,19 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentPublishPostAsync
+     * Operation uploadResourceAsync
      *
-     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
+     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UploadResourceRequest $upload_resource_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameContentPublishPostAsync($site_name)
+    public function uploadResourceAsync($site_name, $upload_resource_request = null)
     {
-        return $this->sitesMultiscreenSiteNameContentPublishPostAsyncWithHttpInfo($site_name)
+        return $this->uploadResourceAsyncWithHttpInfo($site_name, $upload_resource_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3063,25 +3056,36 @@ class ContentApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameContentPublishPostAsyncWithHttpInfo
+     * Operation uploadResourceAsyncWithHttpInfo
      *
-     * Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
+     * Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UploadResourceRequest $upload_resource_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameContentPublishPostAsyncWithHttpInfo($site_name)
+    public function uploadResourceAsyncWithHttpInfo($site_name, $upload_resource_request = null)
     {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameContentPublishPostRequest($site_name);
+        $returnType = '\OpenAPI\Client\Model\UploadResourceResponse';
+        $request = $this->uploadResourceRequest($site_name, $upload_resource_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -3101,23 +3105,24 @@ class ContentApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameContentPublishPost'
+     * Create request for operation 'uploadResource'
      *
      * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\UploadResourceRequest $upload_resource_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameContentPublishPostRequest($site_name)
+    public function uploadResourceRequest($site_name, $upload_resource_request = null)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameContentPublishPost'
+                'Missing the required parameter $site_name when calling uploadResource'
             );
         }
 
-        $resourcePath = '/sites/multiscreen/{site_name}/content/publish';
+        $resourcePath = '/sites/multiscreen/inject-content/{site_name}/upload';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3143,12 +3148,18 @@ class ContentApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                []
+                ['application/json']
             );
         }
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($upload_resource_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($upload_resource_request));
+            } else {
+                $httpBody = $upload_resource_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **site_domain** | **string** |  | [optional]
 **lang** | **string** |  | [optional]
 **site_business_info** | [**\OpenAPI\Client\Model\SiteBusinessInfo**](SiteBusinessInfo.md) |  | [optional]
-**site_alternate_domains** | [**\OpenAPI\Client\Model\SiteSiteAlternateDomains**](SiteSiteAlternateDomains.md) |  | [optional]
+**site_alternate_domains** | [**\OpenAPI\Client\Model\AlternateDomains**](AlternateDomains.md) |  | [optional]
 **site_seo** | [**\OpenAPI\Client\Model\Seo**](Seo.md) |  | [optional]
 **schemas** | [**\OpenAPI\Client\Model\SiteSchemas**](SiteSchemas.md) |  | [optional]
 **site_name** | **string** |  | [optional]

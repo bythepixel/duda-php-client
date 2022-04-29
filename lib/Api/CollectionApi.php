@@ -116,36 +116,38 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenCollectionsRevalidateExternalIdPost
+     * Operation clearCache
      *
-     * Revalidate all collections in all sites under the same account that use the provided external id
+     * Force Duda to refresh the data from an external URL for a given collection.
      *
-     * @param  string $external_id The external ID for the collections (required)
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenCollectionsRevalidateExternalIdPost($external_id)
+    public function clearCache($site_name, $collection_name)
     {
-        list($response) = $this->sitesMultiscreenCollectionsRevalidateExternalIdPostWithHttpInfo($external_id);
+        list($response) = $this->clearCacheWithHttpInfo($site_name, $collection_name);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenCollectionsRevalidateExternalIdPostWithHttpInfo
+     * Operation clearCacheWithHttpInfo
      *
-     * Revalidate all collections in all sites under the same account that use the provided external id
+     * Force Duda to refresh the data from an external URL for a given collection.
      *
-     * @param  string $external_id The external ID for the collections (required)
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenCollectionsRevalidateExternalIdPostWithHttpInfo($external_id)
+    public function clearCacheWithHttpInfo($site_name, $collection_name)
     {
-        $request = $this->sitesMultiscreenCollectionsRevalidateExternalIdPostRequest($external_id);
+        $request = $this->clearCacheRequest($site_name, $collection_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -246,18 +248,19 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenCollectionsRevalidateExternalIdPostAsync
+     * Operation clearCacheAsync
      *
-     * Revalidate all collections in all sites under the same account that use the provided external id
+     * Force Duda to refresh the data from an external URL for a given collection.
      *
-     * @param  string $external_id The external ID for the collections (required)
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenCollectionsRevalidateExternalIdPostAsync($external_id)
+    public function clearCacheAsync($site_name, $collection_name)
     {
-        return $this->sitesMultiscreenCollectionsRevalidateExternalIdPostAsyncWithHttpInfo($external_id)
+        return $this->clearCacheAsyncWithHttpInfo($site_name, $collection_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -266,19 +269,20 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenCollectionsRevalidateExternalIdPostAsyncWithHttpInfo
+     * Operation clearCacheAsyncWithHttpInfo
      *
-     * Revalidate all collections in all sites under the same account that use the provided external id
+     * Force Duda to refresh the data from an external URL for a given collection.
      *
-     * @param  string $external_id The external ID for the collections (required)
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenCollectionsRevalidateExternalIdPostAsyncWithHttpInfo($external_id)
+    public function clearCacheAsyncWithHttpInfo($site_name, $collection_name)
     {
         $returnType = '\OpenAPI\Client\Model\Collection';
-        $request = $this->sitesMultiscreenCollectionsRevalidateExternalIdPostRequest($external_id);
+        $request = $this->clearCacheRequest($site_name, $collection_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -314,249 +318,7 @@ class CollectionApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenCollectionsRevalidateExternalIdPost'
-     *
-     * @param  string $external_id The external ID for the collections (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenCollectionsRevalidateExternalIdPostRequest($external_id)
-    {
-        // verify the required parameter 'external_id' is set
-        if ($external_id === null || (is_array($external_id) && count($external_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $external_id when calling sitesMultiscreenCollectionsRevalidateExternalIdPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/collections/revalidate/{external_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($external_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'external_id' . '}',
-                ObjectSerializer::toPathValue($external_id),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameDelete
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameDelete($site_name, $collection_name)
-    {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNameDeleteWithHttpInfo($site_name, $collection_name);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameDeleteWithHttpInfo
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameDeleteWithHttpInfo($site_name, $collection_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameDeleteRequest($site_name, $collection_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameDeleteAsync
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameDeleteAsync($site_name, $collection_name)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameDeleteAsyncWithHttpInfo($site_name, $collection_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameDeleteAsyncWithHttpInfo
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameDeleteAsyncWithHttpInfo($site_name, $collection_name)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameDeleteRequest($site_name, $collection_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameDelete'
+     * Create request for operation 'clearCache'
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
@@ -564,1745 +326,18 @@ class CollectionApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameDeleteRequest($site_name, $collection_name)
+    public function clearCacheRequest($site_name, $collection_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameDelete'
+                'Missing the required parameter $site_name when calling clearCache'
             );
         }
         // verify the required parameter 'collection_name' is set
         if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameDelete'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'DELETE',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete
-     *
-     * Delete an existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete($site_name, $collection_name, $field_name)
-    {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteWithHttpInfo($site_name, $collection_name, $field_name);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteWithHttpInfo
-     *
-     * Delete an existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteWithHttpInfo($site_name, $collection_name, $field_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteRequest($site_name, $collection_name, $field_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteAsync
-     *
-     * Delete an existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteAsync($site_name, $collection_name, $field_name)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteAsyncWithHttpInfo($site_name, $collection_name, $field_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteAsyncWithHttpInfo
-     *
-     * Delete an existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteAsyncWithHttpInfo($site_name, $collection_name, $field_name)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteRequest($site_name, $collection_name, $field_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDeleteRequest($site_name, $collection_name, $field_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete'
-            );
-        }
-        // verify the required parameter 'field_name' is set
-        if ($field_name === null || (is_array($field_name) && count($field_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $field_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNameDelete'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($field_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'field_name' . '}',
-                ObjectSerializer::toPathValue($field_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'DELETE',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut
-     *
-     * Update existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     * @param  \OpenAPI\Client\Model\InlineObject14 $inline_object14 inline_object14 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut($site_name, $collection_name, $field_name, $inline_object14 = null)
-    {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutWithHttpInfo($site_name, $collection_name, $field_name, $inline_object14);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutWithHttpInfo
-     *
-     * Update existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     * @param  \OpenAPI\Client\Model\InlineObject14 $inline_object14 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutWithHttpInfo($site_name, $collection_name, $field_name, $inline_object14 = null)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutRequest($site_name, $collection_name, $field_name, $inline_object14);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutAsync
-     *
-     * Update existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     * @param  \OpenAPI\Client\Model\InlineObject14 $inline_object14 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutAsync($site_name, $collection_name, $field_name, $inline_object14 = null)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutAsyncWithHttpInfo($site_name, $collection_name, $field_name, $inline_object14)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutAsyncWithHttpInfo
-     *
-     * Update existing field of a collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     * @param  \OpenAPI\Client\Model\InlineObject14 $inline_object14 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutAsyncWithHttpInfo($site_name, $collection_name, $field_name, $inline_object14 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutRequest($site_name, $collection_name, $field_name, $inline_object14);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
-     * @param  \OpenAPI\Client\Model\InlineObject14 $inline_object14 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePutRequest($site_name, $collection_name, $field_name, $inline_object14 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut'
-            );
-        }
-        // verify the required parameter 'field_name' is set
-        if ($field_name === null || (is_array($field_name) && count($field_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $field_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldFieldNamePut'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($field_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'field_name' . '}',
-                ObjectSerializer::toPathValue($field_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object14)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object14));
-            } else {
-                $httpBody = $inline_object14;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'PUT',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldPost
-     *
-     * Add a new field(s) to an existing collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject13 $inline_object13 inline_object13 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldPost($site_name, $collection_name, $inline_object13 = null)
-    {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldPostWithHttpInfo($site_name, $collection_name, $inline_object13);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldPostWithHttpInfo
-     *
-     * Add a new field(s) to an existing collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject13 $inline_object13 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldPostWithHttpInfo($site_name, $collection_name, $inline_object13 = null)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldPostRequest($site_name, $collection_name, $inline_object13);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldPostAsync
-     *
-     * Add a new field(s) to an existing collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject13 $inline_object13 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldPostAsync($site_name, $collection_name, $inline_object13 = null)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldPostAsyncWithHttpInfo($site_name, $collection_name, $inline_object13)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameFieldPostAsyncWithHttpInfo
-     *
-     * Add a new field(s) to an existing collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject13 $inline_object13 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldPostAsyncWithHttpInfo($site_name, $collection_name, $inline_object13 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameFieldPostRequest($site_name, $collection_name, $inline_object13);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameFieldPost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject13 $inline_object13 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameFieldPostRequest($site_name, $collection_name, $inline_object13 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldPost'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameFieldPost'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/field';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object13)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object13));
-            } else {
-                $httpBody = $inline_object13;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameGet
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameGet($site_name, $collection_name)
-    {
-        list($response) = $this->sitesMultiscreenSiteNameCollectionCollectionNameGetWithHttpInfo($site_name, $collection_name);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameGetWithHttpInfo
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameGetWithHttpInfo($site_name, $collection_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameGetRequest($site_name, $collection_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\Collection' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Collection', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\Collection';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Collection',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameGetAsync
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameGetAsync($site_name, $collection_name)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameGetAsyncWithHttpInfo($site_name, $collection_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameGetAsyncWithHttpInfo
-     *
-     * Get the fields and data of an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameGetAsyncWithHttpInfo($site_name, $collection_name)
-    {
-        $returnType = '\OpenAPI\Client\Model\Collection';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameGetRequest($site_name, $collection_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameGet'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameGetRequest($site_name, $collection_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameGet'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameGet'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNamePut
-     *
-     * Update an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject10 $inline_object10 inline_object10 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNamePut($site_name, $collection_name, $inline_object10 = null)
-    {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNamePutWithHttpInfo($site_name, $collection_name, $inline_object10);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNamePutWithHttpInfo
-     *
-     * Update an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject10 $inline_object10 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNamePutWithHttpInfo($site_name, $collection_name, $inline_object10 = null)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNamePutRequest($site_name, $collection_name, $inline_object10);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNamePutAsync
-     *
-     * Update an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject10 $inline_object10 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNamePutAsync($site_name, $collection_name, $inline_object10 = null)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNamePutAsyncWithHttpInfo($site_name, $collection_name, $inline_object10)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNamePutAsyncWithHttpInfo
-     *
-     * Update an existing collection
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject10 $inline_object10 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNamePutAsyncWithHttpInfo($site_name, $collection_name, $inline_object10 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNamePutRequest($site_name, $collection_name, $inline_object10);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNamePut'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject10 $inline_object10 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNamePutRequest($site_name, $collection_name, $inline_object10 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNamePut'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNamePut'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object10)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object10));
-            } else {
-                $httpBody = $inline_object10;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'PUT',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost
-     *
-     * Force Duda to refresh the data from an external URL for a given collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost($site_name, $collection_name)
-    {
-        list($response) = $this->sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostWithHttpInfo($site_name, $collection_name);
-        return $response;
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostWithHttpInfo
-     *
-     * Force Duda to refresh the data from an external URL for a given collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostWithHttpInfo($site_name, $collection_name)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostRequest($site_name, $collection_name);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\OpenAPI\Client\Model\Collection' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Collection', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\OpenAPI\Client\Model\Collection';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Collection',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostAsync
-     *
-     * Force Duda to refresh the data from an external URL for a given collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostAsync($site_name, $collection_name)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostAsyncWithHttpInfo($site_name, $collection_name)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostAsyncWithHttpInfo
-     *
-     * Force Duda to refresh the data from an external URL for a given collection.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostAsyncWithHttpInfo($site_name, $collection_name)
-    {
-        $returnType = '\OpenAPI\Client\Model\Collection';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostRequest($site_name, $collection_name);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePostRequest($site_name, $collection_name)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRevalidatePost'
+                'Missing the required parameter $collection_name when calling clearCache'
             );
         }
 
@@ -2395,37 +430,332 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowDelete
+     * Operation clearCacheByExternalId
      *
-     * Delete existing rows of data that exist within the collection.
+     * Revalidate all collections in all sites under the same account that use the provided external id
+     *
+     * @param  string $external_id The external ID for the collections (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error
+     */
+    public function clearCacheByExternalId($external_id)
+    {
+        list($response) = $this->clearCacheByExternalIdWithHttpInfo($external_id);
+        return $response;
+    }
+
+    /**
+     * Operation clearCacheByExternalIdWithHttpInfo
+     *
+     * Revalidate all collections in all sites under the same account that use the provided external id
+     *
+     * @param  string $external_id The external ID for the collections (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function clearCacheByExternalIdWithHttpInfo($external_id)
+    {
+        $request = $this->clearCacheByExternalIdRequest($external_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\Collection' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Collection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\Collection';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Collection',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation clearCacheByExternalIdAsync
+     *
+     * Revalidate all collections in all sites under the same account that use the provided external id
+     *
+     * @param  string $external_id The external ID for the collections (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function clearCacheByExternalIdAsync($external_id)
+    {
+        return $this->clearCacheByExternalIdAsyncWithHttpInfo($external_id)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation clearCacheByExternalIdAsyncWithHttpInfo
+     *
+     * Revalidate all collections in all sites under the same account that use the provided external id
+     *
+     * @param  string $external_id The external ID for the collections (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function clearCacheByExternalIdAsyncWithHttpInfo($external_id)
+    {
+        $returnType = '\OpenAPI\Client\Model\Collection';
+        $request = $this->clearCacheByExternalIdRequest($external_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'clearCacheByExternalId'
+     *
+     * @param  string $external_id The external ID for the collections (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function clearCacheByExternalIdRequest($external_id)
+    {
+        // verify the required parameter 'external_id' is set
+        if ($external_id === null || (is_array($external_id) && count($external_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $external_id when calling clearCacheByExternalId'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/collections/revalidate/{external_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($external_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'external_id' . '}',
+                ObjectSerializer::toPathValue($external_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createCollection
+     *
+     * Create a new collection within a site
      *
      * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionCreateRequest $collection_create_request collection_create_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowDelete($site_name, $collection_name)
+    public function createCollection($site_name, $collection_create_request = null)
     {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteWithHttpInfo($site_name, $collection_name);
+        $this->createCollectionWithHttpInfo($site_name, $collection_create_request);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteWithHttpInfo
+     * Operation createCollectionWithHttpInfo
      *
-     * Delete existing rows of data that exist within the collection.
+     * Create a new collection within a site
      *
      * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionCreateRequest $collection_create_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteWithHttpInfo($site_name, $collection_name)
+    public function createCollectionWithHttpInfo($site_name, $collection_create_request = null)
     {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteRequest($site_name, $collection_name);
+        $request = $this->createCollectionRequest($site_name, $collection_create_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2480,19 +810,19 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteAsync
+     * Operation createCollectionAsync
      *
-     * Delete existing rows of data that exist within the collection.
+     * Create a new collection within a site
      *
      * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionCreateRequest $collection_create_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteAsync($site_name, $collection_name)
+    public function createCollectionAsync($site_name, $collection_create_request = null)
     {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteAsyncWithHttpInfo($site_name, $collection_name)
+        return $this->createCollectionAsyncWithHttpInfo($site_name, $collection_create_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2501,20 +831,20 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteAsyncWithHttpInfo
+     * Operation createCollectionAsyncWithHttpInfo
      *
-     * Delete existing rows of data that exist within the collection.
+     * Create a new collection within a site
      *
      * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionCreateRequest $collection_create_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteAsyncWithHttpInfo($site_name, $collection_name)
+    public function createCollectionAsyncWithHttpInfo($site_name, $collection_create_request = null)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteRequest($site_name, $collection_name);
+        $request = $this->createCollectionRequest($site_name, $collection_create_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2540,7 +870,849 @@ class CollectionApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameRowDelete'
+     * Create request for operation 'createCollection'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  \OpenAPI\Client\Model\CollectionCreateRequest $collection_create_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createCollectionRequest($site_name, $collection_create_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createCollection'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($collection_create_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($collection_create_request));
+            } else {
+                $httpBody = $collection_create_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createFields
+     *
+     * Add a new field(s) to an existing collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateFieldsRequest $create_fields_request create_fields_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function createFields($site_name, $collection_name, $create_fields_request = null)
+    {
+        $this->createFieldsWithHttpInfo($site_name, $collection_name, $create_fields_request);
+    }
+
+    /**
+     * Operation createFieldsWithHttpInfo
+     *
+     * Add a new field(s) to an existing collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateFieldsRequest $create_fields_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createFieldsWithHttpInfo($site_name, $collection_name, $create_fields_request = null)
+    {
+        $request = $this->createFieldsRequest($site_name, $collection_name, $create_fields_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createFieldsAsync
+     *
+     * Add a new field(s) to an existing collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateFieldsRequest $create_fields_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createFieldsAsync($site_name, $collection_name, $create_fields_request = null)
+    {
+        return $this->createFieldsAsyncWithHttpInfo($site_name, $collection_name, $create_fields_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createFieldsAsyncWithHttpInfo
+     *
+     * Add a new field(s) to an existing collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateFieldsRequest $create_fields_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createFieldsAsyncWithHttpInfo($site_name, $collection_name, $create_fields_request = null)
+    {
+        $returnType = '';
+        $request = $this->createFieldsRequest($site_name, $collection_name, $create_fields_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createFields'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateFieldsRequest $create_fields_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createFieldsRequest($site_name, $collection_name, $create_fields_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createFields'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling createFields'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/field';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_fields_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_fields_request));
+            } else {
+                $httpBody = $create_fields_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createRows
+     *
+     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateRowsRequest $create_rows_request create_rows_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\RowId[]|\OpenAPI\Client\Model\Error
+     */
+    public function createRows($site_name, $collection_name, $create_rows_request = null)
+    {
+        list($response) = $this->createRowsWithHttpInfo($site_name, $collection_name, $create_rows_request);
+        return $response;
+    }
+
+    /**
+     * Operation createRowsWithHttpInfo
+     *
+     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateRowsRequest $create_rows_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\RowId[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createRowsWithHttpInfo($site_name, $collection_name, $create_rows_request = null)
+    {
+        $request = $this->createRowsRequest($site_name, $collection_name, $create_rows_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\RowId[]' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\RowId[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\RowId[]';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\RowId[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createRowsAsync
+     *
+     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateRowsRequest $create_rows_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createRowsAsync($site_name, $collection_name, $create_rows_request = null)
+    {
+        return $this->createRowsAsyncWithHttpInfo($site_name, $collection_name, $create_rows_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createRowsAsyncWithHttpInfo
+     *
+     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateRowsRequest $create_rows_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createRowsAsyncWithHttpInfo($site_name, $collection_name, $create_rows_request = null)
+    {
+        $returnType = '\OpenAPI\Client\Model\RowId[]';
+        $request = $this->createRowsRequest($site_name, $collection_name, $create_rows_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createRows'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CreateRowsRequest $create_rows_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createRowsRequest($site_name, $collection_name, $create_rows_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling createRows'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling createRows'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/row';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($create_rows_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($create_rows_request));
+            } else {
+                $httpBody = $create_rows_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteCollection
+     *
+     * Delete an existing collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteCollection($site_name, $collection_name)
+    {
+        $this->deleteCollectionWithHttpInfo($site_name, $collection_name);
+    }
+
+    /**
+     * Operation deleteCollectionWithHttpInfo
+     *
+     * Delete an existing collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteCollectionWithHttpInfo($site_name, $collection_name)
+    {
+        $request = $this->deleteCollectionRequest($site_name, $collection_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteCollectionAsync
+     *
+     * Delete an existing collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteCollectionAsync($site_name, $collection_name)
+    {
+        return $this->deleteCollectionAsyncWithHttpInfo($site_name, $collection_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteCollectionAsyncWithHttpInfo
+     *
+     * Delete an existing collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteCollectionAsyncWithHttpInfo($site_name, $collection_name)
+    {
+        $returnType = '';
+        $request = $this->deleteCollectionRequest($site_name, $collection_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteCollection'
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
@@ -2548,18 +1720,551 @@ class CollectionApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowDeleteRequest($site_name, $collection_name)
+    public function deleteCollectionRequest($site_name, $collection_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRowDelete'
+                'Missing the required parameter $site_name when calling deleteCollection'
             );
         }
         // verify the required parameter 'collection_name' is set
         if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRowDelete'
+                'Missing the required parameter $collection_name when calling deleteCollection'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'DELETE',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteFields
+     *
+     * Delete an existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteFields($site_name, $collection_name, $field_name)
+    {
+        $this->deleteFieldsWithHttpInfo($site_name, $collection_name, $field_name);
+    }
+
+    /**
+     * Operation deleteFieldsWithHttpInfo
+     *
+     * Delete an existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteFieldsWithHttpInfo($site_name, $collection_name, $field_name)
+    {
+        $request = $this->deleteFieldsRequest($site_name, $collection_name, $field_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteFieldsAsync
+     *
+     * Delete an existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteFieldsAsync($site_name, $collection_name, $field_name)
+    {
+        return $this->deleteFieldsAsyncWithHttpInfo($site_name, $collection_name, $field_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteFieldsAsyncWithHttpInfo
+     *
+     * Delete an existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteFieldsAsyncWithHttpInfo($site_name, $collection_name, $field_name)
+    {
+        $returnType = '';
+        $request = $this->deleteFieldsRequest($site_name, $collection_name, $field_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteFields'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteFieldsRequest($site_name, $collection_name, $field_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling deleteFields'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling deleteFields'
+            );
+        }
+        // verify the required parameter 'field_name' is set
+        if ($field_name === null || (is_array($field_name) && count($field_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $field_name when calling deleteFields'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($field_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'field_name' . '}',
+                ObjectSerializer::toPathValue($field_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'DELETE',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteRows
+     *
+     * Delete existing rows of data that exist within the collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteRows($site_name, $collection_name)
+    {
+        $this->deleteRowsWithHttpInfo($site_name, $collection_name);
+    }
+
+    /**
+     * Operation deleteRowsWithHttpInfo
+     *
+     * Delete existing rows of data that exist within the collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteRowsWithHttpInfo($site_name, $collection_name)
+    {
+        $request = $this->deleteRowsRequest($site_name, $collection_name);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteRowsAsync
+     *
+     * Delete existing rows of data that exist within the collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteRowsAsync($site_name, $collection_name)
+    {
+        return $this->deleteRowsAsyncWithHttpInfo($site_name, $collection_name)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteRowsAsyncWithHttpInfo
+     *
+     * Delete existing rows of data that exist within the collection.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteRowsAsyncWithHttpInfo($site_name, $collection_name)
+    {
+        $returnType = '';
+        $request = $this->deleteRowsRequest($site_name, $collection_name);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteRows'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteRowsRequest($site_name, $collection_name)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling deleteRows'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling deleteRows'
             );
         }
 
@@ -2652,40 +2357,38 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPost
+     * Operation getCollection
      *
-     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     * Get the fields and data of an existing collection
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject12 $inline_object12 inline_object12 (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\InlineResponse2007[]|\OpenAPI\Client\Model\Error
+     * @return \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPost($site_name, $collection_name, $inline_object12 = null)
+    public function getCollection($site_name, $collection_name)
     {
-        list($response) = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPostWithHttpInfo($site_name, $collection_name, $inline_object12);
+        list($response) = $this->getCollectionWithHttpInfo($site_name, $collection_name);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPostWithHttpInfo
+     * Operation getCollectionWithHttpInfo
      *
-     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     * Get the fields and data of an existing collection
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject12 $inline_object12 (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\InlineResponse2007[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Collection|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPostWithHttpInfo($site_name, $collection_name, $inline_object12 = null)
+    public function getCollectionWithHttpInfo($site_name, $collection_name)
     {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPostRequest($site_name, $collection_name, $inline_object12);
+        $request = $this->getCollectionRequest($site_name, $collection_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2724,14 +2427,14 @@ class CollectionApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\InlineResponse2007[]' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\Collection' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\InlineResponse2007[]', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Collection', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -2749,7 +2452,7 @@ class CollectionApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\InlineResponse2007[]';
+            $returnType = '\OpenAPI\Client\Model\Collection';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -2767,7 +2470,7 @@ class CollectionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\InlineResponse2007[]',
+                        '\OpenAPI\Client\Model\Collection',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2786,20 +2489,19 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPostAsync
+     * Operation getCollectionAsync
      *
-     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     * Get the fields and data of an existing collection
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject12 $inline_object12 (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPostAsync($site_name, $collection_name, $inline_object12 = null)
+    public function getCollectionAsync($site_name, $collection_name)
     {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPostAsyncWithHttpInfo($site_name, $collection_name, $inline_object12)
+        return $this->getCollectionAsyncWithHttpInfo($site_name, $collection_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2808,21 +2510,20 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPostAsyncWithHttpInfo
+     * Operation getCollectionAsyncWithHttpInfo
      *
-     * Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
+     * Get the fields and data of an existing collection
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject12 $inline_object12 (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPostAsyncWithHttpInfo($site_name, $collection_name, $inline_object12 = null)
+    public function getCollectionAsyncWithHttpInfo($site_name, $collection_name)
     {
-        $returnType = '\OpenAPI\Client\Model\InlineResponse2007[]';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPostRequest($site_name, $collection_name, $inline_object12);
+        $returnType = '\OpenAPI\Client\Model\Collection';
+        $request = $this->getCollectionRequest($site_name, $collection_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2858,31 +2559,30 @@ class CollectionApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameRowPost'
+     * Create request for operation 'getCollection'
      *
      * @param  string $site_name Site name (required)
      * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject12 $inline_object12 (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPostRequest($site_name, $collection_name, $inline_object12 = null)
+    public function getCollectionRequest($site_name, $collection_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRowPost'
+                'Missing the required parameter $site_name when calling getCollection'
             );
         }
         // verify the required parameter 'collection_name' is set
         if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRowPost'
+                'Missing the required parameter $collection_name when calling getCollection'
             );
         }
 
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/row';
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2916,18 +2616,12 @@ class CollectionApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                ['application/json']
+                []
             );
         }
 
         // for model (json/xml)
-        if (isset($inline_object12)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object12));
-            } else {
-                $httpBody = $inline_object12;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2969,7 +2663,7 @@ class CollectionApi
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
-            'POST',
+            'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -2977,275 +2671,7 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPut
-     *
-     * Update existing collection rows.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject11 $inline_object11 inline_object11 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPut($site_name, $collection_name, $inline_object11 = null)
-    {
-        $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPutWithHttpInfo($site_name, $collection_name, $inline_object11);
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPutWithHttpInfo
-     *
-     * Update existing collection rows.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject11 $inline_object11 (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPutWithHttpInfo($site_name, $collection_name, $inline_object11 = null)
-    {
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPutRequest($site_name, $collection_name, $inline_object11);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPutAsync
-     *
-     * Update existing collection rows.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject11 $inline_object11 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPutAsync($site_name, $collection_name, $inline_object11 = null)
-    {
-        return $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPutAsyncWithHttpInfo($site_name, $collection_name, $inline_object11)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionCollectionNameRowPutAsyncWithHttpInfo
-     *
-     * Update existing collection rows.
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject11 $inline_object11 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPutAsyncWithHttpInfo($site_name, $collection_name, $inline_object11 = null)
-    {
-        $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionCollectionNameRowPutRequest($site_name, $collection_name, $inline_object11);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionCollectionNameRowPut'
-     *
-     * @param  string $site_name Site name (required)
-     * @param  string $collection_name Collection name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject11 $inline_object11 (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function sitesMultiscreenSiteNameCollectionCollectionNameRowPutRequest($site_name, $collection_name, $inline_object11 = null)
-    {
-        // verify the required parameter 'site_name' is set
-        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRowPut'
-            );
-        }
-        // verify the required parameter 'collection_name' is set
-        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection_name when calling sitesMultiscreenSiteNameCollectionCollectionNameRowPut'
-            );
-        }
-
-        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/row';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($site_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'site_name' . '}',
-                ObjectSerializer::toPathValue($site_name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($collection_name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection_name' . '}',
-                ObjectSerializer::toPathValue($collection_name),
-                $resourcePath
-            );
-        }
-
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($inline_object11)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object11));
-            } else {
-                $httpBody = $inline_object11;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires HTTP basic authentication
-        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
-            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'PUT',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation sitesMultiscreenSiteNameCollectionGet
+     * Operation listCollections
      *
      * Get all collections that exist on this website.
      *
@@ -3255,14 +2681,14 @@ class CollectionApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Collection[]|\OpenAPI\Client\Model\Error
      */
-    public function sitesMultiscreenSiteNameCollectionGet($site_name)
+    public function listCollections($site_name)
     {
-        list($response) = $this->sitesMultiscreenSiteNameCollectionGetWithHttpInfo($site_name);
+        list($response) = $this->listCollectionsWithHttpInfo($site_name);
         return $response;
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionGetWithHttpInfo
+     * Operation listCollectionsWithHttpInfo
      *
      * Get all collections that exist on this website.
      *
@@ -3272,9 +2698,9 @@ class CollectionApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Collection[]|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameCollectionGetWithHttpInfo($site_name)
+    public function listCollectionsWithHttpInfo($site_name)
     {
-        $request = $this->sitesMultiscreenSiteNameCollectionGetRequest($site_name);
+        $request = $this->listCollectionsRequest($site_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3375,7 +2801,7 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionGetAsync
+     * Operation listCollectionsAsync
      *
      * Get all collections that exist on this website.
      *
@@ -3384,9 +2810,9 @@ class CollectionApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionGetAsync($site_name)
+    public function listCollectionsAsync($site_name)
     {
-        return $this->sitesMultiscreenSiteNameCollectionGetAsyncWithHttpInfo($site_name)
+        return $this->listCollectionsAsyncWithHttpInfo($site_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3395,7 +2821,7 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionGetAsyncWithHttpInfo
+     * Operation listCollectionsAsyncWithHttpInfo
      *
      * Get all collections that exist on this website.
      *
@@ -3404,10 +2830,10 @@ class CollectionApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionGetAsyncWithHttpInfo($site_name)
+    public function listCollectionsAsyncWithHttpInfo($site_name)
     {
         $returnType = '\OpenAPI\Client\Model\Collection[]';
-        $request = $this->sitesMultiscreenSiteNameCollectionGetRequest($site_name);
+        $request = $this->listCollectionsRequest($site_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3443,19 +2869,19 @@ class CollectionApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionGet'
+     * Create request for operation 'listCollections'
      *
      * @param  string $site_name Site name (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCollectionGetRequest($site_name)
+    public function listCollectionsRequest($site_name)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionGet'
+                'Missing the required parameter $site_name when calling listCollections'
             );
         }
 
@@ -3540,37 +2966,39 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionPost
+     * Operation updateCollection
      *
-     * Create a new collection within a site
+     * Update an existing collection
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject9 $inline_object9 inline_object9 (optional)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionUpdateRequest $collection_update_request collection_update_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function sitesMultiscreenSiteNameCollectionPost($site_name, $inline_object9 = null)
+    public function updateCollection($site_name, $collection_name, $collection_update_request = null)
     {
-        $this->sitesMultiscreenSiteNameCollectionPostWithHttpInfo($site_name, $inline_object9);
+        $this->updateCollectionWithHttpInfo($site_name, $collection_name, $collection_update_request);
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionPostWithHttpInfo
+     * Operation updateCollectionWithHttpInfo
      *
-     * Create a new collection within a site
+     * Update an existing collection
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject9 $inline_object9 (optional)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionUpdateRequest $collection_update_request (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sitesMultiscreenSiteNameCollectionPostWithHttpInfo($site_name, $inline_object9 = null)
+    public function updateCollectionWithHttpInfo($site_name, $collection_name, $collection_update_request = null)
     {
-        $request = $this->sitesMultiscreenSiteNameCollectionPostRequest($site_name, $inline_object9);
+        $request = $this->updateCollectionRequest($site_name, $collection_name, $collection_update_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3625,19 +3053,20 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionPostAsync
+     * Operation updateCollectionAsync
      *
-     * Create a new collection within a site
+     * Update an existing collection
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject9 $inline_object9 (optional)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionUpdateRequest $collection_update_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionPostAsync($site_name, $inline_object9 = null)
+    public function updateCollectionAsync($site_name, $collection_name, $collection_update_request = null)
     {
-        return $this->sitesMultiscreenSiteNameCollectionPostAsyncWithHttpInfo($site_name, $inline_object9)
+        return $this->updateCollectionAsyncWithHttpInfo($site_name, $collection_name, $collection_update_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3646,20 +3075,21 @@ class CollectionApi
     }
 
     /**
-     * Operation sitesMultiscreenSiteNameCollectionPostAsyncWithHttpInfo
+     * Operation updateCollectionAsyncWithHttpInfo
      *
-     * Create a new collection within a site
+     * Update an existing collection
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject9 $inline_object9 (optional)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionUpdateRequest $collection_update_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sitesMultiscreenSiteNameCollectionPostAsyncWithHttpInfo($site_name, $inline_object9 = null)
+    public function updateCollectionAsyncWithHttpInfo($site_name, $collection_name, $collection_update_request = null)
     {
         $returnType = '';
-        $request = $this->sitesMultiscreenSiteNameCollectionPostRequest($site_name, $inline_object9);
+        $request = $this->updateCollectionRequest($site_name, $collection_name, $collection_update_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3685,24 +3115,31 @@ class CollectionApi
     }
 
     /**
-     * Create request for operation 'sitesMultiscreenSiteNameCollectionPost'
+     * Create request for operation 'updateCollection'
      *
      * @param  string $site_name Site name (required)
-     * @param  \OpenAPI\Client\Model\InlineObject9 $inline_object9 (optional)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\CollectionUpdateRequest $collection_update_request (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sitesMultiscreenSiteNameCollectionPostRequest($site_name, $inline_object9 = null)
+    public function updateCollectionRequest($site_name, $collection_name, $collection_update_request = null)
     {
         // verify the required parameter 'site_name' is set
         if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $site_name when calling sitesMultiscreenSiteNameCollectionPost'
+                'Missing the required parameter $site_name when calling updateCollection'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling updateCollection'
             );
         }
 
-        $resourcePath = '/sites/multiscreen/{site_name}/collection';
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3716,6 +3153,14 @@ class CollectionApi
             $resourcePath = str_replace(
                 '{' . 'site_name' . '}',
                 ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
                 $resourcePath
             );
         }
@@ -3733,11 +3178,11 @@ class CollectionApi
         }
 
         // for model (json/xml)
-        if (isset($inline_object9)) {
+        if (isset($collection_update_request)) {
             if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($inline_object9));
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($collection_update_request));
             } else {
-                $httpBody = $inline_object9;
+                $httpBody = $collection_update_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3781,7 +3226,562 @@ class CollectionApi
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
-            'POST',
+            'PUT',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateFields
+     *
+     * Update existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     * @param  \OpenAPI\Client\Model\UpdateFieldsRequest $update_fields_request update_fields_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function updateFields($site_name, $collection_name, $field_name, $update_fields_request = null)
+    {
+        $this->updateFieldsWithHttpInfo($site_name, $collection_name, $field_name, $update_fields_request);
+    }
+
+    /**
+     * Operation updateFieldsWithHttpInfo
+     *
+     * Update existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     * @param  \OpenAPI\Client\Model\UpdateFieldsRequest $update_fields_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateFieldsWithHttpInfo($site_name, $collection_name, $field_name, $update_fields_request = null)
+    {
+        $request = $this->updateFieldsRequest($site_name, $collection_name, $field_name, $update_fields_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateFieldsAsync
+     *
+     * Update existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     * @param  \OpenAPI\Client\Model\UpdateFieldsRequest $update_fields_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateFieldsAsync($site_name, $collection_name, $field_name, $update_fields_request = null)
+    {
+        return $this->updateFieldsAsyncWithHttpInfo($site_name, $collection_name, $field_name, $update_fields_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateFieldsAsyncWithHttpInfo
+     *
+     * Update existing field of a collection
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     * @param  \OpenAPI\Client\Model\UpdateFieldsRequest $update_fields_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateFieldsAsyncWithHttpInfo($site_name, $collection_name, $field_name, $update_fields_request = null)
+    {
+        $returnType = '';
+        $request = $this->updateFieldsRequest($site_name, $collection_name, $field_name, $update_fields_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateFields'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  string $field_name Name of the field in the collection. (must not start with $) (required)
+     * @param  \OpenAPI\Client\Model\UpdateFieldsRequest $update_fields_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateFieldsRequest($site_name, $collection_name, $field_name, $update_fields_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling updateFields'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling updateFields'
+            );
+        }
+        // verify the required parameter 'field_name' is set
+        if ($field_name === null || (is_array($field_name) && count($field_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $field_name when calling updateFields'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($field_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'field_name' . '}',
+                ObjectSerializer::toPathValue($field_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($update_fields_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($update_fields_request));
+            } else {
+                $httpBody = $update_fields_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'PUT',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateRows
+     *
+     * Update existing collection rows.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\UpdateRowsRequest $update_rows_request update_rows_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function updateRows($site_name, $collection_name, $update_rows_request = null)
+    {
+        $this->updateRowsWithHttpInfo($site_name, $collection_name, $update_rows_request);
+    }
+
+    /**
+     * Operation updateRowsWithHttpInfo
+     *
+     * Update existing collection rows.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\UpdateRowsRequest $update_rows_request (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateRowsWithHttpInfo($site_name, $collection_name, $update_rows_request = null)
+    {
+        $request = $this->updateRowsRequest($site_name, $collection_name, $update_rows_request);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateRowsAsync
+     *
+     * Update existing collection rows.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\UpdateRowsRequest $update_rows_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateRowsAsync($site_name, $collection_name, $update_rows_request = null)
+    {
+        return $this->updateRowsAsyncWithHttpInfo($site_name, $collection_name, $update_rows_request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateRowsAsyncWithHttpInfo
+     *
+     * Update existing collection rows.
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\UpdateRowsRequest $update_rows_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateRowsAsyncWithHttpInfo($site_name, $collection_name, $update_rows_request = null)
+    {
+        $returnType = '';
+        $request = $this->updateRowsRequest($site_name, $collection_name, $update_rows_request);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateRows'
+     *
+     * @param  string $site_name Site name (required)
+     * @param  string $collection_name Collection name (required)
+     * @param  \OpenAPI\Client\Model\UpdateRowsRequest $update_rows_request (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateRowsRequest($site_name, $collection_name, $update_rows_request = null)
+    {
+        // verify the required parameter 'site_name' is set
+        if ($site_name === null || (is_array($site_name) && count($site_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $site_name when calling updateRows'
+            );
+        }
+        // verify the required parameter 'collection_name' is set
+        if ($collection_name === null || (is_array($collection_name) && count($collection_name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $collection_name when calling updateRows'
+            );
+        }
+
+        $resourcePath = '/sites/multiscreen/{site_name}/collection/{collection_name}/row';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($site_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'site_name' . '}',
+                ObjectSerializer::toPathValue($site_name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($collection_name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'collection_name' . '}',
+                ObjectSerializer::toPathValue($collection_name),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($update_rows_request)) {
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($update_rows_request));
+            } else {
+                $httpBody = $update_rows_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

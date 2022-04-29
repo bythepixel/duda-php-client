@@ -11,6 +11,6 @@ Name | Type | Description | Notes
 **tablet_thumbnail_url** | **string** |  | [optional]
 **mobile_thumbnail_url** | **string** |  | [optional]
 **template_id** | **int** |  | [optional]
-**template_properties** | [**\OpenAPI\Client\Model\TemplateTemplateProperties**](TemplateTemplateProperties.md) |  | [optional]
+**template_properties** | [**\OpenAPI\Client\Model\TemplateProperties**](TemplateProperties.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

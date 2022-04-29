@@ -4,20 +4,21 @@ All URIs are relative to https://api.duda.co/api.
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**sitesMultiscreenTemplatesGet()**](TemplateApi.md#sitesMultiscreenTemplatesGet) | **GET** /sites/multiscreen/templates | Get all available Templates.
-[**sitesMultiscreenTemplatesPost()**](TemplateApi.md#sitesMultiscreenTemplatesPost) | **POST** /sites/multiscreen/templates | Create a new Template based on an existing one
-[**sitesMultiscreenTemplatesTemplateIdDelete()**](TemplateApi.md#sitesMultiscreenTemplatesTemplateIdDelete) | **DELETE** /sites/multiscreen/templates/{template_id} | Delete a custom Template.
-[**sitesMultiscreenTemplatesTemplateIdGet()**](TemplateApi.md#sitesMultiscreenTemplatesTemplateIdGet) | **GET** /sites/multiscreen/templates/{template_id} | Get the details of a Template.
-[**sitesMultiscreenTemplatesTemplateIdPost()**](TemplateApi.md#sitesMultiscreenTemplatesTemplateIdPost) | **POST** /sites/multiscreen/templates/{template_id} | Update the name of a custom Template.
+[**createFromSite()**](TemplateApi.md#createFromSite) | **POST** /sites/multiscreen/templates/fromsite | Create a new Template based on an existing site
+[**createFromTemplate()**](TemplateApi.md#createFromTemplate) | **POST** /sites/multiscreen/templates/fromtemplate | Create a new Template based on an existing one
+[**deleteTemplate()**](TemplateApi.md#deleteTemplate) | **DELETE** /sites/multiscreen/templates/{template_id} | Delete a custom Template.
+[**getTemplate()**](TemplateApi.md#getTemplate) | **GET** /sites/multiscreen/templates/{template_id} | Get the details of a Template.
+[**listTemplates()**](TemplateApi.md#listTemplates) | **GET** /sites/multiscreen/templates | Get all available Templates.
+[**updateTemplate()**](TemplateApi.md#updateTemplate) | **POST** /sites/multiscreen/templates/{template_id} | Update the name of a custom Template.
 
 
-## `sitesMultiscreenTemplatesGet()`
+## `createFromSite()`
 
 ```php
-sitesMultiscreenTemplatesGet(): \OpenAPI\Client\Model\Template[]
+createFromSite($create_template_from_site_request): \OpenAPI\Client\Model\Template
 ```
 
-Get all available Templates.
+Create a new Template based on an existing site
 
 ### Example
 
@@ -38,22 +39,25 @@ $apiInstance = new OpenAPI\Client\Api\TemplateApi(
     new GuzzleHttp\Client(),
     $config
 );
+$create_template_from_site_request = new \OpenAPI\Client\Model\CreateTemplateFromSiteRequest(); // \OpenAPI\Client\Model\CreateTemplateFromSiteRequest
 
 try {
-    $result = $apiInstance->sitesMultiscreenTemplatesGet();
+    $result = $apiInstance->createFromSite($create_template_from_site_request);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling TemplateApi->sitesMultiscreenTemplatesGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling TemplateApi->createFromSite: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_template_from_site_request** | [**\OpenAPI\Client\Model\CreateTemplateFromSiteRequest**](../Model/CreateTemplateFromSiteRequest.md)|  |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Template[]**](../Model/Template.md)
+[**\OpenAPI\Client\Model\Template**](../Model/Template.md)
 
 ### Authorization
 
@@ -61,17 +65,17 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenTemplatesPost()`
+## `createFromTemplate()`
 
 ```php
-sitesMultiscreenTemplatesPost($inline_object4): \OpenAPI\Client\Model\Template
+createFromTemplate($create_template_from_template_request): \OpenAPI\Client\Model\Template
 ```
 
 Create a new Template based on an existing one
@@ -95,13 +99,13 @@ $apiInstance = new OpenAPI\Client\Api\TemplateApi(
     new GuzzleHttp\Client(),
     $config
 );
-$inline_object4 = new \OpenAPI\Client\Model\InlineObject4(); // \OpenAPI\Client\Model\InlineObject4
+$create_template_from_template_request = new \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest(); // \OpenAPI\Client\Model\CreateTemplateFromTemplateRequest
 
 try {
-    $result = $apiInstance->sitesMultiscreenTemplatesPost($inline_object4);
+    $result = $apiInstance->createFromTemplate($create_template_from_template_request);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling TemplateApi->sitesMultiscreenTemplatesPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling TemplateApi->createFromTemplate: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -109,7 +113,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inline_object4** | [**\OpenAPI\Client\Model\InlineObject4**](../Model/InlineObject4.md)|  |
+ **create_template_from_template_request** | [**\OpenAPI\Client\Model\CreateTemplateFromTemplateRequest**](../Model/CreateTemplateFromTemplateRequest.md)|  |
 
 ### Return type
 
@@ -128,10 +132,10 @@ Name | Type | Description  | Notes
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenTemplatesTemplateIdDelete()`
+## `deleteTemplate()`
 
 ```php
-sitesMultiscreenTemplatesTemplateIdDelete($template_id)
+deleteTemplate($template_id)
 ```
 
 Delete a custom Template.
@@ -158,9 +162,9 @@ $apiInstance = new OpenAPI\Client\Api\TemplateApi(
 $template_id = 1000134; // string | ID of the template to delete
 
 try {
-    $apiInstance->sitesMultiscreenTemplatesTemplateIdDelete($template_id);
+    $apiInstance->deleteTemplate($template_id);
 } catch (Exception $e) {
-    echo 'Exception when calling TemplateApi->sitesMultiscreenTemplatesTemplateIdDelete: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling TemplateApi->deleteTemplate: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -187,10 +191,10 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenTemplatesTemplateIdGet()`
+## `getTemplate()`
 
 ```php
-sitesMultiscreenTemplatesTemplateIdGet($template_id): \OpenAPI\Client\Model\Template
+getTemplate($template_id): \OpenAPI\Client\Model\Template
 ```
 
 Get the details of a Template.
@@ -217,10 +221,10 @@ $apiInstance = new OpenAPI\Client\Api\TemplateApi(
 $template_id = 1000134; // string | ID associated with a template
 
 try {
-    $result = $apiInstance->sitesMultiscreenTemplatesTemplateIdGet($template_id);
+    $result = $apiInstance->getTemplate($template_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling TemplateApi->sitesMultiscreenTemplatesTemplateIdGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling TemplateApi->getTemplate: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -247,10 +251,67 @@ Name | Type | Description  | Notes
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `sitesMultiscreenTemplatesTemplateIdPost()`
+## `listTemplates()`
 
 ```php
-sitesMultiscreenTemplatesTemplateIdPost($template_id, $inline_object5)
+listTemplates(): \OpenAPI\Client\Model\Template[]
+```
+
+Get all available Templates.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: BasicAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new OpenAPI\Client\Api\TemplateApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->listTemplates();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling TemplateApi->listTemplates: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\OpenAPI\Client\Model\Template[]**](../Model/Template.md)
+
+### Authorization
+
+[BasicAuth](../../README.md#BasicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateTemplate()`
+
+```php
+updateTemplate($template_id, $update_template_request)
 ```
 
 Update the name of a custom Template.
@@ -275,12 +336,12 @@ $apiInstance = new OpenAPI\Client\Api\TemplateApi(
     $config
 );
 $template_id = 1000134; // string | ID associated with a template
-$inline_object5 = new \OpenAPI\Client\Model\InlineObject5(); // \OpenAPI\Client\Model\InlineObject5
+$update_template_request = new \OpenAPI\Client\Model\UpdateTemplateRequest(); // \OpenAPI\Client\Model\UpdateTemplateRequest
 
 try {
-    $apiInstance->sitesMultiscreenTemplatesTemplateIdPost($template_id, $inline_object5);
+    $apiInstance->updateTemplate($template_id, $update_template_request);
 } catch (Exception $e) {
-    echo 'Exception when calling TemplateApi->sitesMultiscreenTemplatesTemplateIdPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling TemplateApi->updateTemplate: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -289,7 +350,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **template_id** | **string**| ID associated with a template |
- **inline_object5** | [**\OpenAPI\Client\Model\InlineObject5**](../Model/InlineObject5.md)|  | [optional]
+ **update_template_request** | [**\OpenAPI\Client\Model\UpdateTemplateRequest**](../Model/UpdateTemplateRequest.md)|  | [optional]
 
 ### Return type
 

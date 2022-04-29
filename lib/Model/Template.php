@@ -66,7 +66,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
         'tablet_thumbnail_url' => 'string',
         'mobile_thumbnail_url' => 'string',
         'template_id' => 'int',
-        'template_properties' => '\OpenAPI\Client\Model\TemplateTemplateProperties'
+        'template_properties' => '\OpenAPI\Client\Model\TemplateProperties'
     ];
 
     /**
@@ -418,7 +418,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets template_properties
      *
-     * @return \OpenAPI\Client\Model\TemplateTemplateProperties|null
+     * @return \OpenAPI\Client\Model\TemplateProperties|null
      */
     public function getTemplateProperties()
     {
@@ -428,7 +428,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets template_properties
      *
-     * @param \OpenAPI\Client\Model\TemplateTemplateProperties|null $template_properties template_properties
+     * @param \OpenAPI\Client\Model\TemplateProperties|null $template_properties template_properties
      *
      * @return self
      */

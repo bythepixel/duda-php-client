@@ -64,7 +64,7 @@ class Site implements ModelInterface, ArrayAccess, \JsonSerializable
         'site_domain' => 'string',
         'lang' => 'string',
         'site_business_info' => '\OpenAPI\Client\Model\SiteBusinessInfo',
-        'site_alternate_domains' => '\OpenAPI\Client\Model\SiteSiteAlternateDomains',
+        'site_alternate_domains' => '\OpenAPI\Client\Model\AlternateDomains',
         'site_seo' => '\OpenAPI\Client\Model\Seo',
         'schemas' => '\OpenAPI\Client\Model\SiteSchemas',
         'site_name' => 'string',
@@ -454,7 +454,7 @@ class Site implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets site_alternate_domains
      *
-     * @return \OpenAPI\Client\Model\SiteSiteAlternateDomains|null
+     * @return \OpenAPI\Client\Model\AlternateDomains|null
      */
     public function getSiteAlternateDomains()
     {
@@ -464,7 +464,7 @@ class Site implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets site_alternate_domains
      *
-     * @param \OpenAPI\Client\Model\SiteSiteAlternateDomains|null $site_alternate_domains site_alternate_domains
+     * @param \OpenAPI\Client\Model\AlternateDomains|null $site_alternate_domains site_alternate_domains
      *
      * @return self
      */
