@@ -184,7 +184,6 @@ Class | Method | HTTP request | Description
 - [FormMessage](docs/Model/FormMessage.md)
 - [Frequency](docs/Model/Frequency.md)
 - [GetAllRulesResponse](docs/Model/GetAllRulesResponse.md)
-- [GetContentLibraryResponse](docs/Model/GetContentLibraryResponse.md)
 - [GetInjectedContentRequest](docs/Model/GetInjectedContentRequest.md)
 - [GetInjectedContentRequestAllOf](docs/Model/GetInjectedContentRequestAllOf.md)
 - [InjectedContent](docs/Model/InjectedContent.md)

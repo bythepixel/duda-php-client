@@ -1204,7 +1204,7 @@ class ContentApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\GetContentLibraryResponse|\OpenAPI\Client\Model\Error
+     * @return \OpenAPI\Client\Model\Content|\OpenAPI\Client\Model\Error
      */
     public function getContentLibrary($site_name)
     {
@@ -1221,7 +1221,7 @@ class ContentApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\GetContentLibraryResponse|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Content|\OpenAPI\Client\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function getContentLibraryWithHttpInfo($site_name)
     {
@@ -1264,14 +1264,14 @@ class ContentApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\GetContentLibraryResponse' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\Content' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\GetContentLibraryResponse', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Content', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1289,7 +1289,7 @@ class ContentApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\GetContentLibraryResponse';
+            $returnType = '\OpenAPI\Client\Model\Content';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -1307,7 +1307,7 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\GetContentLibraryResponse',
+                        '\OpenAPI\Client\Model\Content',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1357,7 +1357,7 @@ class ContentApi
      */
     public function getContentLibraryAsyncWithHttpInfo($site_name)
     {
-        $returnType = '\OpenAPI\Client\Model\GetContentLibraryResponse';
+        $returnType = '\OpenAPI\Client\Model\Content';
         $request = $this->getContentLibraryRequest($site_name);
 
         return $this->client

@@ -267,7 +267,7 @@ void (empty response body)
 ## `getContentLibrary()`
 
 ```php
-getContentLibrary($site_name): \OpenAPI\Client\Model\GetContentLibraryResponse
+getContentLibrary($site_name): \OpenAPI\Client\Model\Content
 ```
 
 Get the data that exists within the content library of a website.
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\OpenAPI\Client\Model\GetContentLibraryResponse**](../Model/GetContentLibraryResponse.md)
+[**\OpenAPI\Client\Model\Content**](../Model/Content.md)
 
 ### Authorization
 
