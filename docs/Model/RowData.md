@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**page_item_url** | **string** |  | [optional]
 **data** | **object** |  | [optional]
 **id** | **string** |  | [optional]
 

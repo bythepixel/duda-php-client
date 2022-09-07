@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**template_id** | **int** |  | [optional]
 **account_name** | **string** |  | [optional]
 **external_uid** | **string** |  | [optional]
 **site_domain** | **string** |  | [optional]
@@ -12,8 +13,6 @@ Name | Type | Description | Notes
 **site_alternate_domains** | [**\OpenAPI\Client\Model\AlternateDomains**](AlternateDomains.md) |  | [optional]
 **site_seo** | [**\OpenAPI\Client\Model\Seo**](Seo.md) |  | [optional]
 **schemas** | [**\OpenAPI\Client\Model\SiteSchemas**](SiteSchemas.md) |  | [optional]
-**site_name** | **string** |  | [optional]
-**template_id** | **string** |  | [optional]
 **site_default_domain** | **string** |  | [optional]
 **preview_site_url** | **string** |  | [optional]
 **last_published_date** | **string** |  | [optional]

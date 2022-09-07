@@ -19,7 +19,7 @@ Method | HTTP request | Description
 ## `createSite()`
 
 ```php
-createSite($create_site_request): \OpenAPI\Client\Model\Site
+createSite($create_site_request): \OpenAPI\Client\Model\SiteNameResponse
 ```
 
 Create a new Site from a Template.
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Site**](../Model/Site.md)
+[**\OpenAPI\Client\Model\SiteNameResponse**](../Model/SiteNameResponse.md)
 
 ### Authorization
 
@@ -558,7 +558,7 @@ void (empty response body)
 ## `updateSite()`
 
 ```php
-updateSite($site_name, $site)
+updateSite($site_name, $site_update)
 ```
 
 Update properties of an existing Site.
@@ -583,10 +583,10 @@ $apiInstance = new OpenAPI\Client\Api\SiteApi(
     $config
 );
 $site_name = My Site; // string | Site name
-$site = new \OpenAPI\Client\Model\Site(); // \OpenAPI\Client\Model\Site
+$site_update = new \OpenAPI\Client\Model\SiteUpdate(); // \OpenAPI\Client\Model\SiteUpdate
 
 try {
-    $apiInstance->updateSite($site_name, $site);
+    $apiInstance->updateSite($site_name, $site_update);
 } catch (Exception $e) {
     echo 'Exception when calling SiteApi->updateSite: ', $e->getMessage(), PHP_EOL;
 }
@@ -597,7 +597,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
- **site** | [**\OpenAPI\Client\Model\Site**](../Model/Site.md)|  | [optional]
+ **site_update** | [**\OpenAPI\Client\Model\SiteUpdate**](../Model/SiteUpdate.md)|  | [optional]
 
 ### Return type
 

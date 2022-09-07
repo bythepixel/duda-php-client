@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 ## `analytics()`
 
 ```php
-analytics($site_name, $from, $to, $dimension, $result, $date_granularity): OneOfAnalyticsActivitiesAnalyticsTraffic[]
+analytics($site_name, $from, $to, $dimension, $result, $date_granularity): \OpenAPI\Client\Model\AnalyticsResponseInner[]
 ```
 
 Get analytics history for a specific website over a certain amount of time.
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OneOfAnalyticsActivitiesAnalyticsTraffic[]**](../Model/OneOfAnalyticsActivitiesAnalyticsTraffic.md)
+[**\OpenAPI\Client\Model\AnalyticsResponseInner[]**](../Model/AnalyticsResponseInner.md)
 
 ### Authorization
 

@@ -268,7 +268,7 @@ void (empty response body)
 ## `createRows()`
 
 ```php
-createRows($site_name, $collection_name, $create_rows_request): \OpenAPI\Client\Model\RowId[]
+createRows($site_name, $collection_name, $create_row_data): \OpenAPI\Client\Model\RowId[]
 ```
 
 Add new row(s) of data into an existing collection. This accepts multiple row values if you'd like to insert more than one.
@@ -294,10 +294,10 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
 );
 $site_name = My Site; // string | Site name
 $collection_name = collection-name; // string | Collection name
-$create_rows_request = new \OpenAPI\Client\Model\CreateRowsRequest(); // \OpenAPI\Client\Model\CreateRowsRequest
+$create_row_data = array(new \OpenAPI\Client\Model\CreateRowData()); // \OpenAPI\Client\Model\CreateRowData[]
 
 try {
-    $result = $apiInstance->createRows($site_name, $collection_name, $create_rows_request);
+    $result = $apiInstance->createRows($site_name, $collection_name, $create_row_data);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CollectionApi->createRows: ', $e->getMessage(), PHP_EOL;
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
  **collection_name** | **string**| Collection name |
- **create_rows_request** | [**\OpenAPI\Client\Model\CreateRowsRequest**](../Model/CreateRowsRequest.md)|  | [optional]
+ **create_row_data** | [**\OpenAPI\Client\Model\CreateRowData[]**](../Model/CreateRowData.md)|  | [optional]
 
 ### Return type
 
@@ -456,7 +456,7 @@ void (empty response body)
 ## `deleteRows()`
 
 ```php
-deleteRows($site_name, $collection_name)
+deleteRows($site_name, $collection_name, $request_body)
 ```
 
 Delete existing rows of data that exist within the collection.
@@ -482,9 +482,10 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
 );
 $site_name = My Site; // string | Site name
 $collection_name = collection-name; // string | Collection name
+$request_body = array('request_body_example'); // string[]
 
 try {
-    $apiInstance->deleteRows($site_name, $collection_name);
+    $apiInstance->deleteRows($site_name, $collection_name, $request_body);
 } catch (Exception $e) {
     echo 'Exception when calling CollectionApi->deleteRows: ', $e->getMessage(), PHP_EOL;
 }
@@ -496,6 +497,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
  **collection_name** | **string**| Collection name |
+ **request_body** | [**string[]**](../Model/string.md)|  | [optional]
 
 ### Return type
 
@@ -507,7 +509,7 @@ void (empty response body)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -767,7 +769,7 @@ void (empty response body)
 ## `updateRows()`
 
 ```php
-updateRows($site_name, $collection_name, $update_rows_request)
+updateRows($site_name, $collection_name, $row_data)
 ```
 
 Update existing collection rows.
@@ -793,10 +795,10 @@ $apiInstance = new OpenAPI\Client\Api\CollectionApi(
 );
 $site_name = My Site; // string | Site name
 $collection_name = collection-name; // string | Collection name
-$update_rows_request = new \OpenAPI\Client\Model\UpdateRowsRequest(); // \OpenAPI\Client\Model\UpdateRowsRequest
+$row_data = array(new \OpenAPI\Client\Model\RowData()); // \OpenAPI\Client\Model\RowData[]
 
 try {
-    $apiInstance->updateRows($site_name, $collection_name, $update_rows_request);
+    $apiInstance->updateRows($site_name, $collection_name, $row_data);
 } catch (Exception $e) {
     echo 'Exception when calling CollectionApi->updateRows: ', $e->getMessage(), PHP_EOL;
 }
@@ -808,7 +810,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
  **collection_name** | **string**| Collection name |
- **update_rows_request** | [**\OpenAPI\Client\Model\UpdateRowsRequest**](../Model/UpdateRowsRequest.md)|  | [optional]
+ **row_data** | [**\OpenAPI\Client\Model\RowData[]**](../Model/RowData.md)|  | [optional]
 
 ### Return type
 

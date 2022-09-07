@@ -14,13 +14,13 @@ Method | HTTP request | Description
 [**publishContentLibrary()**](ContentApi.md#publishContentLibrary) | **POST** /sites/multiscreen/{site_name}/content/publish | Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
 [**updateContentLibrary()**](ContentApi.md#updateContentLibrary) | **POST** /sites/multiscreen/{site_name}/content | Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
 [**updateLocation()**](ContentApi.md#updateLocation) | **POST** /sites/multiscreen/{site_name}/content/location/{location_id} | Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
-[**uploadResource()**](ContentApi.md#uploadResource) | **POST** /sites/multiscreen/inject-content/{site_name}/upload | Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
+[**uploadResource()**](ContentApi.md#uploadResource) | **POST** /sites/multiscreen/resources/{site_name}/upload | Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
 
 
 ## `createInjectedContent()`
 
 ```php
-createInjectedContent($site_name, $create_injected_content_single_page_request)
+createInjectedContent($site_name, $injected_content_creation)
 ```
 
 Content injection provides the ability to update a website directly via the API.
@@ -45,10 +45,10 @@ $apiInstance = new OpenAPI\Client\Api\ContentApi(
     $config
 );
 $site_name = My Site; // string | Site name
-$create_injected_content_single_page_request = new \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest(); // \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest
+$injected_content_creation = array(new \OpenAPI\Client\Model\InjectedContentCreation()); // \OpenAPI\Client\Model\InjectedContentCreation[]
 
 try {
-    $apiInstance->createInjectedContent($site_name, $create_injected_content_single_page_request);
+    $apiInstance->createInjectedContent($site_name, $injected_content_creation);
 } catch (Exception $e) {
     echo 'Exception when calling ContentApi->createInjectedContent: ', $e->getMessage(), PHP_EOL;
 }
@@ -59,7 +59,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
- **create_injected_content_single_page_request** | [**\OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest**](../Model/CreateInjectedContentSinglePageRequest.md)|  | [optional]
+ **injected_content_creation** | [**\OpenAPI\Client\Model\InjectedContentCreation[]**](../Model/InjectedContentCreation.md)|  | [optional]
 
 ### Return type
 
@@ -81,7 +81,7 @@ void (empty response body)
 ## `createInjectedContentSinglePage()`
 
 ```php
-createInjectedContentSinglePage($site_name, $page_name, $create_injected_content_single_page_request)
+createInjectedContentSinglePage($site_name, $page_name, $injected_content_creation)
 ```
 
 Content injection provides the ability to update a page on a website directly via the API.
@@ -107,10 +107,10 @@ $apiInstance = new OpenAPI\Client\Api\ContentApi(
 );
 $site_name = My Site; // string | Site name
 $page_name = My Site; // string | Name of a page
-$create_injected_content_single_page_request = new \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest(); // \OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest
+$injected_content_creation = array(new \OpenAPI\Client\Model\InjectedContentCreation()); // \OpenAPI\Client\Model\InjectedContentCreation[]
 
 try {
-    $apiInstance->createInjectedContentSinglePage($site_name, $page_name, $create_injected_content_single_page_request);
+    $apiInstance->createInjectedContentSinglePage($site_name, $page_name, $injected_content_creation);
 } catch (Exception $e) {
     echo 'Exception when calling ContentApi->createInjectedContentSinglePage: ', $e->getMessage(), PHP_EOL;
 }
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
  **page_name** | **string**| Name of a page |
- **create_injected_content_single_page_request** | [**\OpenAPI\Client\Model\CreateInjectedContentSinglePageRequest**](../Model/CreateInjectedContentSinglePageRequest.md)|  | [optional]
+ **injected_content_creation** | [**\OpenAPI\Client\Model\InjectedContentCreation[]**](../Model/InjectedContentCreation.md)|  | [optional]
 
 ### Return type
 
@@ -514,7 +514,7 @@ void (empty response body)
 ## `updateContentLibrary()`
 
 ```php
-updateContentLibrary($site_name, $content_library_update_request)
+updateContentLibrary($site_name, $content)
 ```
 
 Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
@@ -539,10 +539,10 @@ $apiInstance = new OpenAPI\Client\Api\ContentApi(
     $config
 );
 $site_name = My Site; // string | Site name
-$content_library_update_request = new \OpenAPI\Client\Model\ContentLibraryUpdateRequest(); // \OpenAPI\Client\Model\ContentLibraryUpdateRequest
+$content = new \OpenAPI\Client\Model\Content(); // \OpenAPI\Client\Model\Content
 
 try {
-    $apiInstance->updateContentLibrary($site_name, $content_library_update_request);
+    $apiInstance->updateContentLibrary($site_name, $content);
 } catch (Exception $e) {
     echo 'Exception when calling ContentApi->updateContentLibrary: ', $e->getMessage(), PHP_EOL;
 }
@@ -553,7 +553,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
- **content_library_update_request** | [**\OpenAPI\Client\Model\ContentLibraryUpdateRequest**](../Model/ContentLibraryUpdateRequest.md)|  | [optional]
+ **content** | [**\OpenAPI\Client\Model\Content**](../Model/Content.md)|  | [optional]
 
 ### Return type
 
@@ -638,7 +638,7 @@ void (empty response body)
 ## `uploadResource()`
 
 ```php
-uploadResource($site_name, $upload_resource_request): \OpenAPI\Client\Model\UploadResourceResponse
+uploadResource($site_name, $resource): \OpenAPI\Client\Model\UploadResourceResponse
 ```
 
 Upload a resource to the website from an external source. Resource is uploaded to Duda's CDN and made available to anyone building the website.
@@ -663,10 +663,10 @@ $apiInstance = new OpenAPI\Client\Api\ContentApi(
     $config
 );
 $site_name = My Site; // string | Site name
-$upload_resource_request = new \OpenAPI\Client\Model\UploadResourceRequest(); // \OpenAPI\Client\Model\UploadResourceRequest
+$resource = array(new \OpenAPI\Client\Model\Resource()); // \OpenAPI\Client\Model\Resource[]
 
 try {
-    $result = $apiInstance->uploadResource($site_name, $upload_resource_request);
+    $result = $apiInstance->uploadResource($site_name, $resource);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ContentApi->uploadResource: ', $e->getMessage(), PHP_EOL;
@@ -678,7 +678,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_name** | **string**| Site name |
- **upload_resource_request** | [**\OpenAPI\Client\Model\UploadResourceRequest**](../Model/UploadResourceRequest.md)|  | [optional]
+ **resource** | [**\OpenAPI\Client\Model\Resource[]**](../Model/Resource.md)|  | [optional]
 
 ### Return type
 
