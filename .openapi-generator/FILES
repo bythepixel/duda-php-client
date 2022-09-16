@@ -166,13 +166,3 @@ lib/Model/UploadedResource.php
 lib/Model/UrlRule.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
-test/Model/ActivityResultsInnerTest.php
-test/Model/AnalyticsResponseInnerTest.php
-test/Model/CollectionValuesInnerTest.php
-test/Model/InjectedContentCreationAllOfTest.php
-test/Model/InjectedContentCreationTest.php
-test/Model/LocationBusinessHoursInnerTest.php
-test/Model/LocationEmailsInnerTest.php
-test/Model/LocationPhonesInnerTest.php
-test/Model/SiteCreationTest.php
-test/Model/SiteUpdateTest.php

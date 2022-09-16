@@ -472,8 +472,18 @@ class Configuration
     {
         return [
             [
-                "url" => "https://api.duda.co/api",
+                "url" => "https://{server}.duda.co/api",
                 "description" => "No description provided",
+                "variables" => [
+                    "server" => [
+                        "description" => "No description provided",
+                        "default_value" => "api",
+                        "enum_values" => [
+                            "api",
+                            "api-sandbox"
+                        ]
+                    ]
+                ]
             ]
         ];
     }
