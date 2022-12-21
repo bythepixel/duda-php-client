@@ -1,14 +1,14 @@
 # OpenAPI\Client\URLRulesApi
 
-All URIs are relative to https://api.duda.co/api.
+All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**createRule()**](URLRulesApi.md#createRule) | **POST** /sites/multiscreen/site/{site_name}/urlrules | Create a new URL rule.
-[**deleteRule()**](URLRulesApi.md#deleteRule) | **DELETE** /sites/multiscreen/site/{site_name}/urlrules/{id} | Delete an existing URL rule.
-[**getAllRules()**](URLRulesApi.md#getAllRules) | **GET** /sites/multiscreen/site/{site_name}/urlrules | Get all of the URL rules of a Site.
-[**getRule()**](URLRulesApi.md#getRule) | **GET** /sites/multiscreen/site/{site_name}/urlrules/{id} | Get the details of a specific URL rule
-[**updateRule()**](URLRulesApi.md#updateRule) | **PUT** /sites/multiscreen/site/{site_name}/urlrules/{id} | Update an existing URL rule.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**createRule()**](URLRulesApi.md#createRule) | **POST** /sites/multiscreen/site/{site_name}/urlrules | Create a new URL rule. |
+| [**deleteRule()**](URLRulesApi.md#deleteRule) | **DELETE** /sites/multiscreen/site/{site_name}/urlrules/{id} | Delete an existing URL rule. |
+| [**getAllRules()**](URLRulesApi.md#getAllRules) | **GET** /sites/multiscreen/site/{site_name}/urlrules | Get all of the URL rules of a Site. |
+| [**getRule()**](URLRulesApi.md#getRule) | **GET** /sites/multiscreen/site/{site_name}/urlrules/{id} | Get the details of a specific URL rule |
+| [**updateRule()**](URLRulesApi.md#updateRule) | **PUT** /sites/multiscreen/site/{site_name}/urlrules/{id} | Update an existing URL rule. |
 
 
 ## `createRule()`
@@ -51,10 +51,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **url_rule** | [**\OpenAPI\Client\Model\UrlRule**](../Model/UrlRule.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **url_rule** | [**\OpenAPI\Client\Model\UrlRule**](../Model/UrlRule.md)|  | [optional] |
 
 ### Return type
 
@@ -112,10 +112,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **id** | **string**| The unique identifier of the target URL rule. |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **id** | **string**| The unique identifier of the target URL rule. | |
 
 ### Return type
 
@@ -173,9 +173,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -234,10 +234,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **id** | **string**| The unique identifier of the target URL rule. |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **id** | **string**| The unique identifier of the target URL rule. | |
 
 ### Return type
 
@@ -297,11 +297,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **id** | **string**| The unique identifier of the target URL rule. |
- **url_rule** | [**\OpenAPI\Client\Model\UrlRule**](../Model/UrlRule.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **id** | **string**| The unique identifier of the target URL rule. | |
+| **url_rule** | [**\OpenAPI\Client\Model\UrlRule**](../Model/UrlRule.md)|  | [optional] |
 
 ### Return type
 

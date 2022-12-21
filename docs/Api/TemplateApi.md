@@ -1,15 +1,15 @@
 # OpenAPI\Client\TemplateApi
 
-All URIs are relative to https://api.duda.co/api.
+All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**createFromSite()**](TemplateApi.md#createFromSite) | **POST** /sites/multiscreen/templates/fromsite | Create a new Template based on an existing site
-[**createFromTemplate()**](TemplateApi.md#createFromTemplate) | **POST** /sites/multiscreen/templates/fromtemplate | Create a new Template based on an existing one
-[**deleteTemplate()**](TemplateApi.md#deleteTemplate) | **DELETE** /sites/multiscreen/templates/{template_id} | Delete a custom Template.
-[**getTemplate()**](TemplateApi.md#getTemplate) | **GET** /sites/multiscreen/templates/{template_id} | Get the details of a Template.
-[**listTemplates()**](TemplateApi.md#listTemplates) | **GET** /sites/multiscreen/templates | Get all available Templates.
-[**updateTemplate()**](TemplateApi.md#updateTemplate) | **POST** /sites/multiscreen/templates/{template_id} | Update the name of a custom Template.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**createFromSite()**](TemplateApi.md#createFromSite) | **POST** /sites/multiscreen/templates/fromsite | Create a new Template based on an existing site |
+| [**createFromTemplate()**](TemplateApi.md#createFromTemplate) | **POST** /sites/multiscreen/templates/fromtemplate | Create a new Template based on an existing one |
+| [**deleteTemplate()**](TemplateApi.md#deleteTemplate) | **DELETE** /sites/multiscreen/templates/{template_id} | Delete a custom Template. |
+| [**getTemplate()**](TemplateApi.md#getTemplate) | **GET** /sites/multiscreen/templates/{template_id} | Get the details of a Template. |
+| [**listTemplates()**](TemplateApi.md#listTemplates) | **GET** /sites/multiscreen/templates | Get all available Templates. |
+| [**updateTemplate()**](TemplateApi.md#updateTemplate) | **POST** /sites/multiscreen/templates/{template_id} | Update the name of a custom Template. |
 
 
 ## `createFromSite()`
@@ -51,9 +51,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **create_template_from_site_request** | [**\OpenAPI\Client\Model\CreateTemplateFromSiteRequest**](../Model/CreateTemplateFromSiteRequest.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **create_template_from_site_request** | [**\OpenAPI\Client\Model\CreateTemplateFromSiteRequest**](../Model/CreateTemplateFromSiteRequest.md)|  | |
 
 ### Return type
 
@@ -111,9 +111,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **create_template_from_template_request** | [**\OpenAPI\Client\Model\CreateTemplateFromTemplateRequest**](../Model/CreateTemplateFromTemplateRequest.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **create_template_from_template_request** | [**\OpenAPI\Client\Model\CreateTemplateFromTemplateRequest**](../Model/CreateTemplateFromTemplateRequest.md)|  | |
 
 ### Return type
 
@@ -170,9 +170,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **template_id** | **string**| ID of the template to delete |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **template_id** | **string**| ID of the template to delete | |
 
 ### Return type
 
@@ -230,9 +230,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **template_id** | **string**| ID associated with a template |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **template_id** | **string**| ID associated with a template | |
 
 ### Return type
 
@@ -347,10 +347,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **template_id** | **string**| ID associated with a template |
- **update_template_request** | [**\OpenAPI\Client\Model\UpdateTemplateRequest**](../Model/UpdateTemplateRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **template_id** | **string**| ID associated with a template | |
+| **update_template_request** | [**\OpenAPI\Client\Model\UpdateTemplateRequest**](../Model/UpdateTemplateRequest.md)|  | [optional] |
 
 ### Return type
 

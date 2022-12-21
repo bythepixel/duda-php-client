@@ -18,6 +18,7 @@ docs/Model/AlternateDomains.md
 docs/Model/AnalyticsActivities.md
 docs/Model/AnalyticsResponseInner.md
 docs/Model/AnalyticsTraffic.md
+docs/Model/BodyEndContent.md
 docs/Model/BusinessData.md
 docs/Model/Collection.md
 docs/Model/CollectionCreateRequest.md
@@ -100,6 +101,7 @@ lib/Model/AlternateDomains.php
 lib/Model/AnalyticsActivities.php
 lib/Model/AnalyticsResponseInner.php
 lib/Model/AnalyticsTraffic.php
+lib/Model/BodyEndContent.php
 lib/Model/BusinessData.php
 lib/Model/Collection.php
 lib/Model/CollectionCreateRequest.php
@@ -166,3 +168,4 @@ lib/Model/UploadedResource.php
 lib/Model/UrlRule.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
+test/Model/BodyEndContentTest.php

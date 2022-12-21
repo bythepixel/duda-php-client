@@ -1,22 +1,22 @@
 # OpenAPI\Client\CollectionApi
 
-All URIs are relative to https://api.duda.co/api.
+All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**clearCache()**](CollectionApi.md#clearCache) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/revalidate | Force Duda to refresh the data from an external URL for a given collection.
-[**clearCacheByExternalId()**](CollectionApi.md#clearCacheByExternalId) | **POST** /sites/multiscreen/collections/revalidate/{external_id} | Revalidate all collections in all sites under the same account that use the provided external id
-[**createCollection()**](CollectionApi.md#createCollection) | **POST** /sites/multiscreen/{site_name}/collection | Create a new collection within a site
-[**createFields()**](CollectionApi.md#createFields) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/field | Add a new field(s) to an existing collection.
-[**createRows()**](CollectionApi.md#createRows) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one.
-[**deleteCollection()**](CollectionApi.md#deleteCollection) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name} | Delete an existing collection
-[**deleteFields()**](CollectionApi.md#deleteFields) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Delete an existing field of a collection
-[**deleteRows()**](CollectionApi.md#deleteRows) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Delete existing rows of data that exist within the collection.
-[**getCollection()**](CollectionApi.md#getCollection) | **GET** /sites/multiscreen/{site_name}/collection/{collection_name} | Get the fields and data of an existing collection
-[**listCollections()**](CollectionApi.md#listCollections) | **GET** /sites/multiscreen/{site_name}/collection | Get all collections that exist on this website.
-[**updateCollection()**](CollectionApi.md#updateCollection) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name} | Update an existing collection
-[**updateFields()**](CollectionApi.md#updateFields) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Update existing field of a collection
-[**updateRows()**](CollectionApi.md#updateRows) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Update existing collection rows.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**clearCache()**](CollectionApi.md#clearCache) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/revalidate | Force Duda to refresh the data from an external URL for a given collection. |
+| [**clearCacheByExternalId()**](CollectionApi.md#clearCacheByExternalId) | **POST** /sites/multiscreen/collections/revalidate/{external_id} | Revalidate all collections in all sites under the same account that use the provided external id |
+| [**createCollection()**](CollectionApi.md#createCollection) | **POST** /sites/multiscreen/{site_name}/collection | Create a new collection within a site |
+| [**createFields()**](CollectionApi.md#createFields) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/field | Add a new field(s) to an existing collection. |
+| [**createRows()**](CollectionApi.md#createRows) | **POST** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Add new row(s) of data into an existing collection. This accepts multiple row values if you&#39;d like to insert more than one. |
+| [**deleteCollection()**](CollectionApi.md#deleteCollection) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name} | Delete an existing collection |
+| [**deleteFields()**](CollectionApi.md#deleteFields) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Delete an existing field of a collection |
+| [**deleteRows()**](CollectionApi.md#deleteRows) | **DELETE** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Delete existing rows of data that exist within the collection. |
+| [**getCollection()**](CollectionApi.md#getCollection) | **GET** /sites/multiscreen/{site_name}/collection/{collection_name} | Get the fields and data of an existing collection |
+| [**listCollections()**](CollectionApi.md#listCollections) | **GET** /sites/multiscreen/{site_name}/collection | Get all collections that exist on this website. |
+| [**updateCollection()**](CollectionApi.md#updateCollection) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name} | Update an existing collection |
+| [**updateFields()**](CollectionApi.md#updateFields) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/field/{field_name} | Update existing field of a collection |
+| [**updateRows()**](CollectionApi.md#updateRows) | **PUT** /sites/multiscreen/{site_name}/collection/{collection_name}/row | Update existing collection rows. |
 
 
 ## `clearCache()`
@@ -59,10 +59,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
 
 ### Return type
 
@@ -120,9 +120,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **external_id** | **string**| The external ID for the collections |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **external_id** | **string**| The external ID for the collections | |
 
 ### Return type
 
@@ -180,10 +180,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_create_request** | [**\OpenAPI\Client\Model\CollectionCreateRequest**](../Model/CollectionCreateRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_create_request** | [**\OpenAPI\Client\Model\CollectionCreateRequest**](../Model/CollectionCreateRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -242,11 +242,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **create_fields_request** | [**\OpenAPI\Client\Model\CreateFieldsRequest**](../Model/CreateFieldsRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **create_fields_request** | [**\OpenAPI\Client\Model\CreateFieldsRequest**](../Model/CreateFieldsRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -306,11 +306,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **create_row_data** | [**\OpenAPI\Client\Model\CreateRowData[]**](../Model/CreateRowData.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **create_row_data** | [**\OpenAPI\Client\Model\CreateRowData[]**](../Model/CreateRowData.md)|  | [optional] |
 
 ### Return type
 
@@ -368,10 +368,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
 
 ### Return type
 
@@ -430,11 +430,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **field_name** | **string**| Name of the field in the collection. (must not start with $) |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **field_name** | **string**| Name of the field in the collection. (must not start with $) | |
 
 ### Return type
 
@@ -493,11 +493,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **request_body** | [**string[]**](../Model/string.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **request_body** | [**string[]**](../Model/string.md)|  | [optional] |
 
 ### Return type
 
@@ -556,10 +556,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
 
 ### Return type
 
@@ -617,9 +617,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -678,11 +678,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **collection_update_request** | [**\OpenAPI\Client\Model\CollectionUpdateRequest**](../Model/CollectionUpdateRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **collection_update_request** | [**\OpenAPI\Client\Model\CollectionUpdateRequest**](../Model/CollectionUpdateRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -742,12 +742,12 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **field_name** | **string**| Name of the field in the collection. (must not start with $) |
- **update_fields_request** | [**\OpenAPI\Client\Model\UpdateFieldsRequest**](../Model/UpdateFieldsRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **field_name** | **string**| Name of the field in the collection. (must not start with $) | |
+| **update_fields_request** | [**\OpenAPI\Client\Model\UpdateFieldsRequest**](../Model/UpdateFieldsRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -806,11 +806,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **collection_name** | **string**| Collection name |
- **row_data** | [**\OpenAPI\Client\Model\RowData[]**](../Model/RowData.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **collection_name** | **string**| Collection name | |
+| **row_data** | [**\OpenAPI\Client\Model\RowData[]**](../Model/RowData.md)|  | [optional] |
 
 ### Return type
 

@@ -1,19 +1,19 @@
 # OpenAPI\Client\SiteApi
 
-All URIs are relative to https://api.duda.co/api.
+All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**createSite()**](SiteApi.md#createSite) | **POST** /sites/multiscreen/create | Create a new Site from a Template.
-[**deleteSite()**](SiteApi.md#deleteSite) | **DELETE** /sites/multiscreen/{site_name} | Permanently deletes a Site and cancels all subscriptions.
-[**duplicateSite()**](SiteApi.md#duplicateSite) | **POST** /sites/multiscreen/duplicate/{site_name} | Creates a new Site based on an existing one.
-[**getSite()**](SiteApi.md#getSite) | **GET** /sites/multiscreen/{site_name} | Details about a site
-[**getSiteByExternalId()**](SiteApi.md#getSiteByExternalId) | **GET** /sites/multiscreen/byexternalid/{external_uid} | Get the names of Sites that have a specific external id.
-[**publishSite()**](SiteApi.md#publishSite) | **POST** /sites/multiscreen/publish/{site_name} | Takes a Site live and purchases a subscription.
-[**resetSite()**](SiteApi.md#resetSite) | **POST** /sites/multiscreen/reset/{site_name} | Resets a Site to initial state or based on a new template and data.
-[**switchTemplate()**](SiteApi.md#switchTemplate) | **POST** /sites/multiscreen/switchTemplate/{site_name} | Applies a new template to an existing Site.
-[**unpublishSite()**](SiteApi.md#unpublishSite) | **POST** /sites/multiscreen/unpublish/{site_name} | Takes down a Site and suspends it&#39;s subscription.
-[**updateSite()**](SiteApi.md#updateSite) | **POST** /sites/multiscreen/update/{site_name} | Update properties of an existing Site.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**createSite()**](SiteApi.md#createSite) | **POST** /sites/multiscreen/create | Create a new Site from a Template. |
+| [**deleteSite()**](SiteApi.md#deleteSite) | **DELETE** /sites/multiscreen/{site_name} | Permanently deletes a Site and cancels all subscriptions. |
+| [**duplicateSite()**](SiteApi.md#duplicateSite) | **POST** /sites/multiscreen/duplicate/{site_name} | Creates a new Site based on an existing one. |
+| [**getSite()**](SiteApi.md#getSite) | **GET** /sites/multiscreen/{site_name} | Details about a site |
+| [**getSiteByExternalId()**](SiteApi.md#getSiteByExternalId) | **GET** /sites/multiscreen/byexternalid/{external_uid} | Get the names of Sites that have a specific external id. |
+| [**publishSite()**](SiteApi.md#publishSite) | **POST** /sites/multiscreen/publish/{site_name} | Takes a Site live and purchases a subscription. |
+| [**resetSite()**](SiteApi.md#resetSite) | **POST** /sites/multiscreen/reset/{site_name} | Resets a Site to initial state or based on a new template and data. |
+| [**switchTemplate()**](SiteApi.md#switchTemplate) | **POST** /sites/multiscreen/switchTemplate/{site_name} | Applies a new template to an existing Site. |
+| [**unpublishSite()**](SiteApi.md#unpublishSite) | **POST** /sites/multiscreen/unpublish/{site_name} | Takes down a Site and suspends it&#39;s subscription. |
+| [**updateSite()**](SiteApi.md#updateSite) | **POST** /sites/multiscreen/update/{site_name} | Update properties of an existing Site. |
 
 
 ## `createSite()`
@@ -55,9 +55,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **create_site_request** | [**\OpenAPI\Client\Model\CreateSiteRequest**](../Model/CreateSiteRequest.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **create_site_request** | [**\OpenAPI\Client\Model\CreateSiteRequest**](../Model/CreateSiteRequest.md)|  | |
 
 ### Return type
 
@@ -114,9 +114,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| The unique identifier of the target Site. |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| The unique identifier of the target Site. | |
 
 ### Return type
 
@@ -175,10 +175,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **duplicate_site_request** | [**\OpenAPI\Client\Model\DuplicateSiteRequest**](../Model/DuplicateSiteRequest.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **duplicate_site_request** | [**\OpenAPI\Client\Model\DuplicateSiteRequest**](../Model/DuplicateSiteRequest.md)|  | |
 
 ### Return type
 
@@ -236,9 +236,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -296,9 +296,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **external_uid** | **string**| The external ID associated with a single or group of Sites. |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **external_uid** | **string**| The external ID associated with a single or group of Sites. | |
 
 ### Return type
 
@@ -355,9 +355,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -414,9 +414,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -474,10 +474,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **switch_template_request** | [**\OpenAPI\Client\Model\SwitchTemplateRequest**](../Model/SwitchTemplateRequest.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **switch_template_request** | [**\OpenAPI\Client\Model\SwitchTemplateRequest**](../Model/SwitchTemplateRequest.md)|  | |
 
 ### Return type
 
@@ -534,9 +534,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -594,10 +594,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **site_update** | [**\OpenAPI\Client\Model\SiteUpdate**](../Model/SiteUpdate.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **site_update** | [**\OpenAPI\Client\Model\SiteUpdate**](../Model/SiteUpdate.md)|  | [optional] |
 
 ### Return type
 

@@ -1,14 +1,14 @@
 # OpenAPI\Client\PagesV2Api
 
-All URIs are relative to https://api.duda.co/api.
+All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**deletePage()**](PagesV2Api.md#deletePage) | **DELETE** /sites/multiscreen/{site_name}/pages/{page_uuid} | Delete a Page from a Site.
-[**duplicatePage()**](PagesV2Api.md#duplicatePage) | **POST** /sites/multiscreen/{site_name}/pages/{page_uuid}/duplicate | Duplicate an existing Page of a Site.
-[**getPage()**](PagesV2Api.md#getPage) | **GET** /sites/multiscreen/{site_name}/pages/{page_uuid} | Get the details of an individual Page of a Site.
-[**listPages()**](PagesV2Api.md#listPages) | **GET** /sites/multiscreen/{site_name}/pages | Get details of all the Pages of a Site.
-[**updatePage()**](PagesV2Api.md#updatePage) | **PUT** /sites/multiscreen/{site_name}/pages/{page_uuid} | Update an existing Page of a Site.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**deletePage()**](PagesV2Api.md#deletePage) | **DELETE** /sites/multiscreen/{site_name}/pages/{page_uuid} | Delete a Page from a Site. |
+| [**duplicatePage()**](PagesV2Api.md#duplicatePage) | **POST** /sites/multiscreen/{site_name}/pages/{page_uuid}/duplicate | Duplicate an existing Page of a Site. |
+| [**getPage()**](PagesV2Api.md#getPage) | **GET** /sites/multiscreen/{site_name}/pages/{page_uuid} | Get the details of an individual Page of a Site. |
+| [**listPages()**](PagesV2Api.md#listPages) | **GET** /sites/multiscreen/{site_name}/pages | Get details of all the Pages of a Site. |
+| [**updatePage()**](PagesV2Api.md#updatePage) | **PUT** /sites/multiscreen/{site_name}/pages/{page_uuid} | Update an existing Page of a Site. |
 
 
 ## `deletePage()`
@@ -50,10 +50,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **page_uuid** | **string**| The uuid of the target page. |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **page_uuid** | **string**| The uuid of the target page. | |
 
 ### Return type
 
@@ -112,11 +112,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **page_uuid** | **string**| The uuid of the target page. |
- **duplicate_page_request** | [**\OpenAPI\Client\Model\DuplicatePageRequest**](../Model/DuplicatePageRequest.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **page_uuid** | **string**| The uuid of the target page. | |
+| **duplicate_page_request** | [**\OpenAPI\Client\Model\DuplicatePageRequest**](../Model/DuplicatePageRequest.md)|  | |
 
 ### Return type
 
@@ -175,10 +175,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **page_uuid** | **string**| The uuid of the target page. |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **page_uuid** | **string**| The uuid of the target page. | |
 
 ### Return type
 
@@ -236,9 +236,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -297,11 +297,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **page_uuid** | **string**| The uuid of the target page. |
- **page** | [**\OpenAPI\Client\Model\Page**](../Model/Page.md)|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **page_uuid** | **string**| The uuid of the target page. | |
+| **page** | [**\OpenAPI\Client\Model\Page**](../Model/Page.md)|  | |
 
 ### Return type
 

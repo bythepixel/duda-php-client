@@ -107,9 +107,11 @@ Class | Method | HTTP request | Description
 *OtherApi* | [**createSSLCertificate**](docs/Api/OtherApi.md#createsslcertificate) | **POST** /sites/multiscreen/{site_name}/certificate | Generate a SSL certificate for a specific website.
 *OtherApi* | [**deleteBackup**](docs/Api/OtherApi.md#deletebackup) | **DELETE** /sites/multiscreen/backups/{site_name}/{backup_name} | Deletes an existing backup from a Site.
 *OtherApi* | [**deleteSSLCertificate**](docs/Api/OtherApi.md#deletesslcertificate) | **DELETE** /sites/multiscreen/{site_name}/certificate | Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
+*OtherApi* | [**getBodyEnd**](docs/Api/OtherApi.md#getbodyend) | **GET** /sites/multiscreen/{site_name}/body-end | Retrieves the HTML body end content
 *OtherApi* | [**listBackups**](docs/Api/OtherApi.md#listbackups) | **GET** /sites/multiscreen/backups/{site_name} | Get an array of existing site backups
 *OtherApi* | [**renewSSLCertificate**](docs/Api/OtherApi.md#renewsslcertificate) | **POST** /sites/multiscreen/{site_name}/certificate/renew | Starts the renewal process for an SSL certificate
 *OtherApi* | [**restoreBackup**](docs/Api/OtherApi.md#restorebackup) | **POST** /sites/multiscreen/backups/{site_name}/restore/{backup_name} | Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
+*OtherApi* | [**updateBodyEnd**](docs/Api/OtherApi.md#updatebodyend) | **POST** /sites/multiscreen/{site_name}/body-end | Updates the HTML body end content
 *PagesV2Api* | [**deletePage**](docs/Api/PagesV2Api.md#deletepage) | **DELETE** /sites/multiscreen/{site_name}/pages/{page_uuid} | Delete a Page from a Site.
 *PagesV2Api* | [**duplicatePage**](docs/Api/PagesV2Api.md#duplicatepage) | **POST** /sites/multiscreen/{site_name}/pages/{page_uuid}/duplicate | Duplicate an existing Page of a Site.
 *PagesV2Api* | [**getPage**](docs/Api/PagesV2Api.md#getpage) | **GET** /sites/multiscreen/{site_name}/pages/{page_uuid} | Get the details of an individual Page of a Site.
@@ -155,6 +157,7 @@ Class | Method | HTTP request | Description
 - [AnalyticsActivities](docs/Model/AnalyticsActivities.md)
 - [AnalyticsResponseInner](docs/Model/AnalyticsResponseInner.md)
 - [AnalyticsTraffic](docs/Model/AnalyticsTraffic.md)
+- [BodyEndContent](docs/Model/BodyEndContent.md)
 - [BusinessData](docs/Model/BusinessData.md)
 - [Collection](docs/Model/Collection.md)
 - [CollectionCreateRequest](docs/Model/CollectionCreateRequest.md)

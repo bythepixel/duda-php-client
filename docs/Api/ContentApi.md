@@ -1,20 +1,20 @@
 # OpenAPI\Client\ContentApi
 
-All URIs are relative to https://api.duda.co/api.
+All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**createInjectedContent()**](ContentApi.md#createInjectedContent) | **POST** /sites/multiscreen/inject-content/{site_name} | Content injection provides the ability to update a website directly via the API.
-[**createInjectedContentSinglePage()**](ContentApi.md#createInjectedContentSinglePage) | **POST** /sites/multiscreen/inject-content/{site_name}/pages/{page_name} | Content injection provides the ability to update a page on a website directly via the API.
-[**createLocation()**](ContentApi.md#createLocation) | **POST** /sites/multiscreen/{site_name}/content/location | Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library.
-[**deleteLocation()**](ContentApi.md#deleteLocation) | **DELETE** /sites/multiscreen/{site_name}/content/location/{location_id} | Delete an existing location
-[**getContentLibrary()**](ContentApi.md#getContentLibrary) | **GET** /sites/multiscreen/{site_name}/content | Get the data that exists within the content library of a website.
-[**getInjectedContent()**](ContentApi.md#getInjectedContent) | **GET** /sites/multiscreen/inject-content/{site_name} | Search the website for all references of the data-inject value, either in the HTML or CSS of the website.
-[**getLocation()**](ContentApi.md#getLocation) | **GET** /sites/multiscreen/{site_name}/content/location/{location_id} | Get data for a specific location.
-[**publishContentLibrary()**](ContentApi.md#publishContentLibrary) | **POST** /sites/multiscreen/{site_name}/content/publish | Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website.
-[**updateContentLibrary()**](ContentApi.md#updateContentLibrary) | **POST** /sites/multiscreen/{site_name}/content | Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor.
-[**updateLocation()**](ContentApi.md#updateLocation) | **POST** /sites/multiscreen/{site_name}/content/location/{location_id} | Update an existing location within the content library. You can only update additional_locations that exist as part of the content library.
-[**uploadResource()**](ContentApi.md#uploadResource) | **POST** /sites/multiscreen/resources/{site_name}/upload | Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**createInjectedContent()**](ContentApi.md#createInjectedContent) | **POST** /sites/multiscreen/inject-content/{site_name} | Content injection provides the ability to update a website directly via the API. |
+| [**createInjectedContentSinglePage()**](ContentApi.md#createInjectedContentSinglePage) | **POST** /sites/multiscreen/inject-content/{site_name}/pages/{page_name} | Content injection provides the ability to update a page on a website directly via the API. |
+| [**createLocation()**](ContentApi.md#createLocation) | **POST** /sites/multiscreen/{site_name}/content/location | Create a new location for a website. This location will be apart of the additional_locations object that is returned from a site&#39;s content library. |
+| [**deleteLocation()**](ContentApi.md#deleteLocation) | **DELETE** /sites/multiscreen/{site_name}/content/location/{location_id} | Delete an existing location |
+| [**getContentLibrary()**](ContentApi.md#getContentLibrary) | **GET** /sites/multiscreen/{site_name}/content | Get the data that exists within the content library of a website. |
+| [**getInjectedContent()**](ContentApi.md#getInjectedContent) | **GET** /sites/multiscreen/inject-content/{site_name} | Search the website for all references of the data-inject value, either in the HTML or CSS of the website. |
+| [**getLocation()**](ContentApi.md#getLocation) | **GET** /sites/multiscreen/{site_name}/content/location/{location_id} | Get data for a specific location. |
+| [**publishContentLibrary()**](ContentApi.md#publishContentLibrary) | **POST** /sites/multiscreen/{site_name}/content/publish | Push updates already within the content library directly to the live version of the website. This pushes the data that exists within the content library to the live/published version of the website. |
+| [**updateContentLibrary()**](ContentApi.md#updateContentLibrary) | **POST** /sites/multiscreen/{site_name}/content | Update the data that exists within the content library. Once updated the data is ready for immediate use within the editor. |
+| [**updateLocation()**](ContentApi.md#updateLocation) | **POST** /sites/multiscreen/{site_name}/content/location/{location_id} | Update an existing location within the content library. You can only update additional_locations that exist as part of the content library. |
+| [**uploadResource()**](ContentApi.md#uploadResource) | **POST** /sites/multiscreen/resources/{site_name}/upload | Upload a resource to the website from an external source. Resource is uploaded to Duda&#39;s CDN and made available to anyone building the website. |
 
 
 ## `createInjectedContent()`
@@ -56,10 +56,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **injected_content_creation** | [**\OpenAPI\Client\Model\InjectedContentCreation[]**](../Model/InjectedContentCreation.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **injected_content_creation** | [**\OpenAPI\Client\Model\InjectedContentCreation[]**](../Model/InjectedContentCreation.md)|  | [optional] |
 
 ### Return type
 
@@ -118,11 +118,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **page_name** | **string**| Name of a page |
- **injected_content_creation** | [**\OpenAPI\Client\Model\InjectedContentCreation[]**](../Model/InjectedContentCreation.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **page_name** | **string**| Name of a page | |
+| **injected_content_creation** | [**\OpenAPI\Client\Model\InjectedContentCreation[]**](../Model/InjectedContentCreation.md)|  | [optional] |
 
 ### Return type
 
@@ -181,10 +181,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **location** | [**\OpenAPI\Client\Model\Location**](../Model/Location.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **location** | [**\OpenAPI\Client\Model\Location**](../Model/Location.md)|  | [optional] |
 
 ### Return type
 
@@ -242,10 +242,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **location_id** | **string**| The uuid of the location |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **location_id** | **string**| The uuid of the location | |
 
 ### Return type
 
@@ -303,9 +303,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -366,12 +366,12 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **key** | **string**| Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property | [optional]
- **type** | **string**| Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML | [optional]
- **ref** | **string**| Filter for a specific value type (only relevant for DOMATTR &amp; CSS) | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **key** | **string**| Search for a specific element that contains the data-inject attribute or CSS block that has the data-inject CSS property | [optional] |
+| **type** | **string**| Search for only the specific inject type. Can be DOMATTR, CSS or INNERHTML | [optional] |
+| **ref** | **string**| Filter for a specific value type (only relevant for DOMATTR &amp; CSS) | [optional] |
 
 ### Return type
 
@@ -430,10 +430,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **location_id** | **string**| The uuid of the location |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **location_id** | **string**| The uuid of the location | |
 
 ### Return type
 
@@ -490,9 +490,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
 
 ### Return type
 
@@ -550,10 +550,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **content** | [**\OpenAPI\Client\Model\Content**](../Model/Content.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **content** | [**\OpenAPI\Client\Model\Content**](../Model/Content.md)|  | [optional] |
 
 ### Return type
 
@@ -612,11 +612,11 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **location_id** | **string**| The uuid of the location |
- **location** | [**\OpenAPI\Client\Model\Location**](../Model/Location.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **location_id** | **string**| The uuid of the location | |
+| **location** | [**\OpenAPI\Client\Model\Location**](../Model/Location.md)|  | [optional] |
 
 ### Return type
 
@@ -675,10 +675,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **site_name** | **string**| Site name |
- **resource** | [**\OpenAPI\Client\Model\Resource[]**](../Model/Resource.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **site_name** | **string**| Site name | |
+| **resource** | [**\OpenAPI\Client\Model\Resource[]**](../Model/Resource.md)|  | [optional] |
 
 ### Return type
 

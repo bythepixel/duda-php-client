@@ -1,6 +1,6 @@
 <?php
 /**
- * CollectionUpdateRequest
+ * BodyEndContent
  *
  * PHP version 7.4
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * CollectionUpdateRequest Class Doc Comment
+ * BodyEndContent Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -40,7 +40,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
+class BodyEndContent implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
       *
       * @var string
       */
-    protected static $openAPIModelName = 'CollectionUpdateRequest';
+    protected static $openAPIModelName = 'BodyEndContent';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
       * @var string[]
       */
     protected static $openAPITypes = [
-        'name' => 'string',
-        'customer_lock' => '\OpenAPI\Client\Model\CustomerLock',
-        'external_details' => '\OpenAPI\Client\Model\ExternalDetails'
+        'value' => 'string'
     ];
 
     /**
@@ -70,9 +68,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'name' => null,
-        'customer_lock' => null,
-        'external_details' => null
+        'value' => null
     ];
 
     /**
@@ -81,9 +77,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'name' => false,
-		'customer_lock' => false,
-		'external_details' => false
+        'value' => false
     ];
 
     /**
@@ -172,9 +166,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'customer_lock' => 'customer_lock',
-        'external_details' => 'external_details'
+        'value' => 'value'
     ];
 
     /**
@@ -183,9 +175,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'customer_lock' => 'setCustomerLock',
-        'external_details' => 'setExternalDetails'
+        'value' => 'setValue'
     ];
 
     /**
@@ -194,9 +184,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'customer_lock' => 'getCustomerLock',
-        'external_details' => 'getExternalDetails'
+        'value' => 'getValue'
     ];
 
     /**
@@ -256,9 +244,7 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('customer_lock', $data ?? [], null);
-        $this->setIfExists('external_details', $data ?? [], null);
+        $this->setIfExists('value', $data ?? [], null);
     }
 
     /**
@@ -288,9 +274,6 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -307,88 +290,30 @@ class CollectionUpdateRequest implements ModelInterface, ArrayAccess, \JsonSeria
 
 
     /**
-     * Gets name
+     * Gets value
      *
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getValue()
     {
-        return $this->container['name'];
+        return $this->container['value'];
     }
 
     /**
-     * Sets name
+     * Sets value
      *
-     * @param string $name name
+     * @param string|null $value value
      *
      * @return self
      */
-    public function setName($name)
+    public function setValue($value)
     {
 
-        if (is_null($name)) {
-            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        if (is_null($value)) {
+            throw new \InvalidArgumentException('non-nullable value cannot be null');
         }
 
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer_lock
-     *
-     * @return \OpenAPI\Client\Model\CustomerLock|null
-     */
-    public function getCustomerLock()
-    {
-        return $this->container['customer_lock'];
-    }
-
-    /**
-     * Sets customer_lock
-     *
-     * @param \OpenAPI\Client\Model\CustomerLock|null $customer_lock customer_lock
-     *
-     * @return self
-     */
-    public function setCustomerLock($customer_lock)
-    {
-
-        if (is_null($customer_lock)) {
-            throw new \InvalidArgumentException('non-nullable customer_lock cannot be null');
-        }
-
-        $this->container['customer_lock'] = $customer_lock;
-
-        return $this;
-    }
-
-    /**
-     * Gets external_details
-     *
-     * @return \OpenAPI\Client\Model\ExternalDetails|null
-     */
-    public function getExternalDetails()
-    {
-        return $this->container['external_details'];
-    }
-
-    /**
-     * Sets external_details
-     *
-     * @param \OpenAPI\Client\Model\ExternalDetails|null $external_details external_details
-     *
-     * @return self
-     */
-    public function setExternalDetails($external_details)
-    {
-
-        if (is_null($external_details)) {
-            throw new \InvalidArgumentException('non-nullable external_details cannot be null');
-        }
-
-        $this->container['external_details'] = $external_details;
+        $this->container['value'] = $value;
 
         return $this;
     }
