@@ -1,18 +1,18 @@
 # OpenAPI\Client\OtherApi
 
-All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
+All URIs are relative to https://api.duda.co/api.
 
-| Method | HTTP request | Description |
-| ------------- | ------------- | ------------- |
-| [**createBackup()**](OtherApi.md#createBackup) | **POST** /sites/multiscreen/backups/{site_name}/create | Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed. |
-| [**createSSLCertificate()**](OtherApi.md#createSSLCertificate) | **POST** /sites/multiscreen/{site_name}/certificate | Generate a SSL certificate for a specific website. |
-| [**deleteBackup()**](OtherApi.md#deleteBackup) | **DELETE** /sites/multiscreen/backups/{site_name}/{backup_name} | Deletes an existing backup from a Site. |
-| [**deleteSSLCertificate()**](OtherApi.md#deleteSSLCertificate) | **DELETE** /sites/multiscreen/{site_name}/certificate | Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate. |
-| [**getBodyEnd()**](OtherApi.md#getBodyEnd) | **GET** /sites/multiscreen/{site_name}/body-end | Retrieves the HTML body end content |
-| [**listBackups()**](OtherApi.md#listBackups) | **GET** /sites/multiscreen/backups/{site_name} | Get an array of existing site backups |
-| [**renewSSLCertificate()**](OtherApi.md#renewSSLCertificate) | **POST** /sites/multiscreen/{site_name}/certificate/renew | Starts the renewal process for an SSL certificate |
-| [**restoreBackup()**](OtherApi.md#restoreBackup) | **POST** /sites/multiscreen/backups/{site_name}/restore/{backup_name} | Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins. |
-| [**updateBodyEnd()**](OtherApi.md#updateBodyEnd) | **POST** /sites/multiscreen/{site_name}/body-end | Updates the HTML body end content |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**createBackup()**](OtherApi.md#createBackup) | **POST** /sites/multiscreen/backups/{site_name}/create | Create a new backup of a site. This is used for saving the existing state of a site. Good for saving a restore point before a user starts to edit a site or after work has been completed.
+[**createSSLCertificate()**](OtherApi.md#createSSLCertificate) | **POST** /sites/multiscreen/{site_name}/certificate | Generate a SSL certificate for a specific website.
+[**deleteBackup()**](OtherApi.md#deleteBackup) | **DELETE** /sites/multiscreen/backups/{site_name}/{backup_name} | Deletes an existing backup from a Site.
+[**deleteSSLCertificate()**](OtherApi.md#deleteSSLCertificate) | **DELETE** /sites/multiscreen/{site_name}/certificate | Delete a certificate that has been generated for a website. This will ensure that the website is served over only an HTTP (insecure) connection and will delete the generated certificate.
+[**getBodyEnd()**](OtherApi.md#getBodyEnd) | **GET** /sites/multiscreen/{site_name}/body-end | Retrieves the HTML body end content
+[**listBackups()**](OtherApi.md#listBackups) | **GET** /sites/multiscreen/backups/{site_name} | Get an array of existing site backups
+[**renewSSLCertificate()**](OtherApi.md#renewSSLCertificate) | **POST** /sites/multiscreen/{site_name}/certificate/renew | Starts the renewal process for an SSL certificate
+[**restoreBackup()**](OtherApi.md#restoreBackup) | **POST** /sites/multiscreen/backups/{site_name}/restore/{backup_name} | Restore a site from an existing backup. This will fully restore the site back to the state it was in at the time of the backup creation. When restoring a site, a backup is automatically made before the restore begins.
+[**updateBodyEnd()**](OtherApi.md#updateBodyEnd) | **POST** /sites/multiscreen/{site_name}/body-end | Updates the HTML body end content
 
 
 ## `createBackup()`
@@ -55,10 +55,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **create_backup_request** | [**\OpenAPI\Client\Model\CreateBackupRequest**](../Model/CreateBackupRequest.md)|  | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **create_backup_request** | [**\OpenAPI\Client\Model\CreateBackupRequest**](../Model/CreateBackupRequest.md)|  | [optional]
 
 ### Return type
 
@@ -115,9 +115,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
 
 ### Return type
 
@@ -175,10 +175,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **backup_name** | **string**| The name of a site backup to restore from | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **backup_name** | **string**| The name of a site backup to restore from |
 
 ### Return type
 
@@ -235,9 +235,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
 
 ### Return type
 
@@ -295,9 +295,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
 
 ### Return type
 
@@ -355,9 +355,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
 
 ### Return type
 
@@ -414,9 +414,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
 
 ### Return type
 
@@ -474,10 +474,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **backup_name** | **string**| The name of a site backup to restore from | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **backup_name** | **string**| The name of a site backup to restore from |
 
 ### Return type
 
@@ -535,10 +535,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **body_end_content** | [**\OpenAPI\Client\Model\BodyEndContent**](../Model/BodyEndContent.md)|  | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **body_end_content** | [**\OpenAPI\Client\Model\BodyEndContent**](../Model/BodyEndContent.md)|  | [optional]
 
 ### Return type
 
