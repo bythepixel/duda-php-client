@@ -168,4 +168,3 @@ lib/Model/UploadedResource.php
 lib/Model/UrlRule.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
-test/Model/BodyEndContentTest.php
