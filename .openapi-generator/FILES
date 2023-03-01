@@ -1,5 +1,5 @@
 .gitignore
-.php-cs-fixer.dist.php
+.php_cs
 .travis.yml
 README.md
 composer.json
@@ -12,11 +12,10 @@ docs/Api/SiteApi.md
 docs/Api/TemplateApi.md
 docs/Api/URLRulesApi.md
 docs/Model/Activity.md
-docs/Model/ActivityResultsInner.md
+docs/Model/ActivityResults.md
 docs/Model/Address.md
 docs/Model/AlternateDomains.md
 docs/Model/AnalyticsActivities.md
-docs/Model/AnalyticsResponseInner.md
 docs/Model/AnalyticsTraffic.md
 docs/Model/BodyEndContent.md
 docs/Model/BusinessData.md
@@ -24,7 +23,7 @@ docs/Model/Collection.md
 docs/Model/CollectionCreateRequest.md
 docs/Model/CollectionCreateRequestAllOf.md
 docs/Model/CollectionUpdateRequest.md
-docs/Model/CollectionValuesInner.md
+docs/Model/CollectionValues.md
 docs/Model/Content.md
 docs/Model/CreateBackupRequest.md
 docs/Model/CreateBackupResponse.md
@@ -54,10 +53,10 @@ docs/Model/ListPagesResponse.md
 docs/Model/LocalBusiness.md
 docs/Model/Location.md
 docs/Model/LocationAddress.md
-docs/Model/LocationBusinessHoursInner.md
-docs/Model/LocationEmailsInner.md
+docs/Model/LocationBusinessHours.md
+docs/Model/LocationEmails.md
 docs/Model/LocationGeo.md
-docs/Model/LocationPhonesInner.md
+docs/Model/LocationPhones.md
 docs/Model/LocationSchema.md
 docs/Model/LocationSocialAccounts.md
 docs/Model/Page.md
@@ -95,11 +94,10 @@ lib/ApiException.php
 lib/Configuration.php
 lib/HeaderSelector.php
 lib/Model/Activity.php
-lib/Model/ActivityResultsInner.php
+lib/Model/ActivityResults.php
 lib/Model/Address.php
 lib/Model/AlternateDomains.php
 lib/Model/AnalyticsActivities.php
-lib/Model/AnalyticsResponseInner.php
 lib/Model/AnalyticsTraffic.php
 lib/Model/BodyEndContent.php
 lib/Model/BusinessData.php
@@ -107,7 +105,7 @@ lib/Model/Collection.php
 lib/Model/CollectionCreateRequest.php
 lib/Model/CollectionCreateRequestAllOf.php
 lib/Model/CollectionUpdateRequest.php
-lib/Model/CollectionValuesInner.php
+lib/Model/CollectionValues.php
 lib/Model/Content.php
 lib/Model/CreateBackupRequest.php
 lib/Model/CreateBackupResponse.php
@@ -137,10 +135,10 @@ lib/Model/ListPagesResponse.php
 lib/Model/LocalBusiness.php
 lib/Model/Location.php
 lib/Model/LocationAddress.php
-lib/Model/LocationBusinessHoursInner.php
-lib/Model/LocationEmailsInner.php
+lib/Model/LocationBusinessHours.php
+lib/Model/LocationEmails.php
 lib/Model/LocationGeo.php
-lib/Model/LocationPhonesInner.php
+lib/Model/LocationPhones.php
 lib/Model/LocationSchema.php
 lib/Model/LocationSocialAccounts.php
 lib/Model/ModelInterface.php
@@ -168,4 +166,3 @@ lib/Model/UploadedResource.php
 lib/Model/UrlRule.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
-test/Model/BodyEndContentTest.php

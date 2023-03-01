@@ -1,18 +1,18 @@
 # OpenAPI\Client\ReportingApi
 
-All URIs are relative to https://api.duda.co/api, except if the operation defines another base path.
+All URIs are relative to https://api.duda.co/api.
 
-| Method | HTTP request | Description |
-| ------------- | ------------- | ------------- |
-| [**activities()**](ReportingApi.md#activities) | **GET** /sites/multiscreen/{site_name}/activities | Get activity history for a specific website over a certain amount of time. |
-| [**analytics()**](ReportingApi.md#analytics) | **GET** /multiscreen/analytics/site/{site_name} | Get analytics history for a specific website over a certain amount of time. |
-| [**emailSettings()**](ReportingApi.md#emailSettings) | **GET** /accounts/{account_name}/sites/{site_name}/stats-email | Get the status of stats emails for a customer on a given site. |
-| [**formSubmissions()**](ReportingApi.md#formSubmissions) | **GET** /sites/multiscreen/get-forms/{site_name} | Get all the contact form submissions from a given site. |
-| [**siteCreated()**](ReportingApi.md#siteCreated) | **GET** /sites/multiscreen/created | Get a list of Sites created within a span of time. |
-| [**siteUnpublished()**](ReportingApi.md#siteUnpublished) | **GET** /sites/multiscreen/unpublished | Get a list of recently unpublished websites in your account. |
-| [**sitesPublished()**](ReportingApi.md#sitesPublished) | **GET** /sites/multiscreen/published | Get a list of recently published websites in your account. |
-| [**subscribe()**](ReportingApi.md#subscribe) | **POST** /accounts/{account_name}/sites/{site_name}/stats-email | Subscribe a customer (or staff member) to statistics emails for a specific site. |
-| [**unsubscribe()**](ReportingApi.md#unsubscribe) | **DELETE** /accounts/{account_name}/sites/{site_name}/stats-email | Unsubscribe a customer (or staff member) to statistics emails for a specific site. |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**activities()**](ReportingApi.md#activities) | **GET** /sites/multiscreen/{site_name}/activities | Get activity history for a specific website over a certain amount of time.
+[**analytics()**](ReportingApi.md#analytics) | **GET** /multiscreen/analytics/site/{site_name} | Get analytics history for a specific website over a certain amount of time.
+[**emailSettings()**](ReportingApi.md#emailSettings) | **GET** /accounts/{account_name}/sites/{site_name}/stats-email | Get the status of stats emails for a customer on a given site.
+[**formSubmissions()**](ReportingApi.md#formSubmissions) | **GET** /sites/multiscreen/get-forms/{site_name} | Get all the contact form submissions from a given site.
+[**siteCreated()**](ReportingApi.md#siteCreated) | **GET** /sites/multiscreen/created | Get a list of Sites created within a span of time.
+[**siteUnpublished()**](ReportingApi.md#siteUnpublished) | **GET** /sites/multiscreen/unpublished | Get a list of recently unpublished websites in your account.
+[**sitesPublished()**](ReportingApi.md#sitesPublished) | **GET** /sites/multiscreen/published | Get a list of recently published websites in your account.
+[**subscribe()**](ReportingApi.md#subscribe) | **POST** /accounts/{account_name}/sites/{site_name}/stats-email | Subscribe a customer (or staff member) to statistics emails for a specific site.
+[**unsubscribe()**](ReportingApi.md#unsubscribe) | **DELETE** /accounts/{account_name}/sites/{site_name}/stats-email | Unsubscribe a customer (or staff member) to statistics emails for a specific site.
 
 
 ## `activities()`
@@ -59,14 +59,14 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **limit** | **int**| Items to be retrieved per page. Lower bound: 1, Upper bound: 100 | [optional] |
-| **offset** | **int**| The index of the first item to return. Must be greater or equal to zero. | [optional] |
-| **from** | **string**| Start date | [optional] |
-| **to** | **string**| End date | [optional] |
-| **activities** | **string**| Activities are the activity types you are looking to retrieve - this parameter can be included multiple times in your query. | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **limit** | **int**| Items to be retrieved per page. Lower bound: 1, Upper bound: 100 | [optional]
+ **offset** | **int**| The index of the first item to return. Must be greater or equal to zero. | [optional]
+ **from** | **string**| Start date | [optional]
+ **to** | **string**| End date | [optional]
+ **activities** | **string**| Activities are the activity types you are looking to retrieve - this parameter can be included multiple times in your query. | [optional]
 
 ### Return type
 
@@ -88,7 +88,7 @@ try {
 ## `analytics()`
 
 ```php
-analytics($site_name, $from, $to, $dimension, $result, $date_granularity): \OpenAPI\Client\Model\AnalyticsResponseInner[]
+analytics($site_name, $from, $to, $dimension, $result, $date_granularity): OneOfAnalyticsActivitiesAnalyticsTraffic[]
 ```
 
 Get analytics history for a specific website over a certain amount of time.
@@ -129,18 +129,18 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **from** | **string**| Start date | [optional] |
-| **to** | **string**| End date | [optional] |
-| **dimension** | **string**| The type of dimension to query the data by. | [optional] |
-| **result** | **string**| Whether to return results with traffic metrics or activities metric. | [optional] |
-| **date_granularity** | **string**|  | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **from** | **string**| Start date | [optional]
+ **to** | **string**| End date | [optional]
+ **dimension** | **string**| The type of dimension to query the data by. | [optional]
+ **result** | **string**| Whether to return results with traffic metrics or activities metric. | [optional]
+ **date_granularity** | **string**|  | [optional]
 
 ### Return type
 
-[**\OpenAPI\Client\Model\AnalyticsResponseInner[]**](../Model/AnalyticsResponseInner.md)
+[**OneOfAnalyticsActivitiesAnalyticsTraffic[]**](../Model/OneOfAnalyticsActivitiesAnalyticsTraffic.md)
 
 ### Authorization
 
@@ -195,10 +195,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **account_name** | **string**| The account name is a unique reference to the account | |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_name** | **string**| The account name is a unique reference to the account |
+ **site_name** | **string**| Site name |
 
 ### Return type
 
@@ -258,11 +258,11 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **site_name** | **string**| Site name | |
-| **from** | **string**| Start date | [optional] |
-| **to** | **string**| End date | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_name** | **string**| Site name |
+ **from** | **string**| Start date | [optional]
+ **to** | **string**| End date | [optional]
 
 ### Return type
 
@@ -321,10 +321,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **from** | **string**| Start date | [optional] |
-| **to** | **string**| End date | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string**| Start date | [optional]
+ **to** | **string**| End date | [optional]
 
 ### Return type
 
@@ -382,9 +382,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **last_days** | **string**| The number of days in which you would like get sites that have been unpublished | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **last_days** | **string**| The number of days in which you would like get sites that have been unpublished | [optional]
 
 ### Return type
 
@@ -442,9 +442,9 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **last_days** | **string**| The number of days in which you would like get sites that have been published | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **last_days** | **string**| The number of days in which you would like get sites that have been published | [optional]
 
 ### Return type
 
@@ -503,11 +503,11 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **account_name** | **string**| The account name is a unique reference to the account | |
-| **site_name** | **string**| Site name | |
-| **subscribe_request** | [**\OpenAPI\Client\Model\SubscribeRequest**](../Model/SubscribeRequest.md)|  | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_name** | **string**| The account name is a unique reference to the account |
+ **site_name** | **string**| Site name |
+ **subscribe_request** | [**\OpenAPI\Client\Model\SubscribeRequest**](../Model/SubscribeRequest.md)|  | [optional]
 
 ### Return type
 
@@ -565,10 +565,10 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **account_name** | **string**| The account name is a unique reference to the account | |
-| **site_name** | **string**| Site name | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_name** | **string**| The account name is a unique reference to the account |
+ **site_name** | **string**| Site name |
 
 ### Return type
 
