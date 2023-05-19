@@ -224,6 +224,7 @@ Class | Method | HTTP request | Description
 
 ## Authorization
 
+Authentication schemes defined for the API:
 ### BasicAuth
 
 - **Type**: HTTP basic authentication
